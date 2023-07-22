@@ -1,14 +1,10 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createVueApp } from './bootloader';
 
-import App from './App.vue'
-import router from './router'
+async function main() {
+  const app = createVueApp();
+  app.mount('#app');
+}
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+main();
