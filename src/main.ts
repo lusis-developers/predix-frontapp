@@ -1,5 +1,3 @@
-import './assets/main.css'
-
 import { createVueApp } from './bootloader';
 
 async function main() {
