@@ -24,7 +24,8 @@
       "@/*": ["./src/*"]
     },
 
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "include": ["src", "src/custom.d.ts"]
   },
   "exclude": ["node_modules", "public"],
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/shims-vue.d.ts"],
