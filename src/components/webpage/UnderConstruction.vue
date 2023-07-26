@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import emailjs from 'emailjs-com';
+
 import { computed, reactive } from 'vue';
 
 const form = reactive({
@@ -29,6 +31,24 @@ const formIsValid = computed(() => {
     rules.validateEmail.every(rule => rule.validate(form.email))
   )
 })
+
+async function sendEmail() {
+  const mail = {
+    from_name: form.name,
+    from_email: form.email
+  }
+  try {
+    await emailjs.send(
+      import.meta.env.VITE_SERVICE_ID,
+      import.meta.env.VITE_TEMPLATE_ID,
+      mail,
+      import.meta.env.VITE_PUBLIC_KEY,
+    );
+    alert ('Correo enviado')
+  } catch (e) {
+    console.log('CANNOT_SEND_EMAIL:', e)
+  }
+}
 
 </script>
 
@@ -62,7 +82,8 @@ const formIsValid = computed(() => {
         :class="{'background-validate' : !formIsValid}"
         variant="primary"
         text="Enviar"
-        :disabled="!formIsValid"/>
+        :disabled="!formIsValid"
+        @click.prevent="sendEmail"/>
   </div>
 </template>
 
