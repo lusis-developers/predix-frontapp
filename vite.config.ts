@@ -17,6 +17,7 @@ export default defineConfig({
           @import '@fortawesome/fontawesome-free/scss/regular.scss';
           @import '@fortawesome/fontawesome-free/scss/brands.scss';
           @import '@nabux-crush/crush-styles/nabuxInternalVariables';
+          @import '@/styles/_variables.scss';
         `
       }
     }

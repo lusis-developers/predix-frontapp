@@ -9,7 +9,7 @@
 <style lang="scss" scoped>
 footer {
   p {
-    color: black;
+    color: $grey;
   }
 }
 </style>
