@@ -1,9 +1,9 @@
 <template>
   <footer class="footer">
-    <a href="https://www.facebook.com/predix.ec">
+    <a href="https://www.facebook.com/predix.ec" target="_blank">
       <i class="fa-brands fa-facebook" />
     </a>
-    <a href="https://www.instagram.com/predix.ec/">
+    <a href="https://www.instagram.com/predix.ec/" target="_blank">
       <i class="fa-brands fa-instagram"/>
     </a>
   </footer>
