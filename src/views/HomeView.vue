@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import UnderConstruction from '@/components/webpage/UnderConstruction.vue';
+</script>
 
 <template>
   <main>
-    hola
+    <UnderConstruction />
   </main>
 </template>
