@@ -16,6 +16,7 @@ import WebFooter from './components/webpage/layout/WebFooter.vue';
 
 <style lang="scss" scoped>
 .app-container {
+  background-color: $dark-blue;
 	min-height: 100vh;
 	width: 100%;
 	display: flex;
