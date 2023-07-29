@@ -60,7 +60,7 @@
       z-index: 10;
       border-radius: 8px;
       top: 100%;
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
     }
     &:hover .header-name-options {
       opacity: 1;
