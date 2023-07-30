@@ -56,6 +56,9 @@ const props = defineProps({
     border-bottom: 1px solid $white;
     width: 100%;
     padding-bottom: 12px;
+    &:active {
+      border-bottom: 1px solid $green;
+    }
   }
 }
 
