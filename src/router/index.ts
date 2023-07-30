@@ -7,7 +7,7 @@ import {
 
 // import layout components 
 const DefaultContainer = () => import('@/components/webpage/layout/DefaultContainer.vue');
-const InternalContainer = () => import('@/components/app/layout/AdminHeader.vue');
+const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue');
 
 //import web views
 import WebIndex from '@/views/WebIndex.vue';
@@ -38,6 +38,16 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Dashboard'
     },
+    children: [
+      {
+        path: '',
+        name: 'internal-dashboard',
+        component: DashboardContainer,
+        meta: {
+          title: 'Administrador'
+        }
+      }
+    ]
   }
 ]
 

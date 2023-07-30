@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import AdminHeader from './AdminHeader.vue';
+import InternalNavbar from '../NavBars/InternalNavbar.vue';
+
 </script>
 
 <template>
   <div class="admin-layout">
-    <admin-header />
+    <internal-navbar />
     <div class="admin-layout-container">
       <router-view />
     </div>
@@ -16,6 +17,7 @@ import AdminHeader from './AdminHeader.vue';
   width: 100%;
   color: $white;
   display: flex;
+  flex-direction: column;
   &-container {
     flex: 1;
   }
