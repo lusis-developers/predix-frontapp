@@ -21,9 +21,11 @@ import AdminHeader from './AdminHeader.vue';
 <style lang="scss" scoped>
 .admin-layout {
   width: 100%;
+  max-width: $desktop-upper-breakpoint;
   color: $white;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   &-menu {
     display: flex;
     align-items: flex-start;
