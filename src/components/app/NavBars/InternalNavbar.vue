@@ -29,11 +29,13 @@ const menutItems: Navigation[] = [
 ];
 
 
-const sideBarWidth =
-  computed(() => isMenuOpen.value
-    ? `${188}px`
-    : `${54}px`
-  );
+const sideBarWidth = computed(() => {
+  if (window.innerWidth < 600) {
+    return isMenuOpen.value ? '90%' : '54px';
+  } else {
+    return isMenuOpen.value ? '188px' : '54px';
+  }
+});
 const iconButton =
   computed(() => isMenuOpen.value
     ? 'fa-solid fa-chevron-left'
@@ -74,6 +76,11 @@ const iconButton =
 
 <style lang="scss" scoped>
 .navbar {
+  position: absolute;
+  @media(min-width: $tablet-lower-breakpoint) {
+    position: relative;
+  }
+  z-index: 10;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -81,6 +88,7 @@ const iconButton =
   border-right: 1px solid $gray-dark;
   &-logo {
     padding: 13px;
+    background-color: $dark-blue;
     width: 100%;
     height: 64px;
     margin: auto;
