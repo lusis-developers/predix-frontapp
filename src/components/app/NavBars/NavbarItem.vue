@@ -24,11 +24,11 @@ const props = defineProps({
   <router-link
     :to="link"
     class="navbar-item">
-    <i
-      class="navbar-item-icon"
-      :class="icon" />
     <transition name="slide-in-out">
       <span v-show="isMenuOpen">
+        <i
+          class="navbar-item-icon"
+          :class="icon" />
         {{ name }}
       </span>
     </transition>
@@ -56,6 +56,9 @@ const props = defineProps({
     border-bottom: 1px solid $white;
     width: 100%;
     padding-bottom: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
     &:active {
       border-bottom: 1px solid $green;
     }
