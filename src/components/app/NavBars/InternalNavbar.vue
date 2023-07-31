@@ -82,6 +82,7 @@ const iconButton =
   &-logo {
     padding: 13px;
     width: 100%;
+    height: 64px;
     margin: auto;
     position: relative;
     display: flex;
