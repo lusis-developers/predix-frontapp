@@ -55,7 +55,7 @@ async function sendEmail() {
 <template>
   <div class="container">
     <p class="container-title">
-      sitio web en construccion
+      sitio web en construcción
     </p>
     <p class="container-paragraph">
       Únete a nuestra comunidad de apostadores/as y toma ventaja de las mejores predicciones y análisis para tus apuestas deportivas. 
