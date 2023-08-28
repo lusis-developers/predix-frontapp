@@ -14,6 +14,10 @@ import WebIndex from '@/views/WebIndex.vue';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
+const TheRecords = () => import('@/views/InternalApp/TheRecords.vue');
+const TheResults = () => import('@/views/InternalApp/TheResults.vue');
+const TheBets = () => import('@/views/InternalApp/TheBets.vue');
+const ThePlans = () => import('@/views/InternalApp/ThePlans.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,9 +49,44 @@ const routes: Array<RouteRecordRaw> = [
         component: DashboardContainer,
         meta: {
           title: 'Administrador'
-        }
-      }
-    ]
+        },
+        children: [
+          {
+            path: 'record',
+            name: 'record',
+            component: TheRecords,
+            meta: {
+              title: 'Historico 📊'
+            }
+          },
+          {
+            path: 'results',
+            name: 'results',
+            component: TheResults,
+            meta: {
+              title: 'Resultados 📗'
+            }
+          },
+          {
+            path: 'bets',
+            name: 'bets',
+            component: TheBets,
+            meta: {
+              title: 'Apuestas 🥇'
+            }
+          },
+          {
+            path: 'plans',
+            name: 'plans',
+            component: ThePlans,
+            meta: {
+              title: 'estos son los planes'
+            }
+          },
+        ],
+      },
+      
+    ],
   }
 ]
 
