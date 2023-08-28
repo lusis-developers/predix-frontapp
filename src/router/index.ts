@@ -84,8 +84,7 @@ const routes: Array<RouteRecordRaw> = [
             }
           },
         ],
-      },
-      
+      },   
     ],
   }
 ]
