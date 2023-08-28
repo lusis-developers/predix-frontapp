@@ -8,12 +8,10 @@ import AdminHeader from './AdminHeader.vue';
   <div class="admin-layout">
     <div class="admin-layout-menu">
       <internal-navbar />
-      <div class="admin-layout-menu-header">
+      <div class="admin-layout-menu-content">
         <admin-header />
+        <router-view />
       </div>
-    </div>
-    <div class="admin-layout-container">
-      <router-view />
     </div>
   </div>
 </template>
@@ -29,17 +27,15 @@ import AdminHeader from './AdminHeader.vue';
   &-menu {
     display: flex;
     align-items: flex-start;
-    &-header {
+    &-content {
       width: 100%;
       display: flex;
+      flex-direction: column;
       padding-left: 60px;
       @media(min-width: $tablet-lower-breakpoint) {
         padding-left: 0;
       }
     }
-  }
-  &-container {
-    flex: 1;
   }
 }
 </style>
