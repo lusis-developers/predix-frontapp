@@ -22,7 +22,7 @@ const props = defineProps({
 
 <template>
   <router-link
-    :to="link"
+    :to="`/internal-app/dashboard/${link}`"
     class="navbar-item">
     <transition name="slide-in-out">
       <span v-show="isMenuOpen">
