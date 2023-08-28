@@ -80,7 +80,7 @@ const routes: Array<RouteRecordRaw> = [
             name: 'plans',
             component: ThePlans,
             meta: {
-              title: 'estos son los planes'
+              title: 'Planes 📝'
             }
           },
         ],
