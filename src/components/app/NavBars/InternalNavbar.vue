@@ -12,22 +12,22 @@ const isMenuOpen = ref(false);
 const menutItems: Navigation[] = [
   {
     name: 'Histórico',
-    link: '/internal-app/dashboard',
+    link: 'record',
     icon: 'fa-solid fa-chart-area',
   },
   {
     name: 'Resultados',
-    link: '/internal-app/dashboard',
+    link: 'results',
     icon: 'fa-solid fa-star'
   },
   {
     name: 'Apuestas',
-    link: '/internal-app/dashboard',
+    link: 'bets',
     icon: 'fa-solid fa-chalkboard-user'
   },
   {
     name: 'Planes',
-    link: '/internal-app/dashboard',
+    link: 'plans',
     icon: 'fa-solid fa-ticket'
   },
 ];
