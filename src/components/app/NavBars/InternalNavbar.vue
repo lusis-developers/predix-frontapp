@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import NavbarLogo from './NavbarLogo.vue';
 import NavbarItem from './NavbarItem.vue';
@@ -32,6 +32,15 @@ const menutItems: Navigation[] = [
   },
 ];
 
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+});
+
+const handleResize = () => {
+  if(window.innerWidth > 500) {
+    isMenuOpen.value = false;
+  }
+}
 const toggleMenu = () => {
   if (window.innerWidth > 500) {
     isMenuOpen.value = !isMenuOpen.value;
