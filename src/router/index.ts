@@ -14,10 +14,10 @@ import WebIndex from '@/views/WebIndex.vue';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
-const TheRecords = () => import('@/views/InternalApp/TheRecords.vue');
-const TheResults = () => import('@/views/InternalApp/TheResults.vue');
-const TheBets = () => import('@/views/InternalApp/TheBets.vue');
-const ThePlans = () => import('@/views/InternalApp/ThePlans.vue');
+const TheRecords = () => import('@/views/InternalApp/TheRecords/TheRecords.vue');
+const TheResults = () => import('@/views/InternalApp/TheResults/TheResults.vue');
+const TheBets = () => import('@/views/InternalApp/TheBets/TheBets.vue');
+const ThePlans = () => import('@/views/InternalApp/ThePlans/ThePlans.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
