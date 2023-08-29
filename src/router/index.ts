@@ -44,37 +44,47 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: 'record',
-        name: 'record',
-        component: TheRecords,
+        path: '',
+        name: 'internal-dashboard',
+        component: DashboardContainer,
         meta: {
-          title: 'Historico 📊'
-        }
-      },
-      {
-        path: 'results',
-        name: 'results',
-        component: TheResults,
-        meta: {
-          title: 'Resultados 📗'
-        }
-      },
-      {
-        path: 'bets',
-        name: 'bets',
-        component: TheBets,
-        meta: {
-          title: 'Apuestas 🥇'
-        }
-      },
-      {
-        path: 'plans',
-        name: 'plans',
-        component: ThePlans,
-        meta: {
-          title: 'Planes 📝'
-        }
-      },
+          title: 'Administrador'
+        },
+        children: [
+          {
+            path: 'record',
+            name: 'record',
+            component: TheRecords,
+            meta: {
+              title: 'Historico 📊'
+            }
+          },
+          {
+            path: 'results',
+            name: 'results',
+            component: TheResults,
+            meta: {
+              title: 'Resultados 📗'
+            }
+          },
+          {
+            path: 'bets',
+            name: 'bets',
+            component: TheBets,
+            meta: {
+              title: 'Apuestas 🥇'
+            }
+          },
+          {
+            path: 'plans',
+            name: 'plans',
+            component: ThePlans,
+            meta: {
+              title: 'Planes 📝'
+            }
+          },
+        ],
+      },   
     ],
   }
 ]
