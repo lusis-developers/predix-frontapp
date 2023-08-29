@@ -47,7 +47,8 @@ import AdminHeader from './AdminHeader.vue';
       }
       &-page {
         width: 100%;
-        max-width: $desktop-upper-breakpoint;;
+        max-width: $desktop-upper-breakpoint;
+        padding: 24px;
       }
     }
   }
