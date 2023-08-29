@@ -32,10 +32,14 @@ const menutItems: Navigation[] = [
   },
 ];
 
-
+const toggleMenu = () => {
+  if (window.innerWidth > 500) {
+    isMenuOpen.value = !isMenuOpen.value;
+  }
+};
 const sideBarWidth = computed(() => {
-  if (window.innerWidth < 600) {
-    return isMenuOpen.value ? '90%' : '54px';
+  if (window.innerWidth < 500) {
+    return '54px';
   } else {
     return isMenuOpen.value ? '188px' : '54px';
   }
@@ -56,7 +60,7 @@ const iconButton =
         <NavbarLogo :isMenuOpen="isMenuOpen" />
         <button 
           class="navbar-logo-button"
-          @click="isMenuOpen = !isMenuOpen">
+          @click="toggleMenu">
           <i :class="iconButton" />
         </button>
       </div>
@@ -68,9 +72,7 @@ const iconButton =
             :link="item.link"
             :icon="item.icon"
             :name="item.name"
-            :isMenuOpen="isMenuOpen">
-            Agarrense gente
-          </NavbarItem>
+            :isMenuOpen="isMenuOpen" />
         </ul>
       </div>
     </div>
@@ -80,10 +82,6 @@ const iconButton =
 
 <style lang="scss" scoped>
 .navbar {
-  position: absolute;
-  @media(min-width: $tablet-lower-breakpoint) {
-    position: relative;
-  }
   z-index: 10;
   height: 100vh;
   display: flex;
