@@ -30,8 +30,8 @@ import AdminHeader from './AdminHeader.vue';
     &-content {
       width: 100%;
       display: flex;
+      flex: 1;
       flex-direction: column;
-      padding-left: 60px;
       @media(min-width: $tablet-lower-breakpoint) {
         padding-left: 0;
       }
