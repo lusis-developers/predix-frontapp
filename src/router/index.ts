@@ -94,7 +94,7 @@ const router: Router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   document.title = to.meta.title as string;
   next()
 });

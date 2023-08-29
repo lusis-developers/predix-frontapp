@@ -9,8 +9,12 @@ import AdminHeader from './AdminHeader.vue';
     <div class="admin-layout-menu">
       <internal-navbar />
       <div class="admin-layout-menu-content">
-        <admin-header />
-        <router-view />
+        <div class="admin-layout-menu-content-header">
+          <admin-header />
+        </div>
+        <div class="admin-layout-menu-content-page">
+          <router-view />
+        </div>
       </div>
     </div>
   </div>
@@ -19,7 +23,6 @@ import AdminHeader from './AdminHeader.vue';
 <style lang="scss" scoped>
 .admin-layout {
   width: 100%;
-  max-width: $desktop-upper-breakpoint;
   color: $white;
   display: flex;
   flex-direction: column;
@@ -34,6 +37,17 @@ import AdminHeader from './AdminHeader.vue';
       flex-direction: column;
       @media(min-width: $tablet-lower-breakpoint) {
         padding-left: 0;
+      }
+      &-header {
+        width: 100%;
+        max-width: $desktop-upper-breakpoint;
+        height: 64px;
+        display: flex;
+        align-items: center;
+      }
+      &-page {
+        width: 100%;
+        max-width: $desktop-upper-breakpoint;;
       }
     }
   }
