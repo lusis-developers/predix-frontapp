@@ -22,9 +22,9 @@ export const usePlanStore = defineStore('PlanStore', {
     async getPlans(): Promise<void> {
       this.isLoading = true;
       try {
-        const response = await plansService.getPlans('plans');
+        const response = await plansService.getPlans();
         console.log(response);
-      } catch (error) {
+      } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
         this.isLoading = false;

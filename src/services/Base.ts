@@ -16,7 +16,7 @@ class APIBase {
     try {
       const response: AxiosResponse<T> = await axios.get(url);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(`GET request to ${url} failed: ${error.message}`);
     }
   }
@@ -26,7 +26,7 @@ class APIBase {
     try {
       const response: AxiosResponse<T> = await axios.post(url, data);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(`POST request to ${url} failed: ${error.message}`);
     }
   }
@@ -36,7 +36,7 @@ class APIBase {
     try {
       const response: AxiosResponse<T> = await axios.put(url, data);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(`PUT request to ${url} failed: ${error.message}`);
     }
   }
@@ -46,7 +46,7 @@ class APIBase {
     try {
       const response: AxiosResponse<T> = await axios.patch(url, data);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(`PATCH request to ${url} failed: ${error.message}`);
     }
   }
@@ -56,7 +56,7 @@ class APIBase {
     try {
       const response: AxiosResponse<T> = await axios.delete(url);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(`DELETE request to ${url} failed: ${error.message}`);
     }
   }
