@@ -28,7 +28,7 @@ onMounted(async () => {
       <p>Oh! Aún no has creado los planes de suscripción</p>
       <p class="indication">Una vez hayas creado tus planes, los encontrarás aquí</p>
     </div>
-    <div v-if="showForm"> 
+    <div class="container-form" v-if="showForm"> 
       <TheForm @closeForm="showForm = false" />
     </div>
     <div class="container-plans">
@@ -68,6 +68,11 @@ onMounted(async () => {
     .indication {
       font-size: $body-font-size;
     }
+  }
+  &-form {
+    margin: 0 auto;
+    max-width: $desktop-upper-breakpoint;
+    margin-bottom: 48px;
   }
   &-plans {
     display: flex;
