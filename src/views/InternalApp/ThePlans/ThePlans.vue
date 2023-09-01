@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import ThePlan from '@/views/InternalApp/ThePlans/components/ThePlan.vue'
-
+import ThePlan from '@/views/InternalApp/ThePlans/components/ThePlan.vue';
 import usePlanStore from '@/stores/PlansStore';
 import TheForm from './components/TheForm.vue';
 
 const planStore = usePlanStore();
+const showForm = ref(false);
+
+const openForm = () => {
+  showForm.value = true;
+};
 
 onMounted(async () => {
   await planStore.getPlans();
-})
+});
 </script>
 
 <template>
@@ -18,30 +22,23 @@ onMounted(async () => {
     <CrushButton
       class="container-button"
       variant="primary"
-      text="Nuevo Plan"/>
-  </div>
-  <div 
-    class="container"
-    v-if="planStore.plans?.length === 0">
-    <div class="container-text">
-      <p>
-        Oh! Aún no has creado los planes de suscripción 
-      </p>
-      <p class="indication">
-        Una vez hayas creado tus planes, los encontrarás aquí
-      </p>
+      text="Nuevo Plan"
+      @click="openForm"/>
+    <div v-if="!planStore.plans?.length" class="container-text">
+      <p>Oh! Aún no has creado los planes de suscripción</p>
+      <p class="indication">Una vez hayas creado tus planes, los encontrarás aquí</p>
     </div>
-  </div>
-  <div> 
-    <TheForm/>
-  </div>
-  <div class="container-plans">
-    <ThePlan 
-      v-for="(plan, index) in planStore.plans"
-      :key="index"
-      :image="plan.image"
-      :title="plan.name"
-      :price="plan.price"/>
+    <div v-if="showForm"> 
+      <TheForm @closeForm="showForm = false" />
+    </div>
+    <div class="container-plans">
+      <ThePlan 
+        v-for="(plan, index) in planStore.plans"
+        :key="index"
+        :image="plan.image"
+        :title="plan.name"
+        :price="plan.price"/>
+    </div>
   </div>
 </template>
 

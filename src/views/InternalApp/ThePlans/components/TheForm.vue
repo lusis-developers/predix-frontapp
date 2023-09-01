@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import TheQuestions from './TheQuestions.vue';
+import { ref } from 'vue';
+import TheQuestions from '@/views/InternalApp/ThePlans/components/TheQuestions.vue';
 
-const emit = defineEmits(['update:file'])
+const emit = defineEmits(['update:file', 'closeForm']);
 
 const file = ref('');
-
 const planData = ref({
   name: '',
   price: '',
@@ -18,10 +17,8 @@ const handleFileSelected = (selectedFile: File) => {
     file.value = reader.result as string;
     emit('update:file', file.value);
   };
-  reader.readAsDataURL(selectedFile)
-}
-
-
+  reader.readAsDataURL(selectedFile);
+};
 </script>
 
 <template>
@@ -29,16 +26,15 @@ const handleFileSelected = (selectedFile: File) => {
     <p class="form-description">Subir imagen</p>
     <div class="form-upload">
       <CrushUpload @file-selected="handleFileSelected"/>
-      <div 
-        v-if="file"
-        class="form-upload-image">
+      <div v-if="file" class="form-upload-image">
         <img :src="file">
       </div>
     </div>
   </div>
   <TheQuestions 
     :file="file" 
-    @update:plan="planData = $event"/>
+    @update:plan="planData = $event"
+    @closeForm="$emit('closeForm')"/>
 </template>
 
 <style lang="scss" scoped>
