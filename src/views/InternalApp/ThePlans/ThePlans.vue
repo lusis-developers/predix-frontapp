@@ -4,6 +4,7 @@ import { onMounted } from 'vue';
 import ThePlan from '@/views/InternalApp/ThePlans/components/ThePlan.vue'
 
 import usePlanStore from '@/stores/PlansStore';
+import TheForm from './components/TheForm.vue';
 
 const planStore = usePlanStore();
 
@@ -31,9 +32,13 @@ onMounted(async () => {
       </p>
     </div>
   </div>
+  <div> 
+    <TheForm/>
+  </div>
   <div class="container-plans">
     <ThePlan 
       v-for="(plan, index) in planStore.plans"
+      :key="index"
       :image="plan.image"
       :title="plan.name"
       :price="plan.price"/>
