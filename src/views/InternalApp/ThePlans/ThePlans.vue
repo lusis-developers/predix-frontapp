@@ -28,9 +28,11 @@ onMounted(async () => {
       <p>Oh! Aún no has creado los planes de suscripción</p>
       <p class="indication">Una vez hayas creado tus planes, los encontrarás aquí</p>
     </div>
-    <div class="container-form" v-if="showForm"> 
-      <TheForm @closeForm="showForm = false" />
+    <transition name="fade">
+      <div class="container-form" v-if="showForm"> 
+        <TheForm @closeForm="showForm = false" />
     </div>
+    </transition>
     <div class="container-plans">
       <ThePlan 
         v-for="(plan, index) in planStore.plans"
@@ -81,5 +83,14 @@ onMounted(async () => {
     justify-content: center;
     align-items: center;
   }
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
 }
 </style>
