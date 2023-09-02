@@ -4,3 +4,10 @@ export type Plan = {
   price: number;
   image: string
 }
+
+export interface ImageResponse {
+  data: {
+    url: string;
+    name: string;
+  }
+}
