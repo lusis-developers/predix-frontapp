@@ -25,16 +25,14 @@ import AdminHeader from './AdminHeader.vue';
   width: 100%;
   color: $white;
   display: flex;
-  flex-direction: column;
   margin: 0 auto;
   &-menu {
     display: flex;
     align-items: flex-start;
     &-content {
-      width: 100%;
       display: flex;
-      flex: 1;
       flex-direction: column;
+      height: calc(100vh - 64px);
       @media(min-width: $tablet-lower-breakpoint) {
         padding-left: 0;
       }
@@ -46,9 +44,12 @@ import AdminHeader from './AdminHeader.vue';
         align-items: center;
       }
       &-page {
+        flex: 1;
+        overflow-y: auto;
         width: 100%;
         max-width: $desktop-upper-breakpoint;
         padding: 24px;
+        border-top: 1px solid $grey;
       }
     }
   }
