@@ -33,12 +33,8 @@ import AdminHeader from './AdminHeader.vue';
       display: flex;
       flex-direction: column;
       height: calc(100vh - 64px);
-      @media(min-width: $tablet-lower-breakpoint) {
-        padding-left: 0;
-      }
       &-header {
         width: 100%;
-        max-width: $desktop-upper-breakpoint;
         height: 64px;
         display: flex;
         align-items: center;
@@ -47,7 +43,6 @@ import AdminHeader from './AdminHeader.vue';
         flex: 1;
         overflow-y: auto;
         width: 100%;
-        max-width: $desktop-upper-breakpoint;
         padding: 24px;
         border-top: 1px solid $grey;
       }
