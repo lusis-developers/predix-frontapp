@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref, toRefs, watchEffect } from 'vue';
+import { computed, reactive, ref, toRefs, watchEffect } from 'vue';
+import APIPlans from '@/services/Plans/Plans';
+
+const apiPlans = new APIPlans();
+
 
 const emit = defineEmits(['update:plan', 'closeForm']);
 
@@ -12,7 +16,15 @@ const plan = reactive({
   name: '',
   price: '',
   description: '',
+  image: '',
 });
+
+const numericPrice = computed({
+  get: () => parseFloat(plan.price),
+  set: (val) => { plan.price = val.toString(); }
+});
+
+
 const rules = {
   validateName: [
     {
@@ -22,7 +34,7 @@ const rules = {
   ],
   validatePrice: [
     {
-      validate: (value: string) => /^[1-9]\d*$/.test(value),
+      validate: (value: number) => /^[1-9]\d*$/.test(value.toString()),
       message: 'Por favor, ingresa solo números mayores a 0'
     },
   ],
@@ -34,20 +46,40 @@ const rules = {
   ]
 };
 
-const submitPlan = () => emit('update:plan', plan);
+const submitPlan = async () => {
+  try {
+    if (props.file) {
+      const imageResponse = await apiPlans.uploadImage(props.file);
+      plan.image = imageResponse.data.url;
+    }
+
+    const sendData = {
+      ...plan,
+      price: numericPrice.value 
+    };
+    console.log(sendData)
+    const createdPlan = await apiPlans.createPlan(sendData);
+    emit('update:plan', createdPlan);
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
+
 const handleClose = () => emit('closeForm');
 
 const isButtonActive = ref(false);
+
 watchEffect(() => {
   isButtonActive.value = (
     !!props.file &&
-    rules.validateName.every(rule => rule.validate(plan.name)) &&
-    rules.validatePrice.every(rule => rule.validate(plan.price)) &&
+    !!plan.image && 
+    rules.validateName.every(rule => rule.validate(plan.name))  &&
     rules.validateDescription.every(rule => rule.validate(plan.description))
   );
 });
 
-const { name, price, description } = toRefs(plan);
+const { name, description } = toRefs(plan);
 
 </script>
 
@@ -56,14 +88,12 @@ const { name, price, description } = toRefs(plan);
     <CrushTextField 
       v-model="name"
       label="Nombre del plan"
-      placeholder="Money Week"
-      :valid-rules="rules.validateName"/>
+      placeholder="Money Week"/>
     <CrushTextField 
-      v-model="price"
+      v-model="plan.price"
       label="Precio"
       placeholder="1000"
-      prependContent="$"
-      :valid-rules="rules.validatePrice"/>
+      prependContent="$"/>
     <CrushTextArea 
       v-model="description"
       label="Descripción"
@@ -79,8 +109,7 @@ const { name, price, description } = toRefs(plan);
       class="container-button-second"
       variant="primary"
       text="Guardar"
-      @click="submitPlan"
-      :disabled="!isButtonActive"/>
+      @click="submitPlan"/>
   </div>
 </template>
 
