@@ -24,7 +24,6 @@ import AdminHeader from './AdminHeader.vue';
 .admin-layout {
   width: 100%;
   color: $white;
-  display: flex;
   margin: 0 auto;
   &-menu {
     display: flex;
