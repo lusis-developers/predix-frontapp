@@ -10,6 +10,8 @@
 .internal-app {
   &-content {
     padding: 24px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
   }
 }
 </style>

@@ -96,7 +96,7 @@ const iconButton =
   display: flex;
   flex-direction: column;
   padding: 0 0 20px 0;
-  border-right: 1px solid $gray-dark;
+  border-right: 1px solid $grey;
   &-logo {
     padding: 13px;
     background-color: $dark-blue;
@@ -120,11 +120,11 @@ const iconButton =
     }
   }
   &-content {
-    padding: 24px 12px;
     flex: 1;
     overflow-y: auto;
+    padding: 24px 12px;
     scroll-behavior: smooth;
-    border-top: 1px solid $gray-dark;
+    border-top: 1px solid $grey;
     &::-webkit-scrollbar {
       display: none;
     }
