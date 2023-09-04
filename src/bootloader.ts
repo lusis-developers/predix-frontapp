@@ -7,6 +7,7 @@ import router from './router';
 import CrushTextField from '@nabux-crush/crush-text-field';
 import CrushTextArea from '@nabux-crush/crush-text-area'
 import CrushButton from '@nabux-crush/crush-button';
+import CrushUpload from '@nabux-crush/crush-upload';
 import CrushAlert from '@nabux-crush/crush-alert';
 
 
@@ -24,7 +25,8 @@ function createVueApp() {
   app.component('CrushTextField', CrushTextField);
   app.component('CrushTextArea', CrushTextArea);
   app.component('CrushButton', CrushButton);
-  app.component('CrushAlert', CrushAlert)
+  app.component('CrushAlert', CrushAlert);
+  app.component('CrushUpload', CrushUpload);
   return app;
 }
 

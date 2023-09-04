@@ -6,14 +6,14 @@ import APIPlans from '@/services/Plans/Plans';
 const plansService = new APIPlans();
 
 interface Roostate {
-  userData: Plan[] | null,
+  plans: Plan[] | null,
   errorMessage: string | null,
   isLoading: boolean
 }
 
 export const usePlanStore = defineStore('PlanStore', {
   state: (): Roostate => ({
-    userData: null,
+    plans: null,
     errorMessage: null,
     isLoading: false
   }),
@@ -23,7 +23,7 @@ export const usePlanStore = defineStore('PlanStore', {
       this.isLoading = true;
       try {
         const response = await plansService.getPlans();
-        console.log(response);
+        this.plans = response;
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

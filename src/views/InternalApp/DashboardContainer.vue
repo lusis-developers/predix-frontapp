@@ -8,8 +8,11 @@
 
 <style lang="scss" scoped>
 .internal-app {
+  margin: 0 auto;
   &-content {
     padding: 24px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
   }
 }
 </style>
