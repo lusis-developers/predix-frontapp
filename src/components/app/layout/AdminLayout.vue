@@ -31,7 +31,8 @@ import AdminHeader from './AdminHeader.vue';
     &-content {
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 64px);
+      flex: 1;
+      height: 100vh;
       &-header {
         width: 100%;
         height: 64px;
