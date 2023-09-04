@@ -2,23 +2,21 @@
 import { ref } from 'vue';
 import PlanForm from '@/views/InternalApp/ThePlans/components/PlanForm.vue';
 
-const emit = defineEmits(['update:file', 'closeForm']);
+const emit = defineEmits(['closeForm']);
 
-const file = ref('');
-const planData = ref({
-  name: '',
-  price: '',
-  description: ''
-});
+const fileURL = ref<string>(''); // TODO: read the image url
+const imageFile = ref<File>(new File([], '')); // TODO: store the image file
 
-const handleFileSelected = (selectedFile: File) => {
-  const reader = new FileReader();
-  reader.onload = () => {
-    file.value = reader.result as string;
-    emit('update:file', file.value);
-  };
-  reader.readAsDataURL(selectedFile);
-};
+function handleFileSelected(file: File) {
+  fileURL.value = URL.createObjectURL(file);
+  console.log(file)
+  imageFile.value = file;
+}
+
+function resetImage() {
+  fileURL.value = '';
+  imageFile.value = new File([], '');
+}
 </script>
 
 <template>
@@ -26,15 +24,15 @@ const handleFileSelected = (selectedFile: File) => {
     <p class="form-description">Subir imagen</p>
     <div class="form-upload">
       <CrushUpload @file-selected="handleFileSelected"/>
-      <div v-if="file" class="form-upload-image">
-        <img :src="file">
+      <div v-if="fileURL.length" class="form-upload-image">
+        <img :src="fileURL">
       </div>
     </div>
   </div>
   <PlanForm 
-    :file="file" 
-    @update:plan="planData = $event"
-    @closeForm="$emit('closeForm')"/>
+    :file="imageFile" 
+    @update:plan="resetImage"
+    @closeForm="emit('closeForm')"/>
 </template>
 
 <style lang="scss" scoped>

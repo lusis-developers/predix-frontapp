@@ -31,6 +31,21 @@ class APIBase {
     }
   }
 
+  protected async postWithFormData<T>(endpoint: string, formData: FormData): Promise<T> {
+    const url = this.buildUrl(endpoint);
+
+    try {
+      const response: AxiosResponse<T> = await axios.post(url, formData, {
+        headers: {
+          'Content-type': 'multipart/form-data'
+        }
+      });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(`POST request to ${url} failed: ${error.message}`);
+    }
+  }
+
   protected async put<T>(endpoint: string, data: any): Promise<T> {
     const url = this.buildUrl(endpoint);
     try {

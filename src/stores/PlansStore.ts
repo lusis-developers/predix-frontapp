@@ -29,6 +29,31 @@ export const usePlanStore = defineStore('PlanStore', {
       } finally {
         this.isLoading = false;
       }
+    },
+
+    async uploadPlanImage(file: File): Promise<void> {
+      this.isLoading = true;
+      try {
+        const response = await plansService.uploadPlanImage(file);
+        const imageLocation = response;
+        console.log(imageLocation)
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async createPlan(plan: Plan): Promise<void> {
+      this.isLoading = true;
+      try {
+        const response = await plansService.createPlan(plan);
+        console.log(response);
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
     }
   }
 });

@@ -1,30 +1,31 @@
 <script setup lang="ts">
 import { computed, reactive, ref, toRefs, watchEffect } from 'vue';
-import APIPlans from '@/services/Plans/Plans';
 
-const apiPlans = new APIPlans();
+import usePlanStore from '@/stores/PlansStore';
 
+const planStore = usePlanStore();
 
 const emit = defineEmits(['update:plan', 'closeForm']);
 
 const props = defineProps({
-  file: String
+  file: {
+    type: File,
+    required: true
+  }
 });
 
-const maxLenght = 500;
+const maxLength = 500;
+const isButtonActive = ref(false);
 const plan = reactive({
   name: '',
   price: '',
   description: '',
   image: '',
 });
-
 const numericPrice = computed({
   get: () => parseFloat(plan.price),
   set: (val) => { plan.price = val.toString(); }
 });
-
-
 const rules = {
   validateName: [
     {
@@ -46,29 +47,31 @@ const rules = {
   ]
 };
 
-const submitPlan = async () => {
-  try {
-    if (props.file) {
-      const imageResponse = await apiPlans.uploadImage(props.file);
-      plan.image = imageResponse.data.url;
-    }
+async function submitPlan() {
+  await submitImage();
 
-    const sendData = {
-      ...plan,
-      price: numericPrice.value 
-    };
-    console.log(sendData)
-    const createdPlan = await apiPlans.createPlan(sendData);
-    emit('update:plan', createdPlan);
-  } catch (error) {
-    console.log('Error:', error);
-  }
+  const planData = {
+    ...plan,
+    price: numericPrice.value 
+  };
+  console.log(planData);
+  // const createdPlan = planStore.createPlan(sendData);
+  emit('update:plan');
+  resetValues();
 }
 
+function submitImage() {
+  if (props.file) {
+    return planStore.uploadPlanImage(props.file);
+  }
+} 
 
-const handleClose = () => emit('closeForm');
-
-const isButtonActive = ref(false);
+function resetValues() {
+  plan.name = '';
+  plan.price = '';
+  plan.description = '';
+  plan.image = '';
+}
 
 watchEffect(() => {
   isButtonActive.value = (
@@ -98,13 +101,13 @@ const { name, description } = toRefs(plan);
       v-model="description"
       label="Descripción"
       placeholder="Agrega la descripción"
-      :max-length="maxLenght"/>
+      :max-length="maxLength"/>
   </div>
   <div class="container-button">
     <CrushButton 
       variant="secondary"
       text="Cancelar"
-      @click="handleClose"/>
+      @click="emit('closeForm')"/>
     <CrushButton
       class="container-button-second"
       variant="primary"
