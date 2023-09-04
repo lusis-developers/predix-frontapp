@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import ThePlan from '@/views/InternalApp/ThePlans/components/ThePlan.vue';
+import PlanCard from '@/views/InternalApp/ThePlans/components/PlanCard.vue';
 import usePlanStore from '@/stores/PlansStore';
-import TheForm from './components/TheForm.vue';
+import CreatePlan from './components/CreatePlan.vue';
 
 const planStore = usePlanStore();
 const showForm = ref(false);
@@ -30,11 +30,11 @@ onMounted(async () => {
     </div>
     <transition name="fade">
       <div class="container-form" v-if="showForm"> 
-        <TheForm @closeForm="showForm = false" />
+        <CreatePlan @closeForm="showForm = false" />
     </div>
     </transition>
     <div class="container-plans">
-      <ThePlan 
+      <PlanCard 
         v-for="(plan, index) in planStore.plans"
         :key="index"
         :image="plan.image"

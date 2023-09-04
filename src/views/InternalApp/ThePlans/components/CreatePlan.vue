@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import TheQuestions from '@/views/InternalApp/ThePlans/components/TheQuestions.vue';
+import PlanForm from '@/views/InternalApp/ThePlans/components/PlanForm.vue';
 
 const emit = defineEmits(['update:file', 'closeForm']);
 
@@ -31,7 +31,7 @@ const handleFileSelected = (selectedFile: File) => {
       </div>
     </div>
   </div>
-  <TheQuestions 
+  <PlanForm 
     :file="file" 
     @update:plan="planData = $event"
     @closeForm="$emit('closeForm')"/>
