@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+
+import { FormTypeEnum } from '@/enum/PlanEnum';
 import PlanForm from '@/views/InternalApp/ThePlans/components/PlanForm.vue';
 
 const emit = defineEmits(['closeForm']);
+
+const props = defineProps({
+  formType: {
+    type: String,
+    required: true,
+    default: FormTypeEnum 
+  }
+})
 
 const fileURL = ref<string>(''); // TODO: read the image url
 const imageFile = ref<File>(new File([], '')); // TODO: store the image file
@@ -29,7 +39,8 @@ function resetImage() {
     </div>
   </div>
   <PlanForm 
-    :file="imageFile" 
+    :file="imageFile"
+    :formType="formType"
     @update:plan="resetImage"
     @closeForm="emit('closeForm')"/>
 </template>

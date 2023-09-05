@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
-import usePlanStore from '@/stores/PlansStore';
 import { formatPriceToDisplay, formatPriceToSave } from '@/utils/InputFormats';
+import { FormTypeEnum } from '@/enum/PlanEnum';
+import usePlanStore from '@/stores/PlansStore';
 
 const planStore = usePlanStore();
 
@@ -12,6 +13,11 @@ const props = defineProps({
   file: {
     type: File,
     required: true
+  },
+  formType: {
+    type: String,
+    required: true,
+    default: FormTypeEnum 
   }
 });
 
@@ -24,6 +30,8 @@ const plan = reactive({
   description: '',
   image: '',
 });
+const buttonType = computed(() => props.formType === FormTypeEnum.SAVE ? 'Guardar' : 'Actualizar');
+const isDeleteButtonVisible = computed(() => props.formType === FormTypeEnum.EDIT);
 const rules = {
   validateName: [
     {
@@ -74,6 +82,10 @@ function resetValues() {
 function formattedPrice(event: string) {
   plan.price = formatPriceToDisplay(event);
 }
+
+function deletePlan(): void {
+  console.log(planStore.selectedPlanId);
+}
 </script>
 
 <template>
@@ -95,6 +107,11 @@ function formattedPrice(event: string) {
       :max-length="maxLength" />
   </div>
   <div class="container-button">
+    <CrushButton
+      v-if="isDeleteButtonVisible"
+      variant="secondary"
+      text="Eliminar"
+      @click="deletePlan"/>
     <CrushButton 
       variant="secondary"
       text="Cancelar"
@@ -102,7 +119,7 @@ function formattedPrice(event: string) {
     <CrushButton
       class="container-button-second"
       variant="primary"
-      text="Guardar"
+      :text="buttonType"
       @click="submitPlan" />
   </div>
 </template>

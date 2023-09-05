@@ -18,7 +18,7 @@ const props = defineProps({
   price: {
     type: Number,
     required: true,
-  }
+  },
 })
 
 function planSelected() {
