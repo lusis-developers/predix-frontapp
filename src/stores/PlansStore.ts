@@ -48,8 +48,8 @@ export const usePlanStore = defineStore('PlanStore', {
     async createPlan(plan: Plan): Promise<void> {
       this.isLoading = true;
       try {
-        const response = await plansService.createPlan(plan);
-        console.log(response);
+        await plansService.createPlan(plan);
+        this.getPlans();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

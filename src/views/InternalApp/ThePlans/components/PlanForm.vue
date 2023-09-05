@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watchEffect } from 'vue';
+import { reactive, ref } from 'vue';
 
 import usePlanStore from '@/stores/PlansStore';
-import { formatPrice } from '@/utils/InputFormats';
+import { formatPriceToDisplay, formatPriceToSave } from '@/utils/InputFormats';
 
 const planStore = usePlanStore();
 
@@ -17,7 +17,7 @@ const props = defineProps({
 
 const textKey = ref(0);
 const maxLength = 500;
-const isButtonActive = ref(false);
+// const isButtonActive = ref(false);
 const plan = reactive({
   name: '',
   price: '',
@@ -50,9 +50,10 @@ async function submitPlan() {
   plan.image = response?.url!;
   const data = {
     ...plan,
+    price: formatPriceToSave(plan.price)
   }
-  console.log(data);
-  // resetValues();
+  await planStore.createPlan(data);
+  resetValues();
 }
 
 async function submitImage() {
@@ -66,10 +67,12 @@ function resetValues() {
   plan.price = '';
   plan.description = '';
   plan.image = '';
+  textKey.value++;
+  emit('closeForm'); 
 }
 
 function formattedPrice(event: string) {
-  plan.price = formatPrice(event);
+  plan.price = formatPriceToDisplay(event);
 }
 </script>
 

@@ -1,4 +1,4 @@
-export function formatPrice(price: string): string {
+export function formatPriceToDisplay(price: string): string {
   let numericValue = 0;
 
   if (price !== '') {
@@ -11,4 +11,10 @@ export function formatPrice(price: string): string {
   }
 
   return numericValue.toFixed(2);
+}
+
+export function formatPriceToSave(price: string): number {
+  const formattedPrice = price.replace('.', '').replace(/^0+/, '');
+  
+  return parseInt(formattedPrice, 10);
 }
