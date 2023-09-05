@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatToCurrency } from '@/utils/InputFormats';
+
 
 const props = defineProps({
   image: {
@@ -23,10 +25,10 @@ const props = defineProps({
       class="card-image" 
       :src="image" :alt="title">
     <p class="card-title">
-      {{title}} 
+      {{ title }} 
     </p>
     <p class="card-price">
-      ${{price}}
+      {{ formatToCurrency(price) }}
     </p>
     <CrushButton
       class="card-button"

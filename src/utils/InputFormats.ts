@@ -18,3 +18,15 @@ export function formatPriceToSave(price: string): number {
   
   return parseInt(formattedPrice, 10);
 }
+
+export function formatToCurrency(number: number): string {
+  // Format number on dollar currency
+  const numberWithDecimals = number / 100;
+  const formattedNumber: string = numberWithDecimals.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2, // two digits according to our needs
+  });
+
+  return formattedNumber
+}
