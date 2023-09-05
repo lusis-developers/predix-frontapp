@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, reactive, ref, toRefs, watchEffect } from 'vue';
+import { computed, reactive, ref, watchEffect } from 'vue';
 
 import usePlanStore from '@/stores/PlansStore';
+import { formatPrice } from '@/utils/InputFormats';
 
 const planStore = usePlanStore();
 
@@ -14,6 +15,7 @@ const props = defineProps({
   }
 });
 
+const textKey = ref(0);
 const maxLength = 500;
 const isButtonActive = ref(false);
 const plan = reactive({
@@ -21,10 +23,6 @@ const plan = reactive({
   price: '',
   description: '',
   image: '',
-});
-const numericPrice = computed({
-  get: () => parseFloat(plan.price),
-  set: (val) => { plan.price = val.toString(); }
 });
 const rules = {
   validateName: [
@@ -48,21 +46,18 @@ const rules = {
 };
 
 async function submitPlan() {
-  await submitImage();
-
-  const planData = {
+  const response = await submitImage();
+  plan.image = response?.url!;
+  const data = {
     ...plan,
-    price: numericPrice.value 
-  };
-  console.log(planData);
-  // const createdPlan = planStore.createPlan(sendData);
-  emit('update:plan');
-  resetValues();
+  }
+  console.log(data);
+  // resetValues();
 }
 
-function submitImage() {
+async function submitImage() {
   if (props.file) {
-    return planStore.uploadPlanImage(props.file);
+    return await planStore.uploadPlanImage(props.file);
   }
 } 
 
@@ -73,35 +68,28 @@ function resetValues() {
   plan.image = '';
 }
 
-watchEffect(() => {
-  isButtonActive.value = (
-    !!props.file &&
-    !!plan.image && 
-    rules.validateName.every(rule => rule.validate(plan.name))  &&
-    rules.validateDescription.every(rule => rule.validate(plan.description))
-  );
-});
-
-const { name, description } = toRefs(plan);
-
+function formattedPrice(event: string) {
+  plan.price = formatPrice(event);
+}
 </script>
 
 <template>
   <div class="container">
     <CrushTextField 
-      v-model="name"
+      v-model="plan.name"
       label="Nombre del plan"
       placeholder="Money Week"/>
     <CrushTextField 
-      v-model="plan.price"
+      v-model:value="plan.price"
       label="Precio"
       placeholder="1000"
-      prependContent="$"/>
+      prependContent="$"
+      @update:modelValue="formattedPrice" />
     <CrushTextArea 
-      v-model="description"
+      v-model="plan.description"
       label="Descripción"
       placeholder="Agrega la descripción"
-      :max-length="maxLength"/>
+      :max-length="maxLength" />
   </div>
   <div class="container-button">
     <CrushButton 
@@ -112,7 +100,7 @@ const { name, description } = toRefs(plan);
       class="container-button-second"
       variant="primary"
       text="Guardar"
-      @click="submitPlan"/>
+      @click="submitPlan" />
   </div>
 </template>
 

@@ -9,7 +9,6 @@ const imageFile = ref<File>(new File([], '')); // TODO: store the image file
 
 function handleFileSelected(file: File) {
   fileURL.value = URL.createObjectURL(file);
-  console.log(file)
   imageFile.value = file;
 }
 

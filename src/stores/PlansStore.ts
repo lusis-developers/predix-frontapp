@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 
 import type { Plan } from '@/typings/PlanTypes';
+import type { ImageFile } from '@/typings/FileTypes';
 import APIPlans from '@/services/Plans/Plans';
 
 const plansService = new APIPlans();
@@ -31,14 +32,14 @@ export const usePlanStore = defineStore('PlanStore', {
       }
     },
 
-    async uploadPlanImage(file: File): Promise<void> {
+    async uploadPlanImage(file: File): Promise<ImageFile | void> {
       this.isLoading = true;
       try {
         const response = await plansService.uploadPlanImage(file);
-        const imageLocation = response;
-        console.log(imageLocation)
+        return response.data;
       } catch (error: any) {
         this.errorMessage = error.message;
+        return;
       } finally {
         this.isLoading = false;
       }
