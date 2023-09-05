@@ -25,6 +25,7 @@ export const usePlanStore = defineStore('PlanStore', {
       try {
         const response = await plansService.getPlans();
         this.plans = response;
+        console.log(this.plans)
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

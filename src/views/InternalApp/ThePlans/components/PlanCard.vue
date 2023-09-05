@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { formatToCurrency } from '@/utils/InputFormats';
 
-
+const emit = defineEmits(['edit-plan']);
 const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  },
   image: {
     type: String,
     required: true,
@@ -17,6 +21,9 @@ const props = defineProps({
   }
 })
 
+function planSelected() {
+  emit('edit-plan', props.id);
+}
 </script>
 
 <template>
@@ -33,7 +40,8 @@ const props = defineProps({
     <CrushButton
       class="card-button"
       text="Editar Plan"
-      primary="primary"/>
+      primary="primary"
+      @click="planSelected" />
   </div>
 </template>
 

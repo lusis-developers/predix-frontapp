@@ -15,6 +15,10 @@ const openForm = () => {
 onMounted(async () => {
   await planStore.getPlans();
 });
+
+function editPlan(event: Event) {
+  console.log(event)
+}
 </script>
 
 <template>
@@ -39,7 +43,9 @@ onMounted(async () => {
         :key="index"
         :image="plan.image"
         :title="plan.name"
-        :price="plan.price"/>
+        :price="plan.price"
+        :id="plan._id"
+        @edit-plan="editPlan" />
     </div>
   </div>
 </template>
