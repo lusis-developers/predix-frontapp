@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import {  RouterView } from 'vue-router'
+import { computed } from 'vue';
+import {  RouterView, useRoute } from 'vue-router';
+
+const route = useRoute();
+const isWebPath = computed(() => route.path === '/web');
+
 </script>
 
 <template>
-  <div class="app-container">
+  <div 
+    class="app-container"
+    :class="{ 'web-background': isWebPath }">
     <div class="app-container-view">
       <RouterView />
     </div>
@@ -20,5 +27,8 @@ import {  RouterView } from 'vue-router'
   &-view {
     flex: 1;
   }
+}
+.web-background {
+  background: linear-gradient(180deg, #070E21 0.6%, #01DF71 534.43%);
 }
 </style>
