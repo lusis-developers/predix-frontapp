@@ -66,12 +66,13 @@ async function submitPlan() {
     ...plan,
     price: formatPriceToSave(plan.price)
   }
+  await submitImage();
   if (props.formType === FormTypeEnum.EDIT) {
-    console.log('edit-plan', plan);
-    
+    data.image = planStore.selectedPlan?.image!;
+    planStore.updatePlan(data);
   } else {
-    const response = await submitImage();
-    plan.image = response?.url!;
+    await submitImage();
+    data.image = plan.image;
     await planStore.createPlan(data);
   }
   resetValues();
@@ -79,7 +80,8 @@ async function submitPlan() {
 
 async function submitImage() {
   if (props.file.size !== 0) {
-    return await planStore.uploadPlanImage(props.file);
+    const response = await planStore.uploadPlanImage(props.file);
+    plan.image = response?.url!;
   }
 } 
 
@@ -105,8 +107,11 @@ function descriptioInput(event: string): void {
   plan.description = event;
 }
 
-function deletePlan(): void {
-  console.log(planStore.selectedPlan?._id);
+async function deletePlan(): Promise<void> {
+  if (planStore.selectedPlan) {
+    await planStore.deletePlan();
+    resetValues();
+  }
 }
 
 onMounted(() => {

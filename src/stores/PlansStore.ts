@@ -62,9 +62,20 @@ export const usePlanStore = defineStore('PlanStore', {
     async updatePlan(plan: Plan): Promise<void> {
       this.isLoading = true;
       try {
-        console.log(plan);
-        // await plansService.updatePlan(plan);
+        await plansService.updatePlan(this.selectedPlan?._id!, plan);
         this.getPlans();
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async deletePlan(): Promise<void> {
+      this.isLoading = true;
+      try {
+        await plansService.deletePlan(this.selectedPlan?._id!);
+        await this.getPlans();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

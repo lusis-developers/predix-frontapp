@@ -19,8 +19,12 @@ class APIPlans extends APIBase {
     return this.postWithFormData<AxiosResponse<ImageFile>>(`planImage`, formData);
   }
 
-  async updatePlan(plan: Plan): Promise<MessageType> {
-    return this.put<MessageType>(`plan/${plan._id}`, plan);
+  async updatePlan(id: string, plan: Plan): Promise<MessageType> {
+    return this.put<MessageType>(`plan/${id}`, plan);
+  }
+
+  async deletePlan(id: string): Promise<MessageType> {
+    return this.delete<MessageType>(`plan/${id}`)
   }
 }
 
