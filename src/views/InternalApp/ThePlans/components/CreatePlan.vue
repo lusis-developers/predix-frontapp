@@ -1,15 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+
+import { FormTypeEnum } from '@/enum/PlanEnum';
 import PlanForm from '@/views/InternalApp/ThePlans/components/PlanForm.vue';
+import usePlanStore from '@/stores/PlansStore';
+
+const planStore = usePlanStore();
 
 const emit = defineEmits(['closeForm']);
+
+const props = defineProps({
+  formType: {
+    type: String,
+    required: true,
+    default: FormTypeEnum 
+  }
+})
 
 const fileURL = ref<string>(''); // TODO: read the image url
 const imageFile = ref<File>(new File([], '')); // TODO: store the image file
 
 function handleFileSelected(file: File) {
   fileURL.value = URL.createObjectURL(file);
-  console.log(file)
   imageFile.value = file;
 }
 
@@ -17,6 +29,12 @@ function resetImage() {
   fileURL.value = '';
   imageFile.value = new File([], '');
 }
+
+onMounted(() => {
+  if (planStore.selectedPlan) {
+    fileURL.value = planStore.selectedPlan?.image!;
+  }
+})
 </script>
 
 <template>
@@ -30,7 +48,8 @@ function resetImage() {
     </div>
   </div>
   <PlanForm 
-    :file="imageFile" 
+    :file="imageFile"
+    :formType="formType"
     @update:plan="resetImage"
     @closeForm="emit('closeForm')"/>
 </template>

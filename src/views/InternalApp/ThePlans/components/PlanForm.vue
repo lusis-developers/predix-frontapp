@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed, reactive, ref, toRefs, watchEffect } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 
+import { formatPriceToDisplay, formatPriceToSave } from '@/utils/InputFormats';
+import { FormTypeEnum } from '@/enum/PlanEnum';
 import usePlanStore from '@/stores/PlansStore';
 
 const planStore = usePlanStore();
@@ -10,26 +12,34 @@ const emit = defineEmits(['update:plan', 'closeForm']);
 const props = defineProps({
   file: {
     type: File,
-    required: true
+    required: true,
+  },
+  formType: {
+    type: String,
+    required: true,
+    default: FormTypeEnum
   }
 });
 
+const textKey = ref(0);
 const maxLength = 500;
-const isButtonActive = ref(false);
+// const isButtonActive = ref(false);
 const plan = reactive({
   name: '',
   price: '',
   description: '',
   image: '',
 });
-const numericPrice = computed({
-  get: () => parseFloat(plan.price),
-  set: (val) => { plan.price = val.toString(); }
-});
+const buttonType = computed(() => props.formType === FormTypeEnum.SAVE ? 'Guardar' : 'Actualizar');
+const isDeleteButtonVisible = computed(() => props.formType === FormTypeEnum.EDIT);
 const rules = {
   validateName: [
     {
       validate: (value: string) => value.length > 3,
+      message: 'Por favor, coloca un nombre con más de 3 dígitos'
+    },
+    {
+      validate: (value: string) => value.length < 20,
       message: 'Por favor, coloca un nombre con más de 3 dígitos'
     },
   ],
@@ -43,26 +53,35 @@ const rules = {
     {
       validate: (value: string) => value.split(' ').length > 3,
       message: 'Por favor, ingresa una descripción con al menos 4 palabras'
-    }
+    },
+    {
+      validate: (value: string) => value.split(' ').length >= 500,
+      message: 'Por favor, ingresa una descripción con al menos 4 palabras'
+    },
   ]
 };
 
 async function submitPlan() {
-  await submitImage();
-
-  const planData = {
+  const data = {
     ...plan,
-    price: numericPrice.value 
-  };
-  console.log(planData);
-  // const createdPlan = planStore.createPlan(sendData);
-  emit('update:plan');
+    price: formatPriceToSave(plan.price)
+  }
+  await submitImage();
+  if (props.formType === FormTypeEnum.EDIT) {
+    data.image = planStore.selectedPlan?.image!;
+    planStore.updatePlan(data);
+  } else {
+    await submitImage();
+    data.image = plan.image;
+    await planStore.createPlan(data);
+  }
   resetValues();
 }
 
-function submitImage() {
-  if (props.file) {
-    return planStore.uploadPlanImage(props.file);
+async function submitImage() {
+  if (props.file.size !== 0) {
+    const response = await planStore.uploadPlanImage(props.file);
+    plan.image = response?.url!;
   }
 } 
 
@@ -71,39 +90,66 @@ function resetValues() {
   plan.price = '';
   plan.description = '';
   plan.image = '';
+  planStore.selectedPlan = null;
+  textKey.value++;
+  emit('closeForm');
 }
 
-watchEffect(() => {
-  isButtonActive.value = (
-    !!props.file &&
-    !!plan.image && 
-    rules.validateName.every(rule => rule.validate(plan.name))  &&
-    rules.validateDescription.every(rule => rule.validate(plan.description))
-  );
-});
+function formattedPrice(event: string) {
+  plan.price = formatPriceToDisplay(event);
+}
 
-const { name, description } = toRefs(plan);
+function nameInput(event: string): void {
+  plan.name = event;
+}
 
+function descriptioInput(event: string): void {
+  plan.description = event;
+}
+
+async function deletePlan(): Promise<void> {
+  if (planStore.selectedPlan) {
+    await planStore.deletePlan();
+    resetValues();
+  }
+}
+
+onMounted(() => {
+  if (planStore.selectedPlan) {
+    const { name, price, description } = planStore.selectedPlan;
+    plan.name = name;
+    plan.price = formatPriceToDisplay(price.toString());
+    plan.description = description;
+  }
+})
 </script>
 
 <template>
   <div class="container">
     <CrushTextField 
-      v-model="name"
+      v-model:value="plan.name"
       label="Nombre del plan"
-      placeholder="Money Week"/>
+      placeholder="Money Week"
+      @update:modelValue="nameInput" />
     <CrushTextField 
-      v-model="plan.price"
+      v-model:value="plan.price"
       label="Precio"
       placeholder="1000"
-      prependContent="$"/>
-    <CrushTextArea 
-      v-model="description"
+      prependContent="$"
+      @update:modelValue="formattedPrice" />
+    <CrushTextArea
+      v-model:value="plan.description"
       label="Descripción"
       placeholder="Agrega la descripción"
-      :max-length="maxLength"/>
+      :max-length="maxLength"
+      @update:modelValue="descriptioInput" />
   </div>
   <div class="container-button">
+    <CrushButton
+      v-if="isDeleteButtonVisible"
+      variant="secondary"
+      text="Eliminar"
+      @click="deletePlan"/>
     <CrushButton 
       variant="secondary"
       text="Cancelar"
@@ -111,8 +157,8 @@ const { name, description } = toRefs(plan);
     <CrushButton
       class="container-button-second"
       variant="primary"
-      text="Guardar"
-      @click="submitPlan"/>
+      :text="buttonType"
+      @click="submitPlan" />
   </div>
 </template>
 

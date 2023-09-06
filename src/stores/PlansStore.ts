@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia';
 
 import type { Plan } from '@/typings/PlanTypes';
+import type { ImageFile } from '@/typings/FileTypes';
 import APIPlans from '@/services/Plans/Plans';
 
 const plansService = new APIPlans();
 
 interface Roostate {
   plans: Plan[] | null,
+  selectedPlan: Plan | null,
   errorMessage: string | null,
   isLoading: boolean
 }
@@ -14,6 +16,7 @@ interface Roostate {
 export const usePlanStore = defineStore('PlanStore', {
   state: (): Roostate => ({
     plans: null,
+    selectedPlan: null,
     errorMessage: null,
     isLoading: false
   }),
@@ -31,14 +34,14 @@ export const usePlanStore = defineStore('PlanStore', {
       }
     },
 
-    async uploadPlanImage(file: File): Promise<void> {
+    async uploadPlanImage(file: File): Promise<ImageFile | void> {
       this.isLoading = true;
       try {
         const response = await plansService.uploadPlanImage(file);
-        const imageLocation = response;
-        console.log(imageLocation)
+        return response.data;
       } catch (error: any) {
         this.errorMessage = error.message;
+        return;
       } finally {
         this.isLoading = false;
       }
@@ -47,8 +50,32 @@ export const usePlanStore = defineStore('PlanStore', {
     async createPlan(plan: Plan): Promise<void> {
       this.isLoading = true;
       try {
-        const response = await plansService.createPlan(plan);
-        console.log(response);
+        await plansService.createPlan(plan);
+        this.getPlans();
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async updatePlan(plan: Plan): Promise<void> {
+      this.isLoading = true;
+      try {
+        await plansService.updatePlan(this.selectedPlan?._id!, plan);
+        this.getPlans();
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async deletePlan(): Promise<void> {
+      this.isLoading = true;
+      try {
+        await plansService.deletePlan(this.selectedPlan?._id!);
+        await this.getPlans();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
