@@ -21,7 +21,7 @@ const buttons = [
       <img src="@/assets/logo-small.png" alt="Predix">
     </figure>
     <div class="header-icon">
-      <i class="fa-solid fa-user"></i>
+      <i class="fa-solid fa-bars" />
     </div>
     <div 
       class="header-buttons"
