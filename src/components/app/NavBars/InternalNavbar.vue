@@ -3,34 +3,9 @@ import { computed, onMounted, ref } from 'vue';
 
 import NavbarLogo from './NavbarLogo.vue';
 import NavbarItem from './NavbarItem.vue';
-
-import Navigation from '@/typings/WebPage';
+import { menutItems } from '@/utils/MenuItems';
 
 const isMenuOpen = ref(false);
-
-
-const menutItems: Navigation[] = [
-  {
-    name: 'Histórico',
-    link: 'record',
-    icon: 'fa-solid fa-chart-area',
-  },
-  {
-    name: 'Resultados',
-    link: 'results',
-    icon: 'fa-solid fa-star'
-  },
-  {
-    name: 'Apuestas',
-    link: 'bets',
-    icon: 'fa-solid fa-chalkboard-user'
-  },
-  {
-    name: 'Planes',
-    link: 'plans',
-    icon: 'fa-solid fa-ticket'
-  },
-];
 
 onMounted(() => {
   window.addEventListener('resize', handleResize)

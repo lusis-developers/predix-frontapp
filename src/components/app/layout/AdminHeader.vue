@@ -1,7 +1,15 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const routeTitle = computed(() => route.meta.title);
+</script>
+
 <template>
   <header class="header">
     <div class="header-logo">
-      <p>Planes</p>
+      <p>{{ routeTitle }}</p>
     </div>
     <div class="header-name">
       <img src="https://i.pinimg.com/564x/37/8a/27/378a270e775265622393da8c0527417e.jpg" alt="">

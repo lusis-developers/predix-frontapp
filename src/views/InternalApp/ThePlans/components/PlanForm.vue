@@ -79,7 +79,6 @@ async function submitPlan() {
 }
 
 async function submitImage() {
-  console.log('file',props.file)
   if (props.file.size !== 0 && planStore.selectedPlan) {
     const response = await planStore.uploadPlanImage(props.file);
     planStore.selectedPlan.image = response?.url!;

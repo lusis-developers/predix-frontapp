@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import InternalNavbar from '../NavBars/InternalNavbar.vue';
-import AdminHeader from './AdminHeader.vue';
+import AdminHeader from '@/components/app/layout/AdminHeader.vue';
 
 </script>
 
@@ -10,7 +10,7 @@ import AdminHeader from './AdminHeader.vue';
       <internal-navbar />
       <div class="admin-layout-menu-content">
         <div class="admin-layout-menu-content-header">
-          <admin-header />
+          <AdminHeader />
         </div>
         <div class="admin-layout-menu-content-page">
           <router-view />
