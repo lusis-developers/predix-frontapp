@@ -8,6 +8,7 @@ import {
 // import layout components 
 const DefaultContainer = () => import('@/components/webpage/layout/DefaultContainer.vue');
 const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue');
+const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 
 //import web views
 import WebIndex from '@/views/WebIndex.vue';
@@ -32,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: 'Web',
         component: WebIndex,
-      }
+      },
     ]
   },
   {
@@ -86,6 +87,14 @@ const routes: Array<RouteRecordRaw> = [
         ],
       },   
     ],
+  },
+  {
+    path: '/web',
+    name: 'webpage',
+    component: WebContainer,
+    meta: {
+      title: 'Esta es la web'
+    }
   }
 ]
 
