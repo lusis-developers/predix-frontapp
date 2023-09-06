@@ -30,6 +30,7 @@
     color: $white;
     text-align: center;
     font-size: $h1-font-size;
+    text-transform: uppercase;
   }
   p {
     text-align: center;
