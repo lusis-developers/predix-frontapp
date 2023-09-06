@@ -12,6 +12,7 @@ const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 
 //import web views
 import WebIndex from '@/views/WebIndex.vue';
+import WebView from '@/views/Web/index.vue'
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -94,7 +95,14 @@ const routes: Array<RouteRecordRaw> = [
     component: WebContainer,
     meta: {
       title: 'Esta es la web'
-    }
+    },
+    children: [
+      {
+        path: '',
+        name: 'hero',
+        component: WebView,
+      }
+    ]
   }
 ]
 
