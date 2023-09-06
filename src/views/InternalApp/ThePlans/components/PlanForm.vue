@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 
 import { formatPriceToDisplay, formatPriceToSave } from '@/utils/InputFormats';
 import { FormTypeEnum } from '@/enum/PlanEnum';
@@ -12,7 +12,7 @@ const emit = defineEmits(['update:plan', 'closeForm']);
 const props = defineProps({
   file: {
     type: File,
-    required: true
+    required: false,
   },
   formType: {
     type: String,
@@ -84,24 +84,35 @@ function formattedPrice(event: string) {
 }
 
 function deletePlan(): void {
-  console.log(planStore.selectedPlanId);
+  console.log(planStore.selectedPlan?._id);
 }
+
+onMounted(() => {
+  if (planStore.selectedPlan) {
+    console.log(planStore.selectedPlan)
+    const { name, price, description } = planStore.selectedPlan;
+    plan.name = name;
+    plan.price = formatPriceToDisplay(price.toString());
+    plan.description = description;
+  }
+  console.log(plan)
+})
 </script>
 
 <template>
   <div class="container">
     <CrushTextField 
-      v-model="plan.name"
+      v-model:value="plan.name"
       label="Nombre del plan"
-      placeholder="Money Week"/>
+      placeholder="Money Week" />
     <CrushTextField 
       v-model:value="plan.price"
       label="Precio"
       placeholder="1000"
       prependContent="$"
       @update:modelValue="formattedPrice" />
-    <CrushTextArea 
-      v-model="plan.description"
+    <CrushTextArea
+      v-model:value="plan.description"
       label="Descripción"
       placeholder="Agrega la descripción"
       :max-length="maxLength" />

@@ -5,3 +5,7 @@ export type Plan = {
   price: number;
   image: string
 }
+
+export type MessageType = {
+  message: string
+}

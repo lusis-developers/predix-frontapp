@@ -8,7 +8,7 @@ const plansService = new APIPlans();
 
 interface Roostate {
   plans: Plan[] | null,
-  selectedPlanId: string | null,
+  selectedPlan: Plan | null,
   errorMessage: string | null,
   isLoading: boolean
 }
@@ -16,7 +16,7 @@ interface Roostate {
 export const usePlanStore = defineStore('PlanStore', {
   state: (): Roostate => ({
     plans: null,
-    selectedPlanId: null,
+    selectedPlan: null,
     errorMessage: null,
     isLoading: false
   }),
@@ -51,6 +51,19 @@ export const usePlanStore = defineStore('PlanStore', {
       this.isLoading = true;
       try {
         await plansService.createPlan(plan);
+        this.getPlans();
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async updatePlan(plan: Plan): Promise<void> {
+      this.isLoading = true;
+      try {
+        console.log(plan);
+        // await plansService.updatePlan(plan);
         this.getPlans();
       } catch (error: any) {
         this.errorMessage = error.message;

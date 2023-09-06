@@ -5,6 +5,7 @@ import PlanCard from '@/views/InternalApp/ThePlans/components/PlanCard.vue';
 import usePlanStore from '@/stores/PlansStore';
 import { FormTypeEnum } from '@/enum/PlanEnum';
 import CreatePlan from './components/CreatePlan.vue';
+import { Plan } from '@/typings/PlanTypes';
 
 const planStore = usePlanStore();
 const showForm = ref(false);
@@ -22,14 +23,18 @@ onMounted(async () => {
 });
 
 function editPlan(event: string) {
-  planStore.selectedPlanId = event;
+  planStore.selectedPlan = findPlanById(event);
   formType.value = FormTypeEnum.EDIT;
   toggleForm();
 }
 
 function resetValues(): void {
-  planStore.selectedPlanId = null;
+  planStore.selectedPlan = null;
   formType.value = FormTypeEnum.SAVE;
+}
+
+function findPlanById(id: string): Plan {
+  return planStore.plans?.find((plan: Plan) => plan._id === id)!; 
 }
 </script>
 
