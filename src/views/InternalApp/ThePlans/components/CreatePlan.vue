@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { FormTypeEnum } from '@/enum/PlanEnum';
 import PlanForm from '@/views/InternalApp/ThePlans/components/PlanForm.vue';
+import usePlanStore from '@/stores/PlansStore';
+
+const planStore = usePlanStore();
 
 const emit = defineEmits(['closeForm']);
 
@@ -26,6 +29,12 @@ function resetImage() {
   fileURL.value = '';
   imageFile.value = new File([], '');
 }
+
+onMounted(() => {
+  if (planStore.selectedPlan) {
+    fileURL.value = planStore.selectedPlan?.image!;
+  }
+})
 </script>
 
 <template>

@@ -9,7 +9,7 @@ import { Plan } from '@/typings/PlanTypes';
 
 const planStore = usePlanStore();
 const showForm = ref(false);
-const formType = ref<FormTypeEnum>();
+const formType = ref<FormTypeEnum>(FormTypeEnum.SAVE);
 
 function toggleForm (): void {
   showForm.value = !showForm.value

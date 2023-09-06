@@ -12,12 +12,12 @@ const emit = defineEmits(['update:plan', 'closeForm']);
 const props = defineProps({
   file: {
     type: File,
-    required: false,
+    required: true,
   },
   formType: {
     type: String,
     required: true,
-    default: FormTypeEnum 
+    default: FormTypeEnum
   }
 });
 
@@ -38,6 +38,10 @@ const rules = {
       validate: (value: string) => value.length > 3,
       message: 'Por favor, coloca un nombre con más de 3 dígitos'
     },
+    {
+      validate: (value: string) => value.length < 20,
+      message: 'Por favor, coloca un nombre con más de 3 dígitos'
+    },
   ],
   validatePrice: [
     {
@@ -49,23 +53,32 @@ const rules = {
     {
       validate: (value: string) => value.split(' ').length > 3,
       message: 'Por favor, ingresa una descripción con al menos 4 palabras'
-    }
+    },
+    {
+      validate: (value: string) => value.split(' ').length >= 500,
+      message: 'Por favor, ingresa una descripción con al menos 4 palabras'
+    },
   ]
 };
 
 async function submitPlan() {
-  const response = await submitImage();
-  plan.image = response?.url!;
   const data = {
     ...plan,
     price: formatPriceToSave(plan.price)
   }
-  await planStore.createPlan(data);
+  if (props.formType === FormTypeEnum.EDIT) {
+    console.log('edit-plan', plan);
+    
+  } else {
+    const response = await submitImage();
+    plan.image = response?.url!;
+    await planStore.createPlan(data);
+  }
   resetValues();
 }
 
 async function submitImage() {
-  if (props.file) {
+  if (props.file.size !== 0) {
     return await planStore.uploadPlanImage(props.file);
   }
 } 
@@ -75,12 +88,21 @@ function resetValues() {
   plan.price = '';
   plan.description = '';
   plan.image = '';
+  planStore.selectedPlan = null;
   textKey.value++;
-  emit('closeForm'); 
+  emit('closeForm');
 }
 
 function formattedPrice(event: string) {
   plan.price = formatPriceToDisplay(event);
+}
+
+function nameInput(event: string): void {
+  plan.name = event;
+}
+
+function descriptioInput(event: string): void {
+  plan.description = event;
 }
 
 function deletePlan(): void {
@@ -89,13 +111,11 @@ function deletePlan(): void {
 
 onMounted(() => {
   if (planStore.selectedPlan) {
-    console.log(planStore.selectedPlan)
     const { name, price, description } = planStore.selectedPlan;
     plan.name = name;
     plan.price = formatPriceToDisplay(price.toString());
     plan.description = description;
   }
-  console.log(plan)
 })
 </script>
 
@@ -104,7 +124,8 @@ onMounted(() => {
     <CrushTextField 
       v-model:value="plan.name"
       label="Nombre del plan"
-      placeholder="Money Week" />
+      placeholder="Money Week"
+      @update:modelValue="nameInput" />
     <CrushTextField 
       v-model:value="plan.price"
       label="Precio"
@@ -115,7 +136,8 @@ onMounted(() => {
       v-model:value="plan.description"
       label="Descripción"
       placeholder="Agrega la descripción"
-      :max-length="maxLength" />
+      :max-length="maxLength"
+      @update:modelValue="descriptioInput" />
   </div>
   <div class="container-button">
     <CrushButton
