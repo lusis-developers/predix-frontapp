@@ -79,9 +79,10 @@ async function submitPlan() {
 }
 
 async function submitImage() {
-  if (props.file.size !== 0) {
+  console.log('file',props.file)
+  if (props.file.size !== 0 && planStore.selectedPlan) {
     const response = await planStore.uploadPlanImage(props.file);
-    plan.image = response?.url!;
+    planStore.selectedPlan.image = response?.url!;
   }
 } 
 
