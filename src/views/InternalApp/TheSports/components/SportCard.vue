@@ -1,28 +1,17 @@
 <script setup lang="ts">
-import { formatToCurrency } from '@/utils/InputFormats';
-
-const emit = defineEmits(['edit-plan']);
 const props = defineProps({
-  id: {
+  name: {
     type: String,
     required: true
   },
   image: {
     type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-})
+    required: true
+  }
+});
 
-function planSelected() {
-  emit('edit-plan', props.id);
+function sportSelected() {
+  console.log('name', name)
 }
 </script>
 
@@ -30,18 +19,15 @@ function planSelected() {
   <div class="card">
     <img
       class="card-image" 
-      :src="image" :alt="title">
+      :src="image" :alt="name">
     <p class="card-title">
-      {{ title }} 
-    </p>
-    <p class="card-price">
-      {{ formatToCurrency(price) }}
+      {{ name }} 
     </p>
     <CrushButton
       class="card-button"
-      text="Editar Plan"
+      text="Ver ligas"
       primary="primary"
-      @click="planSelected" />
+      @click="sportSelected" />
   </div>
 </template>
 
@@ -59,11 +45,11 @@ $gap-padding-space: 12px;
   border: 1px solid $white;
   border-radius: 8px;
   @media (min-width: $tablet-lower-breakpoint) {
-    width: 45%;
+    width: 80%;
   }
   &-image {
     width: 100%;
-    height: 160px;
+    height: 124px;
     object-fit: cover;
     border-radius: 8px;
     overflow: hidden;
@@ -75,10 +61,6 @@ $gap-padding-space: 12px;
     color: $white;
     font-size: $body-font-size;
     font-weight: 700;
-  }
-  &-price {
-    font-size: $body-font-size;
-    font-family: $font-secondary;
   }
   &-button {
     background-color: $green;

@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios';
 
 import APIBase from '../Base';
-import type { MessageType, Plan } from '../../typings/PlanTypes';
+import type { Plan } from '../../typings/PlanTypes';
+import { ResponseMessageType } from '@/typings/ResponseMessagesTypes';
 import type { ImageFile } from '@/typings/FileTypes';
 
 class APIPlans extends APIBase {
@@ -10,7 +11,7 @@ class APIPlans extends APIBase {
   }
 
   async createPlan(planData: Plan): Promise<Plan> {
-    return this.post<Plan>('plan', planData)
+    return this.post<Plan>('plans', planData)
   }
 
   async uploadPlanImage(file: File): Promise<AxiosResponse<ImageFile>> {
@@ -19,12 +20,12 @@ class APIPlans extends APIBase {
     return this.postWithFormData<AxiosResponse<ImageFile>>(`planImage`, formData);
   }
 
-  async updatePlan(id: string, plan: Plan): Promise<MessageType> {
-    return this.put<MessageType>(`plan/${id}`, plan);
+  async updatePlan(id: string, plan: Plan): Promise<ResponseMessageType> {
+    return this.put<ResponseMessageType>(`plans/${id}`, plan);
   }
 
-  async deletePlan(id: string): Promise<MessageType> {
-    return this.delete<MessageType>(`plan/${id}`)
+  async deletePlan(id: string): Promise<ResponseMessageType> {
+    return this.delete<ResponseMessageType>(`plans/${id}`)
   }
 }
 

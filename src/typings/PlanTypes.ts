@@ -6,6 +6,3 @@ export type Plan = {
   image: string
 }
 
-export type MessageType = {
-  message: string
-}
