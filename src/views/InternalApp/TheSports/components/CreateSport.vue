@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import usePlanStore from '@/stores/PlansStore';
+import useSportStore from '@/stores/SportStore';
+import type { Sport } from '@/typings/SportTypes';
 
-const planStore = usePlanStore();
+const sportStore = useSportStore();
 
 const emit = defineEmits(['close-form']);
 
@@ -21,8 +22,19 @@ function resetImage() {
   imageFile.value = new File([], '');
 }
 
-function submitSport() {
+async function submitSport() {
+  const imageResponse = await submitImage();
+  const data: Sport = {
+    name: name.value,
+    image: imageResponse
+  };
+  await sportStore.createSport(data);
   closeForm();
+}
+
+async function submitImage(): Promise<string> {
+  const result = await sportStore.uploadSportImage(imageFile.value!);
+  return result?.url!;
 }
 
 function resetValues() {
@@ -35,11 +47,11 @@ function closeForm() {
   emit('close-form')
 }
 
-onMounted(() => {
-  if (planStore.selectedPlan) {
-    fileURL.value = planStore.selectedPlan?.image!;
-  }
-})
+// onMounted(() => {
+//   if (planStore.selectedPlan) {
+//     fileURL.value = planStore.selectedPlan?.image!;
+//   }
+// })
 </script>
 
 <template>

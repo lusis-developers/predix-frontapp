@@ -37,8 +37,8 @@ export const useSportStore = defineStore('SportStore', {
     async uploadSportImage(file: File): Promise<ImageFile | void> {
       this.isLoading = true;
       try {
-        // const response = await plansService.uploadPlanImage(file);
-        // return response.data;
+        const response = await sportService.uploadSportImage(file);
+        return response.data;
       } catch (error: any) {
         this.errorMessage = error.message;
         return;
@@ -47,10 +47,10 @@ export const useSportStore = defineStore('SportStore', {
       }
     },
 
-    async createSport(sport: Plan): Promise<void> {
+    async createSport(sport: Sport): Promise<void> {
       this.isLoading = true;
       try {
-        // await plansService.createPlan(plan);
+        await sportService.createSport(sport);
         this.getSports();
       } catch (error: any) {
         this.errorMessage = error.message;
@@ -59,11 +59,11 @@ export const useSportStore = defineStore('SportStore', {
       }
     },
 
-    async updatePlan(plan: Plan): Promise<void> {
+    async updatSport(sport: Sport): Promise<void> {
       this.isLoading = true;
       try {
         // await plansService.updatePlan(this.selectedPlan?._id!, plan);
-        this.getPlans();
+        this.getSports();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
