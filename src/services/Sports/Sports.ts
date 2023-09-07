@@ -20,9 +20,9 @@ class APISports extends APIBase {
     return this.postWithFormData<AxiosResponse<ImageFile>>(`sportImage`, formData);
   }
 
-  // async updatePlan(id: string, plan: Plan): Promise<MessageType> {
-  //   return this.put<MessageType>(`plan/${id}`, plan);
-  // }
+  async updateSport(id: string, sport: Sport): Promise<ResponseMessageType> {
+    return this.put<ResponseMessageType>(`sports/${id}`, sport);
+  }
 
   // async deletePlan(id: string): Promise<MessageType> {
   //   return this.delete<MessageType>(`plan/${id}`)

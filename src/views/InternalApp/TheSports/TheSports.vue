@@ -4,16 +4,18 @@ import { onMounted, ref } from 'vue';
 import useSportStore from '@/stores/SportStore';
 import SportCard from './components/SportCard.vue';
 import CreateSport from './components/CreateSport.vue';
+import EditSportCard from './components/EditSportCard.vue';
 
 
 const sportStore = useSportStore();
 const showForm = ref(false);
+const isEditing = ref(false);
 
 function toggleForm (): void {
   showForm.value = !showForm.value
-  if (!showForm.value) {
-    resetValues();
-  }
+  // if (!showForm.value) {
+  //   resetValues();
+  // }
 }
 
 onMounted(async () => {
@@ -26,17 +28,31 @@ onMounted(async () => {
 //   toggleForm();
 // }
 
-function resetValues(): void {
-  console.log('reset values')
-}
+// function resetValues(): void {
+//   console.log('reset values')
+// }
 
 // function findPlanById(id: string): Plan {
 //   return planStore.plans?.find((plan: Plan) => plan._id === id)!; 
 // }
+
+function toggleEdit() {
+  isEditing.value = !isEditing.value;
+  if (!isEditing.value) {
+    sportStore.selectedSport = null;
+  }
+}
+
+function selectPlan(event: string) {
+  toggleEdit();
+  sportStore.selectedSport = sportStore.sports?.find((sport) => sport._id === event)!;
+}
 </script>
 
 <template>
-  <div class="container">
+  <div
+    v-if="!isEditing"
+    class="create-container">
     <CrushButton
       class="container-button"
       variant="primary"
@@ -44,28 +60,33 @@ function resetValues(): void {
       @click="toggleForm"/>
     <div
       v-if="!sportStore.sports?.length"
-      class="container-text">
+      class="create-container-text">
       <p>Oh! Aún no has creado los deportes</p>
       <p class="indication">Una vez hayas creado tus deportes, los encontrarás aquí</p>
     </div>
     <transition name="fade">
-      <div class="container-form" v-if="showForm"> 
+      <div class="create-container-form" v-if="showForm"> 
         <CreateSport
           @close-form="toggleForm" />
       </div>
     </transition>
-    <div class="container-plans">
+    <div class="create-container-plans">
       <SportCard
         v-for="(sport, index) in sportStore.sports"
         :key="index"
         :name="sport.name"
-        :image="sport.image" />
+        :image="sport.image"
+        :id="sport._id!"
+        @sport-selected="selectPlan" />
     </div>
   </div>
+  <EditSportCard
+    v-else
+    @close-edit="toggleEdit" />
 </template>
 
 <style lang="scss" scoped>
-.container {
+.create-container {
   &-button {
     font-size: $body-font-size;
     color: $dark-blue;
@@ -102,6 +123,10 @@ function resetValues(): void {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 24px;
   }
+}
+
+.edit-container {
+  width: 100%;
 }
 .fade-enter-from, .fade-leave-to {
   opacity: 0;

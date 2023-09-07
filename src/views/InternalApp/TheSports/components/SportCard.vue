@@ -1,5 +1,11 @@
 <script setup lang="ts">
+const emit = defineEmits(['sport-selected'])
+
 const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -11,7 +17,7 @@ const props = defineProps({
 });
 
 function sportSelected() {
-  console.log('name', name)
+  emit('sport-selected', props.id)
 }
 </script>
 

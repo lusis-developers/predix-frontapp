@@ -8,7 +8,7 @@ const sportService = new APISports();
 
 interface Roostate {
   sports: Sport[] | null,
-  // selectedPlan: Plan | null,
+  selectedSport: Sport | null,
   errorMessage: string | null,
   isLoading: boolean
 }
@@ -16,7 +16,7 @@ interface Roostate {
 export const useSportStore = defineStore('SportStore', {
   state: (): Roostate => ({
     sports: null,
-    // selectedSport: null,
+    selectedSport: null,
     errorMessage: null,
     isLoading: false
   }),
@@ -62,7 +62,7 @@ export const useSportStore = defineStore('SportStore', {
     async updatSport(sport: Sport): Promise<void> {
       this.isLoading = true;
       try {
-        // await plansService.updatePlan(this.selectedPlan?._id!, plan);
+        await sportService.updateSport(this.selectedSport?._id!, sport);
         this.getSports();
       } catch (error: any) {
         this.errorMessage = error.message;
