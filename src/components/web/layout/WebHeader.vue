@@ -12,7 +12,13 @@ const buttons = [
   {
     text: 'boton'
   }
-]
+];
+
+const emit = defineEmits();
+
+const toggleMenu = () => {
+  emit('toggle-menu');
+}
 </script>
 
 <template>
@@ -20,7 +26,9 @@ const buttons = [
     <figure>
       <img src="@/assets/logo-small.png" alt="Predix">
     </figure>
-    <div class="header-icon">
+    <div 
+      class="header-icon"
+      @click="toggleMenu">
       <i class="fa-solid fa-bars" />
     </div>
     <div 
