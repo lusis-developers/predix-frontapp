@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 
 import useSportStore from '@/stores/SportStore';
 import SportCard from './components/SportCard.vue';
+import CreateSport from './components/CreateSport.vue';
 
 
 const sportStore = useSportStore();
@@ -49,7 +50,8 @@ function resetValues(): void {
     </div>
     <transition name="fade">
       <div class="container-form" v-if="showForm"> 
-        Create deporte
+        <CreateSport
+          @close-form="toggleForm" />
       </div>
     </transition>
     <div class="container-plans">
