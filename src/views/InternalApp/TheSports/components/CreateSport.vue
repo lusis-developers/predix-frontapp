@@ -67,7 +67,7 @@ function closeForm() {
   <CrushTextField 
     v-model="name"
     label="Nombre del deporte"
-    placeholder="Money Week" />
+    placeholder="Baseball" />
   <div class="form-actions">
     <CrushButton 
       variant="secondary"
@@ -103,6 +103,7 @@ function closeForm() {
         object-position: center;
         object-fit: cover;
         border-radius: 8px;
+        margin-top: 8px;
       }
     }
   }

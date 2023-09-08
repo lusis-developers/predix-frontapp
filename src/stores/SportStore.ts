@@ -59,7 +59,7 @@ export const useSportStore = defineStore('SportStore', {
       }
     },
 
-    async updatSport(sport: Sport): Promise<void> {
+  async updateSport(sport: Sport): Promise<void> {
       this.isLoading = true;
       try {
         await sportService.updateSport(this.selectedSport?._id!, sport);
@@ -71,11 +71,11 @@ export const useSportStore = defineStore('SportStore', {
       }
     },
 
-    async deletePlan(): Promise<void> {
+    async deleteSport(): Promise<void> {
       this.isLoading = true;
       try {
-        // await plansService.deletePlan(this.selectedPlan?._id!);
-        await this.getPlans();
+        await sportService.deleteSport(this.selectedSport?._id!);
+        await this.getSports();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
