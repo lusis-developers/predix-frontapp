@@ -19,17 +19,24 @@
 
 <style lang="scss" scoped>
 .hero {
+  padding: 24px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 12px;
   height: 80vh;
-  width: 60%;
+  width: 100%;
+  border-radius: 0px 0px 24px 25px;
+  background: linear-gradient(180deg, #070E21 0.6%, #01DF71 534.43%);
   h3 {
     color: $white;
     text-align: center;
-    font-size: $h1-font-size;
+    font-size: $h2-font-size;
+    @media (min-width: $tablet-lower-breakpoint){
+      font-size: $h1-font-size;
+    }
     text-transform: uppercase;
   }
   p {
