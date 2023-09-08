@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BetWay from './components/BetWay.vue';
 import CallToAction from './components/CallToAction.vue';
 import TheHero from './components/TheHero.vue';
 
@@ -20,6 +21,7 @@ const descriptions = [
     :descriptions="descriptions" 
     button="Empezar a ganar"
     image="/src/assets/Comments.png"/>
+  <BetWay/>
 </template>
 
 <style lang="scss" scoepd>
