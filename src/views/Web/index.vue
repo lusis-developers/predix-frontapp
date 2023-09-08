@@ -3,6 +3,7 @@ import BetWay from './components/BetWay.vue';
 import CallToAction from './components/CallToAction.vue';
 import CreateAccount from './components/CreateAccount.vue';
 import TheHero from './components/TheHero.vue';
+import TheForm from './components/TheForm.vue';
 
 const descriptions = [
   {
@@ -29,6 +30,7 @@ const descriptions = [
     image="/src/assets/historial.svg"
     :reverse="true"/>
   <CreateAccount/>
+  <TheForm/>
 </template>
 
 <style lang="scss" scoepd>
