@@ -55,7 +55,10 @@ const props = defineProps({
   flex-wrap: wrap;
   gap: 5%;
   &-reverse {
-    flex-direction: row-reverse;
+    flex-direction: column-reverse;
+    @media(min-width: $tablet-lower-breakpoint) {
+      flex-direction: row-reverse;
+    }
   }
   &-comments {
     display: flex;
@@ -68,6 +71,7 @@ const props = defineProps({
     }
     img {
       width: 100%;
+      margin-top: 16px;
     }
   }
   &-description {
