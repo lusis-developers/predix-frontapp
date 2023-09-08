@@ -21,7 +21,12 @@ const descriptions = [
     :descriptions="descriptions" 
     button="Empezar a ganar"
     image="/src/assets/Comments.png"/>
-  <BetWay/>
+    <BetWay/>
+  <CallToAction 
+    :descriptions="descriptions" 
+    button="Empezar a ganar"
+    image="/src/assets/historial.svg"
+    :reverse="true"/>
 </template>
 
 <style lang="scss" scoepd>
