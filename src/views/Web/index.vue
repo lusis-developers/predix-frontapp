@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BetWay from './components/BetWay.vue';
 import CallToAction from './components/CallToAction.vue';
-import CreateCount from './components/CreateCount.vue';
+import CreateAccount from './components/CreateAccount.vue';
 import TheHero from './components/TheHero.vue';
 
 const descriptions = [
@@ -28,7 +28,7 @@ const descriptions = [
     button="Empezar a ganar"
     image="/src/assets/historial.svg"
     :reverse="true"/>
-  <CreateCount/>
+  <CreateAccount/>
 </template>
 
 <style lang="scss" scoepd>
