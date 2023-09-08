@@ -41,7 +41,10 @@ const items = [
   padding: 24px;
   display: flex;
   gap: 20px;
-  justify-content: center; 
+  justify-content: center;
+  @media(min-width: $tablet-upper-breakpoint) {
+    justify-content: space-around;
+  } 
   align-items: center;
   flex-wrap: wrap;
   background-color: $dark-blue;
