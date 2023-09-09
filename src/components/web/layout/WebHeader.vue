@@ -1,17 +1,20 @@
 <script setup lang="ts">
 const buttons = [
   {
-    text: 'boton'
+    text: 'Histórico'
   },
   {
-    text: 'boton'
+    text: 'Planes'
   },
   {
-    text: 'boton'
+    text: 'Contacto'
   },
   {
-    text: 'boton'
-  }
+    text: 'Empezar gratis'
+  },
+  {
+    text: 'Suscribirse'
+  },
 ];
 
 const emit = defineEmits();
@@ -52,25 +55,25 @@ const toggleMenu = () => {
   &-icon {
     display: flex;
     color: $white;
-    @media (min-width: $tablet-lower-breakpoint) {
+    @media (min-width: $tablet-upper-breakpoint) {
       display: none;
     }
   }
   &-buttons {
-    display: none;
-    width: 60%;
-    @media (min-width: $tablet-lower-breakpoint) {
+    display: none;;
+    @media (min-width: $tablet-upper-breakpoint) {
       display: flex;
+      gap: 16px;
       justify-content: space-around;
       align-items: center;
     }
     & :first-child, :nth-child(2) {
       color: $green;
     }
-    & :nth-child(3) {
+    & :nth-child(4) {
       border: 1px solid $green;
     }
-    & :nth-child(4) {
+    & :nth-child(5) {
       background-color: $green;
       color: $dark-blue;
     }
