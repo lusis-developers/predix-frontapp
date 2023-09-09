@@ -21,8 +21,8 @@ const buttons = [
   { text: "Suscripción", 
     path: "/" 
   },
-  { text: "Botón", 
-    path: "/" 
+  { text: "Contacto", 
+    path: "contact" 
   },
 ];
 </script>
@@ -46,6 +46,7 @@ const buttons = [
           v-for="(button, index) in buttons"
           :key="index"
           :to="button.path"
+          @click="closeMenu"
         >
           {{ button.text }}
         </RouterLink>
