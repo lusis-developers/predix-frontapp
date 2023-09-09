@@ -12,7 +12,8 @@ const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 
 //import web views
 import WebIndex from '@/views/WebIndex.vue';
-import WebView from '@/views/Web/index.vue'
+import WebView from '@/views/Web/index.vue';
+import WebContact from '@/views/Web/TheContact.vue';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -101,6 +102,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: 'hero',
         component: WebView,
+      },
+      {
+        path: 'contact',
+        name: 'contact',
+        component: WebContact
       }
     ]
   }
