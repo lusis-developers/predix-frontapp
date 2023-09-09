@@ -21,6 +21,7 @@ const TheRecords = () => import('@/views/InternalApp/TheRecords/TheRecords.vue')
 const TheResults = () => import('@/views/InternalApp/TheResults/TheResults.vue');
 const TheBets = () => import('@/views/InternalApp/TheBets/TheBets.vue');
 const ThePlans = () => import('@/views/InternalApp/ThePlans/ThePlans.vue');
+const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -84,6 +85,14 @@ const routes: Array<RouteRecordRaw> = [
             component: ThePlans,
             meta: {
               title: 'Planes 📝'
+            }
+          },
+          {
+            path: 'sports',
+            name: 'sports',
+            component: TheSports,
+            meta: {
+              title: 'Deportes ⚾️'
             }
           },
         ],

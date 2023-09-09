@@ -34,7 +34,7 @@ function resetValues(): void {
 }
 
 function findPlanById(id: string): Plan {
-  return planStore.plans?.find((plan: Plan) => plan._id === id)!; 
+  return planStore.plans?.find((plan: Plan) => plan._id === id)!;
 }
 </script>
 
