@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
-import WebHeader from '@/components/web/layout/WebHeader.vue';
-import WebFooter from './WebFooter.vue';
-import WebMenu from './WebMenu.vue';
+import { ref } from "vue";
+import WebHeader from "@/components/web/layout/WebHeader.vue";
+import WebFooter from "./WebFooter.vue";
+import WebMenu from "./WebMenu.vue";
 
 const showWebMenu = ref(false);
 
 const toggleShowMenu = () => {
   showWebMenu.value = !showWebMenu.value;
 };
-
 </script>
 
 <template>
-  <div class="main-app-wrapper crush-container">
-    <WebHeader @toggle-menu="toggleShowMenu" />
-    <div class="main-app-wrapper-view">
-      <RouterView/>
-    </div>
-    <WebFooter/>
-  </div>
-  <WebMenu v-if="showWebMenu"/>
+	<div class="main-app-wrapper crush-container">
+		<WebHeader @toggle-menu="toggleShowMenu" />
+		<div class="main-app-wrapper-view">
+			<RouterView />
+		</div>
+		<WebFooter />
+	</div>
+	<WebMenu 
+    :isVisible="showWebMenu" 
+    @toggle-menu="toggleShowMenu"/>
 </template>
 
 <style lang="scss" scoped>
@@ -32,6 +32,7 @@ const toggleShowMenu = () => {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+
   &-view {
     flex: 1;
   }
