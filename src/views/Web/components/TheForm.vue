@@ -97,6 +97,7 @@ async function sendEmail() {
     border-radius: 48px;
     margin: 0 auto;
     width: 100%;
+    max-width: $tablet-upper-breakpoint;
     background: linear-gradient(270deg, #070E21 0.04%, #01DF71 267.25%);
     display: flex;
     flex-wrap: wrap;
