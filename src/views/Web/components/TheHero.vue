@@ -27,7 +27,6 @@
   flex-direction: column;
   gap: 12px;
   height: 80vh;
-  width: 100%;
   border-radius: 0px 0px 24px 25px;
   background: linear-gradient(180deg, #070E21 0.6%, #01DF71 534.43%);
   h3 {
