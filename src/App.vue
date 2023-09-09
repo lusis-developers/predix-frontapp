@@ -18,8 +18,6 @@ import {  RouterView } from 'vue-router';
   background-color: $dark-blue;
 	min-height: 100vh;
 	width: 100%;
-	display: flex;
-	flex-direction: column;
   &-view {
     flex: 1;
   }
