@@ -1,19 +1,28 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
+
 const buttons = [
   {
-    text: 'Histórico'
+    text: 'Histórico',
+    path: '/'
   },
   {
-    text: 'Planes'
+    text: 'Planes',
+    path: '/'
   },
   {
-    text: 'Contacto'
+    text: 'Contacto',
+    path: 'contact'
   },
   {
-    text: 'Empezar gratis'
+    text: 'Empezar gratis',
+    path: '/'
+    
   },
   {
-    text: 'Suscribirse'
+    text: 'Suscribirse',
+    path: '/'
+    
   },
 ];
 
@@ -37,11 +46,13 @@ const toggleMenu = () => {
     <div 
       class="header-buttons"
       >
-      <button 
-      v-for="(button, index) in buttons" 
-      :key="index">
+      <RouterLink
+        class="header-buttons-button"
+        v-for="(button, index) in buttons" 
+        :to="button.path"
+        :key="index">
         {{ button.text }}
-      </button>
+      </RouterLink>
     </div>
   </header>
 </template>
@@ -77,8 +88,9 @@ const toggleMenu = () => {
       background-color: $green;
       color: $dark-blue;
     }
-    button {
+    &-button {
       border-radius: 8px;
+      text-decoration: none;
       padding: 12px 16px;
       color: $white;
       background: none;
