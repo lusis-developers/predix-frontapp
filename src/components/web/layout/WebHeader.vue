@@ -18,9 +18,11 @@
 
 <template>
 	<header class="header">
-		<figure>
-			<img src="@/assets/logo-small.png" alt="Predix" />
-		</figure>
+		<RouterLink to="/">
+      <figure>
+			  <img src="@/assets/logo-small.png" alt="Predix" />
+		  </figure>
+    </RouterLink>
 		<div class="header-icon" @click="toggleMenu">
 			<i class="fa-solid fa-bars" />
 		</div>
