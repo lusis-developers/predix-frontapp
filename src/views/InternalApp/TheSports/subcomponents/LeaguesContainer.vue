@@ -2,6 +2,8 @@
 import { computed } from 'vue';
 
 import useLeagueStore from '@/stores/LeagueStore';
+import LeagueCard from './LeagueCard.vue';
+import { League } from '@/typings/LeagueTypes';
 
 const leagueStore = useLeagueStore();
 
@@ -11,7 +13,7 @@ const props = defineProps({
     required: true
   },
   leagues: {
-    type: Array,
+    type: Array as () => League[],
     required: true
   }
 });
@@ -34,7 +36,15 @@ const isLeaguesVisible = computed(() => !props.leagues?.length && !props.isAddin
     <div
       v-else 
       class="leagues-container-leagues">
-      aqui en encontramos todas las ligas
+      <p class="title">
+        Ligas
+      </p>
+      <LeagueCard
+        v-for="(league, index) in leagues"
+        :key="index"
+        :name="league.name"
+        :image="league.image"
+        :id="league?._id!" />
     </div>
   </div>
   <div
@@ -47,7 +57,7 @@ const isLeaguesVisible = computed(() => !props.leagues?.length && !props.isAddin
 <style lang="scss" scoped>
 .leagues-container {
   width: 100%;
-  margin: 24px 0;
+  margin: 36px 0;
   p {
     color: $white;
     font-family: $font-secondary;
@@ -59,10 +69,9 @@ const isLeaguesVisible = computed(() => !props.leagues?.length && !props.isAddin
   }
   &-leagues {
     width: 100%;
-    display: grid;
-    place-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
   }
 }
 </style>
