@@ -55,6 +55,7 @@ function toggleLeague(): void {
     </div>
   </div>
   <LeaguesContainer
+    :leagues="sportStore.selectedSport?.leaguesDetails!"
     :isAddingLeague="isAddingLeague" />
 </template>
 

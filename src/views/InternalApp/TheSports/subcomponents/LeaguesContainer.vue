@@ -9,10 +9,14 @@ const props = defineProps({
   isAddingLeague: {
     type: Boolean,
     required: true
+  },
+  leagues: {
+    type: Array,
+    required: true
   }
 });
 
-const isLeaguesVisible = computed(() => !leagueStore.leagues?.length && !props.isAddingLeague);
+const isLeaguesVisible = computed(() => !props.leagues?.length && !props.isAddingLeague);
 
 </script>
 
