@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 import useSportStore from '@/stores/SportStore';
 import type { Sport } from '@/typings/SportTypes';
@@ -46,12 +46,6 @@ function closeForm() {
   resetValues();
   emit('close-form')
 }
-
-// onMounted(() => {
-//   if (planStore.selectedPlan) {
-//     fileURL.value = planStore.selectedPlan?.image!;
-//   }
-// })
 </script>
 
 <template>

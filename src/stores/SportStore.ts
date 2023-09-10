@@ -59,7 +59,7 @@ export const useSportStore = defineStore('SportStore', {
       }
     },
 
-  async updateSport(sport: Sport): Promise<void> {
+    async updateSport(sport: Sport): Promise<void> {
       this.isLoading = true;
       try {
         await sportService.updateSport(this.selectedSport?._id!, sport);

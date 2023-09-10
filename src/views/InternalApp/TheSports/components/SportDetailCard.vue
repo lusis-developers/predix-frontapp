@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import useSportStore from '@/stores/SportStore';
+import LeaguesContainer from '../subcomponents/LeaguesContainer.vue';
 
 const sportStore = useSportStore();
 
-const emit = defineEmits(['is-editing']);
+const emit = defineEmits(['is-editing', 'add-league']);
 
 const props = defineProps({
   name: {
@@ -16,13 +19,14 @@ const props = defineProps({
   },
 });
 
+const isAddingLeague = ref(false);
 
 async function deleteSport(): Promise<void> {
   await sportStore.deleteSport();
 }
 
-function addLeague(): void {
-  console.log('add league')
+function toggleLeague(): void {
+  isAddingLeague.value = !isAddingLeague.value;
 }
  </script>
 
@@ -47,9 +51,11 @@ function addLeague(): void {
       <CrushButton
         variant="primary"
         text="Agregar Ligas"
-        @click="addLeague" />
+        @click="toggleLeague" />
     </div>
   </div>
+  <LeaguesContainer
+    :isAddingLeague="isAddingLeague" />
 </template>
 
 <style lang="scss" scoped>
@@ -62,6 +68,9 @@ function addLeague(): void {
     border-radius: 8px;
     width: 50%;
     min-width: 280px;
+    height: 288px;
+    object-fit: cover;
+    object-position: center;
   }
   &-content {
     display: flex;
