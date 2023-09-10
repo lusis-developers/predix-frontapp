@@ -9,36 +9,19 @@ import EditSportCard from './components/EditSportCard.vue';
 
 const sportStore = useSportStore();
 const showForm = ref(false);
-const isEditing = ref(false);
+const isSportSelected = ref(false);
 
 function toggleForm (): void {
   showForm.value = !showForm.value
-  // if (!showForm.value) {
-  //   resetValues();
-  // }
 }
 
 onMounted(async () => {
   await sportStore.getSports();
 });
 
-// function editPlan(event: string) {
-//   planStore.selectedPlan = findPlanById(event);
-//   formType.value = FormTypeEnum.EDIT;
-//   toggleForm();
-// }
-
-// function resetValues(): void {
-//   console.log('reset values')
-// }
-
-// function findPlanById(id: string): Plan {
-//   return planStore.plans?.find((plan: Plan) => plan._id === id)!; 
-// }
-
 function toggleEdit() {
-  isEditing.value = !isEditing.value;
-  if (!isEditing.value) {
+  isSportSelected.value = !isSportSelected.value;
+  if (!isSportSelected.value) {
     sportStore.selectedSport = null;
   }
 }
@@ -51,7 +34,7 @@ function selectPlan(event: string) {
 
 <template>
   <div
-    v-if="!isEditing"
+    v-if="!isSportSelected"
     class="create-container">
     <CrushButton
       class="container-button"
@@ -82,7 +65,7 @@ function selectPlan(event: string) {
   </div>
   <EditSportCard
     v-else
-    @close-edit="toggleEdit" />
+    @close-sport-detail="toggleEdit" />
 </template>
 
 <style lang="scss" scoped>
