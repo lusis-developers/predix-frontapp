@@ -17,6 +17,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  id: {
+    type: String,
+    required: true
+  }
 });
 
 const isAddingLeague = ref(false);
@@ -56,7 +60,8 @@ function toggleLeague(): void {
   </div>
   <LeaguesContainer
     :leagues="sportStore.selectedSport?.leaguesDetails!"
-    :isAddingLeague="isAddingLeague" />
+    :isAddingLeague="isAddingLeague"
+    @open-close-create-or-edit="toggleLeague" />
 </template>
 
 <style lang="scss" scoped>

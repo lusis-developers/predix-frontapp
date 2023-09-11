@@ -20,7 +20,7 @@ class APILeagues extends APIBase {
     return this.postWithFormData<AxiosResponse<ImageFile>>(`leagueImage`, formData);
   }
 
-  async updateSport(id: string, league: League): Promise<ResponseMessageType> {
+  async updateLeague(id: string, league: League): Promise<ResponseMessageType> {
     const data = {
       id: id,
       ...league
@@ -28,7 +28,7 @@ class APILeagues extends APIBase {
     return this.put<ResponseMessageType>(`leagues/${id}`, data);
   }
 
-  async deleteSport(id: string): Promise<ResponseMessageType> {
+  async deleteLeague(id: string): Promise<ResponseMessageType> {
     return this.delete<ResponseMessageType>(`leagues/${id}`)
   }
 }

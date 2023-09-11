@@ -48,7 +48,7 @@ onMounted(() => {
     </div>
     <SportDetailCard
       v-if="!isEditing"
-      :id="sportStore.selectedSport?._id"
+      :id="sportStore.selectedSport?._id!"
       :image="fileURL"
       :name="name"
       @is-editing="isEditing = true" />

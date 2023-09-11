@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import useLeagueStore from '@/stores/LeagueStore';
+
+const leagueStore = useLeagueStore();
+
+const emit = defineEmits(['edit-league']);
 
 const props = defineProps({
   name: {
@@ -16,11 +21,11 @@ const props = defineProps({
 });
 
 function deleteLeague(): void {
-  console.log('deleteLeague');
+  leagueStore.deleteLeague(props.id);
 }
 
 function editLeague(): void {
-  console.log('edit league')
+  emit('edit-league', props.id);
 }
 </script>
 
@@ -33,10 +38,12 @@ function editLeague(): void {
       </p>
     </div>
     <div class="league-actions">
-      <button>
+      <button
+        @click="editLeague">
         <i class="fa-solid fa-pen icon" />
       </button>
-      <button>
+      <button
+        @click="deleteLeague">
         <i class="fa-solid fa-trash icon erase" />
       </button>
     </div>

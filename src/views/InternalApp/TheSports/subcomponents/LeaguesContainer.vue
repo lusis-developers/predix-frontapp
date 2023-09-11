@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
-import useLeagueStore from '@/stores/LeagueStore';
 import LeagueCard from './LeagueCard.vue';
 import { League } from '@/typings/LeagueTypes';
+import CreateOrEditLeague from './CreateOrEditLeague.vue';
 
-const leagueStore = useLeagueStore();
+const emit = defineEmits(['open-close-create-or-edit']);
 
 const props = defineProps({
   isAddingLeague: {
@@ -18,14 +18,32 @@ const props = defineProps({
   }
 });
 
+const isEditing = ref(false);
+const leagueId = ref('');
 const isLeaguesVisible = computed(() => !props.leagues?.length && !props.isAddingLeague);
+const isAddingOrEditing = computed(() => props.isAddingLeague);
 
+
+function editLeague(event: string): void {
+  leagueId.value = event;
+  emit('open-close-create-or-edit');
+}
+
+function resetValue(): void {
+  isEditing.value = false;
+  leagueId.value = '';
+}
+
+function closeCreateOrEdit(): void {
+  resetValue();
+  emit('open-close-create-or-edit');
+}
 </script>
 
 
 <template>
   <div
-    v-if="!isAddingLeague"
+    v-if="!isAddingOrEditing"
     class="leagues-container">
     <div
       v-if="isLeaguesVisible"
@@ -44,13 +62,17 @@ const isLeaguesVisible = computed(() => !props.leagues?.length && !props.isAddin
         :key="index"
         :name="league.name"
         :image="league.image"
-        :id="league?._id!" />
+        :id="league?._id!"
+        @edit-league="editLeague" />
     </div>
   </div>
   <div
     v-else
     class="league-container-form">
-    Estamos agregando
+    <CreateOrEditLeague
+      :isEditing="isEditing"
+      :leagueId="leagueId"
+      @close-create-or-edit="closeCreateOrEdit" />
   </div>
 </template>
 
