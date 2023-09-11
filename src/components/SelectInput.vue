@@ -61,6 +61,7 @@ watch(optionSelected, () => {
   color: $white;
   gap: 12px;
   font-weight: bold;
+  margin-bottom: 1rem;
   &-select {
     font-family: $font;
     font-weight: 500;
