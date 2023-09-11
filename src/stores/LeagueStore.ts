@@ -74,10 +74,11 @@ export const useLeagueStore = defineStore('LeagueStore', {
       this.isLoading = true;
       try {
         await leagueService.deleteLeague(id);
-        if (sportStore.selectedSport) {
-          sportStore.selectedSport.leaguesDetails = sportStore.selectedSport?.leaguesDetails!
-            .filter(league => league._id === id)
+        const response = await sportStore.getSport(sportStore.selectedSport?._id!);
+        if (response) {
+          sportStore.selectedSport = response;
         }
+        sportStore.getSports();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
