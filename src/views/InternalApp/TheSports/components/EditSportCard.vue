@@ -1,10 +1,42 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const emit = defineEmits(['close-edit']);
+import useSportStore from '@/stores/SportStore';
+import SportDetailCard from './SportDetailCard.vue';
+import EditSportForm from './EditSportForm.vue';
+
+const sportStore = useSportStore();
+
+const emit = defineEmits(['close-sport-detail']);
+
+const isEditing = ref(false)
+const fileURL = ref<string>(''); // TODO: read the image url
+const name = ref('');
+
+function resetImage() {
+  fileURL.value = '';
+}
+
+function resetValues() {
+  resetImage();
+  name.value = '';
+  isEditing.value = false;
+}
+
+function closeEdit() {
+  resetValues();
+  emit('close-sport-detail')
+}
+
+function sportDeleted() {
+  closeEdit();
+}
 
 onMounted(() => {
-
+  if (sportStore.selectedSport) {
+    name.value = sportStore.selectedSport.name;
+    fileURL.value = sportStore.selectedSport.image;
+  }
 })
 </script>
 
@@ -16,8 +48,19 @@ onMounted(() => {
         class="button"
         variant="textonly"
         text="Volver"
-        @click="emit('close-edit')" />
+        @click="closeEdit" />
     </div>
+    <SportDetailCard
+      v-if="!isEditing"
+      :id="sportStore.selectedSport?._id!"
+      :image="fileURL"
+      :name="name"
+      @is-editing="isEditing = true"
+      @sport-deleted="sportDeleted" />
+    <template v-else>
+      <EditSportForm
+        @close-edit="closeEdit" />
+    </template>
   </div>
 </template>
 

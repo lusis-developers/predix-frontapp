@@ -21,12 +21,20 @@ class APISports extends APIBase {
   }
 
   async updateSport(id: string, sport: Sport): Promise<ResponseMessageType> {
-    return this.put<ResponseMessageType>(`sports/${id}`, sport);
+    const data = {
+      id: id,
+      ...sport
+    }
+    return this.put<ResponseMessageType>(`sports/${id}`, data);
   }
 
-  // async deletePlan(id: string): Promise<MessageType> {
-  //   return this.delete<MessageType>(`plan/${id}`)
-  // }
+  async deleteSport(id: string): Promise<ResponseMessageType> {
+    return this.delete<ResponseMessageType>(`sports/${id}`)
+  }
+
+  async getSport(id: string): Promise<Sport[]> {
+    return this.get<Sport[]>(`sports/${id}`);
+  } 
 }
 
 
