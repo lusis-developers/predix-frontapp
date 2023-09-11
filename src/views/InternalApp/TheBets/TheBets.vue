@@ -17,9 +17,6 @@ function toggleForm (): void {
 
 function toggleEdit() {
   isBetSelected.value = !isBetSelected.value;
-  if (!isBetSelected.value) {
-    betStore.selectedBet = null;
-  }
   toggleForm();
 }
 
