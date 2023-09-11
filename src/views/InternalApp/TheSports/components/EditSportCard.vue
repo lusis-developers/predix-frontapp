@@ -28,6 +28,10 @@ function closeEdit() {
   emit('close-sport-detail')
 }
 
+function sportDeleted() {
+  closeEdit();
+}
+
 onMounted(() => {
   if (sportStore.selectedSport) {
     name.value = sportStore.selectedSport.name;
@@ -47,11 +51,12 @@ onMounted(() => {
         @click="closeEdit" />
     </div>
     <SportDetailCard
-      v-if="!isEditing && sportStore.selectedSport"
+      v-if="!isEditing"
       :id="sportStore.selectedSport?._id!"
       :image="fileURL"
       :name="name"
-      @is-editing="isEditing = true" />
+      @is-editing="isEditing = true"
+      @sport-deleted="sportDeleted" />
     <template v-else>
       <EditSportForm
         @close-edit="closeEdit" />

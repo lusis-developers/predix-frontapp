@@ -6,7 +6,7 @@ import LeaguesContainer from '../subcomponents/LeaguesContainer.vue';
 
 const sportStore = useSportStore();
 
-const emit = defineEmits(['is-editing', 'add-league']);
+const emit = defineEmits(['is-editing', 'add-league', 'sport-deleted']);
 
 const props = defineProps({
   name: {
@@ -27,6 +27,8 @@ const isAddingLeague = ref(false);
 
 async function deleteSport(): Promise<void> {
   await sportStore.deleteSport();
+  emit('sport-deleted');
+  sportStore.selectedSport = null;
 }
 
 function toggleLeague(): void {
@@ -56,6 +58,10 @@ function toggleLeague(): void {
         variant="primary"
         text="Agregar Ligas"
         @click="toggleLeague" />
+      <CrushButton
+        variant="secondary"
+        text="Eliminar deporte"
+        @click="deleteSport" />
     </div>
   </div>
   <LeaguesContainer
