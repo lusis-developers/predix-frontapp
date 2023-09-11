@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 
 import APIBase from '../Base';
 import type { Plan } from '../../typings/PlanTypes';
-import { ResponseMessageType } from '@/typings/ResponseMessagesTypes';
+import type { ResponseMessageType } from '@/typings/ResponseMessagesTypes';
 import type { ImageFile } from '@/typings/FileTypes';
 
 class APIPlans extends APIBase {
