@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { BetEnum } from '@/enum/BetEnum';
+import { formatNumberToProfit } from '@/utils/InputFormats';
 import useBetStore from '@/stores/BetStore';
 
 const betStore = useBetStore();
@@ -137,7 +138,7 @@ function deleteBet(): void {
             Ganancia
           </p>
           <p class="detail-description">
-            {{ profit }}
+            {{ formatNumberToProfit(profit) }}
           </p>
         </div>
         <div class="bet-card-content-detail">

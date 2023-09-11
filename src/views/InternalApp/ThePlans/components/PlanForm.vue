@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue';
 
-import { formatPriceToDisplay, formatPriceToSave } from '@/utils/InputFormats';
+import { formatPriceToDisplay, formatNumberToSave } from '@/utils/InputFormats';
 import { FormTypeEnum } from '@/enum/PlanEnum';
 import usePlanStore from '@/stores/PlansStore';
 
@@ -64,7 +64,7 @@ const rules = {
 async function submitPlan() {
   const data = {
     ...plan,
-    price: formatPriceToSave(plan.price)
+    price: formatNumberToSave(plan.price)
   }
   await submitImage();
   if (props.formType === FormTypeEnum.EDIT) {
@@ -99,7 +99,7 @@ function resetValues() {
   emit('closeForm');
 }
 
-function formattedPrice(event: string) {
+function formattedPrice(event: string): void {
   plan.price = formatPriceToDisplay(event);
 }
 

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive } from 'vue';
 
-import type { Bet } from '@/typings/BetTypes';
-import useBetStore from '@/stores/BetStore';
 import { BetEnum } from '@/enum/BetEnum';
+import { formatPriceToDisplay, formatNumberToSave } from '@/utils/InputFormats';
+import useBetStore from '@/stores/BetStore';
+import useSportStore from '@/stores/SportStore';
 import ToggleInput from '@/components/ToggleInput.vue';
+import SelectInput from '@/components/SelectInput.vue';
 
+const sportStore = useSportStore();
 const betStore = useBetStore();
 
 const emit = defineEmits(['close-form']);
@@ -23,6 +26,16 @@ const bet = reactive({
 });
 const buttonType = computed(() => betStore.selectedBet ? 'Actualizar' : 'Guardar');
 const isEditing = computed(() => betStore.selectedBet);
+const sportOptions = computed(() => sportStore.sports?.map(sport => sport.name)!);
+const leagueOptions = computed(() => {
+  const sport = sportStore.sports?.find(sport => sport.name === bet.sport);
+
+  if (sport) {
+    return sport.leaguesDetails?.map(league => league.name);
+  } else {
+    return [];
+  }
+})
 
 function handleInput(event: string, type: string): void {
   if (type === 'sport') {
@@ -40,9 +53,6 @@ function handleInput(event: string, type: string): void {
   if (type === 'date') {
     bet.date = event;
   }
-  if (type === 'profit') {
-    bet.profit = event;
-  }
   if (type === 'percentage') {
     bet.percentage = event;
   }
@@ -53,7 +63,6 @@ function handleInput(event: string, type: string): void {
 
 function isFreeInput(event: boolean): void {
   bet.isFree = event;
-  console.log(event)
 }
 
 function setData() {
@@ -86,21 +95,21 @@ function closeForm(): void {
   emit('close-form');
 }
 
+function formattedPrice(event: string): void {
+  bet.profit = formatPriceToDisplay(event);
+}
+
 function submitBet(): void {
+  const data = {
+      ...bet,
+      percentage: formatNumberToSave(bet.percentage),
+      profit: formatNumberToSave(bet.profit),
+      status: BetEnum.PENDING
+    }
   if (!isEditing.value) {
-    betStore.createBet({
-      ...bet,
-      percentage: Number(bet.percentage),
-      profit: Number(bet.profit),
-      status: BetEnum.PENDING
-    });
+    betStore.createBet(data);
   } else {
-    betStore.updateBet({
-      ...bet,
-      percentage: Number(bet.percentage),
-      profit: Number(bet.profit),
-      status: BetEnum.PENDING
-    });
+    betStore.updateBet(data);
   }
   closeForm();
 }
@@ -114,16 +123,16 @@ onMounted(() => {
 
 <template>
   <div class="create-edit-container">
-    <CrushTextField 
-      v-model:value="bet.sport"
+    <SelectInput
       label="Deporte"
-      placeholder="Beisbol"
-      @update:modelValue="handleInput($event, 'sport')" />
-    <CrushTextField 
-      v-model:value="bet.league"
-      label="League"
-      placeholder="MLB, MLS, NFL"
-      @update:modelValue="handleInput($event, 'league')" />
+      :value="bet.sport"
+      :options="sportOptions"
+      @update:value="handleInput($event, 'sport')" />
+    <SelectInput
+      label="Ligas"
+      :value="bet.league"
+      :options="leagueOptions!"
+      @update:value="handleInput($event, 'league')" />
     <CrushTextField 
       v-model:value="bet.teamA"
       label="Equipo 1"
@@ -143,10 +152,11 @@ onMounted(() => {
       v-model:value="bet.profit"
       label="Cuota"
       placeholder="1.5"
-      @update:modelValue="handleInput($event, 'profit')" />
+      @update:modelValue="formattedPrice($event)" />
     <CrushTextField 
       v-model:value="bet.percentage"
       label="Porcentaje"
+      prependContent="%"
       placeholder="10%"
       @update:modelValue="handleInput($event, 'percentage')" />
     <CrushTextField 
@@ -176,6 +186,9 @@ onMounted(() => {
   margin: 24px auto;
   width: 100%;
   max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   &-actions {
     width: 100%;
     display: flex;

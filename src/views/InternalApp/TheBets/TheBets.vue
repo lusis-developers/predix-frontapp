@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import useBetStore from '@/stores/BetStore';
+import useSportStore from '@/stores/SportStore';
 import BetCard from './components/BetCard.vue';
 import CreateOrEditBet from './components/CreateOrEditBet.vue';
 
-
+const sportStore = useSportStore();
 const betStore = useBetStore();
 
 const showForm = ref(false);
 const isBetSelected = ref(false);
+const cardsAreVisible = computed(() => betStore.bets?.length && !showForm.value);
 
 function toggleForm (): void {
   showForm.value = !showForm.value
@@ -29,7 +31,12 @@ function selectBet(event: string) {
 }
 
 onMounted(async () => {
-  await betStore.getBets();
+  if (!betStore.bets) {
+    await betStore.getBets();
+  }
+  if (!sportStore.sports) {
+    await sportStore.getSports();
+  }
 });
 </script>
 
@@ -54,7 +61,7 @@ onMounted(async () => {
       <p class="indication">Una vez hayas creado tus apuestas, los encontrarás aquí</p>
     </div>
     <div
-      v-else
+      v-if="cardsAreVisible"
       class="create-container-bets">
       <BetCard
         v-for="(bet, index) in betStore.bets"
