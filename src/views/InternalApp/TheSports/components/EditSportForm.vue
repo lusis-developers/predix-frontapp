@@ -75,7 +75,7 @@ onMounted(() => {
       v-model:value="name"
       label="Nombre del deporte"
       placeholder="Money Week"
-      @input="nameInput" />
+      @update:modelValue="nameInput" />
     <div class="actions-container">
       <CrushButton 
         variant="secondary"

@@ -42,7 +42,11 @@ export const useLeagueStore = defineStore('LeagueStore', {
       this.isLoading = true;
       try {
         await leagueService.createLeagues(league);
-        // this.getSports();
+        const response = await sportStore.getSport(sportStore.selectedSport?._id!);
+        if (response) {
+          sportStore.selectedSport = response;
+        }
+        sportStore.getSports();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
@@ -54,7 +58,11 @@ export const useLeagueStore = defineStore('LeagueStore', {
       this.isLoading = true;
       try {
         await leagueService.updateLeague(id, league);
-        // this.getSports();
+        const response = await sportStore.getSport(sportStore.selectedSport?._id!);
+        if (response) {
+          sportStore.selectedSport = response;
+        }
+        sportStore.getSports();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
@@ -67,7 +75,7 @@ export const useLeagueStore = defineStore('LeagueStore', {
       try {
         await leagueService.deleteLeague(id);
         if (sportStore.selectedSport) {
-          sportStore.selectedSport.leaguesDetails = sportStore.selectedSport?.leaguesDetails
+          sportStore.selectedSport.leaguesDetails = sportStore.selectedSport?.leaguesDetails!
             .filter(league => league._id === id)
         }
       } catch (error: any) {

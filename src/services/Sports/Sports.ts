@@ -31,6 +31,10 @@ class APISports extends APIBase {
   async deleteSport(id: string): Promise<ResponseMessageType> {
     return this.delete<ResponseMessageType>(`sports/${id}`)
   }
+
+  async getSport(id: string): Promise<Sport[]> {
+    return this.get<Sport[]>(`sports/${id}`);
+  } 
 }
 
 

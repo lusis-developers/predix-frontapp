@@ -47,7 +47,7 @@ onMounted(() => {
         @click="closeEdit" />
     </div>
     <SportDetailCard
-      v-if="!isEditing"
+      v-if="!isEditing && sportStore.selectedSport"
       :id="sportStore.selectedSport?._id!"
       :image="fileURL"
       :name="name"

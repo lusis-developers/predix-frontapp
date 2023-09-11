@@ -34,6 +34,18 @@ export const useSportStore = defineStore('SportStore', {
       }
     },
 
+    async getSport(id: string): Promise<Sport | void> {
+      this.isLoading = true;
+      try {
+        const sport = await sportService.getSport(id);
+        return sport[0];
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
     async uploadSportImage(file: File): Promise<ImageFile | void> {
       this.isLoading = true;
       try {

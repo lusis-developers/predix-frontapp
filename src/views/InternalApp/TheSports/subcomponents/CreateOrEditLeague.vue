@@ -48,13 +48,14 @@ async function submitImage(): Promise<string> {
 async function prepareData(): Promise<League> {
   const imageResponse = await submitImage();
   const url = !imageResponse.length ? imageUrl.value : imageResponse;
+  console.log(url)
   let league: League; // Inicializa como undefined
   let sport: string;
 
   if (isCreating.value) {
     sport = sportStore.selectedSport?._id!;
   } else {
-    league = sportStore.selectedSport?.leaguesDetails.find(league => league._id === props.leagueId)!;
+    league = sportStore.selectedSport?.leaguesDetails?.find(league => league._id === props.leagueId)!;
     sport = league?.sport!;
   }
 
@@ -71,17 +72,15 @@ async function prepareData(): Promise<League> {
 async function submitLeague(): Promise<void> {
   const data = await prepareData();
   if (isCreating.value) {
-    console.log(data)
-    // leagueStore.createLeague(data);
+    leagueStore.createLeague(data);
   } else {
-    console.log(data)
-    // leagueStore.updateLeague(props.leagueId, data)
+    leagueStore.updateLeague(props.leagueId, data)
   }
   closeEdit();
 }
 
 function setData(): void {
-  const league = sportStore.selectedSport?.leaguesDetails.find(league => league._id === props.leagueId);
+  const league = sportStore.selectedSport?.leaguesDetails?.find(league => league._id === props.leagueId);
   name.value = league?.name!;
   imageUrl.value = league?.image!;
 }
@@ -117,9 +116,9 @@ onMounted(() => {
     </div>
     <CrushTextField 
       v-model:value="name"
-      label="Nombre del deporte"
-      placeholder="Money Week"
-      @input="nameInput" />
+      label="Nombre de la liga"
+      placeholder="MLB, MLS, NFL"
+      @update:modelValue="nameInput" />
     <div class="actions-container">
       <CrushButton 
         variant="secondary"
