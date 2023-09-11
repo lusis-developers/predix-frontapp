@@ -45,10 +45,16 @@ async function sendEmail() {
       mail,
       import.meta.env.VITE_PUBLIC_KEY,
     );
-    alert ('Correo enviado')
+    alert ('Correo enviado');
+    resetForm();
   } catch (e) {
     console.log('CANNOT_SEND_EMAIL:', e)
   }
+}
+
+function resetForm() {
+  form.name ='';
+  form.email='';
 }
 </script>
 
