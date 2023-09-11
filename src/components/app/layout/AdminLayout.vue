@@ -44,6 +44,9 @@ import AdminHeader from '@/components/app/layout/AdminHeader.vue';
         overflow-y: auto;
         width: 100%;
         padding: 24px;
+        @media (max-width: $tablet-lower-breakpoint) {
+          padding: 12px 0;
+        }
         border-top: 1px solid $grey;
       }
     }

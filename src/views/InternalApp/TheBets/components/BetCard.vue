@@ -173,14 +173,14 @@ function toggleBet(): void {
 <style lang="scss" scoped>
 .bet-card {
   width: 100%;
-  max-width: 520px;
+  max-width: 620px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
   border: 1px solid $white;
   border-radius: 8px;
   padding: 12px;
-  @media (max-width: 620px) {
+  @media (max-width: $tablet-lower-breakpoint) {
     max-width: 300px;
   }
   button {
