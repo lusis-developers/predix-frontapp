@@ -3,6 +3,7 @@ import { ref } from "vue";
 import WebHeader from "@/components/web/layout/WebHeader.vue";
 import WebFooter from "./WebFooter.vue";
 import WebMenu from "./WebMenu.vue";
+import YeyoTrademark from "./YeyoTrademark.vue";
 
 const showWebMenu = ref(false);
 
@@ -18,6 +19,7 @@ const toggleShowMenu = () => {
 			<RouterView />
 		</div>
 		<WebFooter />
+    <YeyoTrademark/>
 	</div>
 	<WebMenu 
     :isVisible="showWebMenu" 
