@@ -22,7 +22,7 @@ const icons = [
 const links = [
   {
     link: 'questions',
-    name: 'Pregunta frecuentes'
+    name: 'Preguntas frecuentes'
   },
   {
     link: 'historial',
