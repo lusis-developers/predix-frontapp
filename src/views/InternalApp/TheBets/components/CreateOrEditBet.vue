@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive } from 'vue';
 
+import type { Bet } from '@/typings/BetTypes';
 import useBetStore from '@/stores/BetStore';
+import { BetEnum } from '@/enum/BetEnum';
+import ToggleInput from '@/components/ToggleInput.vue';
 
 const betStore = useBetStore();
 
@@ -15,9 +18,11 @@ const bet = reactive({
   date: '',
   profit: '',
   percentage: '',
-  description: ''
+  description: '',
+  isFree: false
 });
 const buttonType = computed(() => betStore.selectedBet ? 'Actualizar' : 'Guardar');
+const isEditing = computed(() => betStore.selectedBet);
 
 function handleInput(event: string, type: string): void {
   if (type === 'sport') {
@@ -46,6 +51,11 @@ function handleInput(event: string, type: string): void {
   }
 }
 
+function isFreeInput(event: boolean): void {
+  bet.isFree = event;
+  console.log(event)
+}
+
 function setData() {
   const data = betStore.selectedBet; 
   bet.sport = data?.sport!;
@@ -56,6 +66,7 @@ function setData() {
   bet.profit = data?.profit?.toString()!;
   bet.teamA = data?.teamA!;
   bet.teamB = data?.teamB!;
+  bet.isFree = data?.isFree!;
 }
 
 function resetValues() {
@@ -67,6 +78,7 @@ function resetValues() {
   bet.profit = '';
   bet.teamA = '';
   bet.teamB = '';
+  bet.isFree = false;
 }
 
 function closeForm(): void {
@@ -75,11 +87,26 @@ function closeForm(): void {
 }
 
 function submitBet(): void {
-  console.log('guardando datos')
+  if (!isEditing.value) {
+    betStore.createBet({
+      ...bet,
+      percentage: Number(bet.percentage),
+      profit: Number(bet.profit),
+      status: BetEnum.PENDING
+    });
+  } else {
+    betStore.updateBet({
+      ...bet,
+      percentage: Number(bet.percentage),
+      profit: Number(bet.profit),
+      status: BetEnum.PENDING
+    });
+  }
+  closeForm();
 }
 
 onMounted(() => {
-  if (betStore.selectedBet) {
+  if (isEditing.value) {
     setData();
   }
 })
@@ -127,6 +154,9 @@ onMounted(() => {
       label="Apuesta"
       placeholder="El equipo 1 gana al 2"
       @update:modelValue="handleInput($event, 'description')" />
+    <ToggleInput
+      v-model:value="bet.isFree"
+      @update:modelValue="isFreeInput" />
     <div class="create-edit-container-actions">
       <CrushButton 
         variant="secondary"
