@@ -57,10 +57,10 @@ export const useBetStore = defineStore('LeagueStore', {
       }
     },
 
-    async deleteBet(): Promise<void> {
+    async deleteBet(id: string): Promise<void> {
       this.isLoading = true;
       try {
-        await betService.deleteBet(this.selectedBet?._id!);
+        await betService.deleteBet(id);
         this.getBets();
       } catch (error: any) {
         this.errorMessage = error.message;

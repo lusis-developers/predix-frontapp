@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { BetEnum } from '@/enum/BetEnum';
 import { computed, ref } from 'vue';
+
+import { BetEnum } from '@/enum/BetEnum';
+import useBetStore from '@/stores/BetStore';
+
+const betStore = useBetStore();
+
+const emit = defineEmits(['select-bet']);
 
 const props = defineProps({
   id: {
@@ -52,9 +58,18 @@ const props = defineProps({
 const isCardOpen = ref(false);
 
 const arrowPosition = computed(() => isCardOpen.value ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up')
+const betIsFree = computed(() => props.isFree ? 'Gratuito' : 'Premium')
 
 function toggleBet(): void {
   isCardOpen.value = !isCardOpen.value;
+}
+
+function editBet(): void {
+  emit('select-bet', props.id)
+}
+
+function deleteBet(): void {
+  betStore.deleteBet(props.id);
 }
 </script>
 
@@ -73,7 +88,7 @@ function toggleBet(): void {
         <p 
           class="detail-description"
           :class="{'text-description': !isCardOpen}">
-          slkfjadskfjn lkdsajflkads jfljdaksdfnsadkj fhsadjf klsdajflkajsdlfkjdsalkfjalksd  alksdjflkasjd flkajsdlfjasdlfjlkasdjflkjadslfjalksdjflasd
+          {{ description }}
         </p>
       </div>
       <template v-if="isCardOpen">
@@ -108,15 +123,7 @@ function toggleBet(): void {
           <p class="detail-description">
             {{ sport }}
           </p>
-        </div>
-        <div class="bet-card-content-detail">
-          <p class="title">
-            Liga
-          </p>
-          <p class="detail-description">
-            {{ league }}
-          </p>
-        </div>
+        </div> 
         <div class="bet-card-content-detail">
           <p class="title">
             Liga
@@ -154,16 +161,23 @@ function toggleBet(): void {
             Es gratis
           </p>
           <p class="detail-description">
-            {{ isFree }}
+            {{ betIsFree }}
           </p>
         </div>
         <div class="bet-card-content-detail">
           <p class="title">
             Actions
           </p>
-          <p class="detail-description">
-            botones
-          </p>
+          <div class="bet-actions">
+            <button
+              @click="editBet">
+              <i class="fa-solid fa-pen icon" />
+            </button>
+            <button
+              @click="deleteBet">
+              <i class="fa-solid fa-trash icon erase" />
+            </button>
+          </div>
         </div>
       </template>
     </div>
@@ -212,6 +226,23 @@ function toggleBet(): void {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+      .bet-actions {
+        display: flex;
+        width: 60%;
+        gap: 16px;
+        button {
+          background-color: transparent;
+          outline: none;
+          border: none;
+          .icon {
+            color: $green;
+            font-size: 20px;
+          }
+          .erase {
+            color: $white;
+          }
+        }
       }
     }
   }

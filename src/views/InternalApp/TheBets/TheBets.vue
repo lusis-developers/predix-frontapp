@@ -2,12 +2,11 @@
 import { onMounted, ref } from 'vue';
 
 import useBetStore from '@/stores/BetStore';
-import useSportStore from '@/stores/SportStore';
 import BetCard from './components/BetCard.vue';
+import CreateOrEditBet from './components/CreateOrEditBet.vue';
 
 
 const betStore = useBetStore();
-const sportStore = useSportStore();
 
 const showForm = ref(false);
 const isBetSelected = ref(false);
@@ -16,27 +15,26 @@ function toggleForm (): void {
   showForm.value = !showForm.value
 }
 
-onMounted(async () => {
-  await betStore.getBets();
-});
-
 function toggleEdit() {
   isBetSelected.value = !isBetSelected.value;
   if (!isBetSelected.value) {
     betStore.selectedBet = null;
   }
+  toggleForm();
 }
 
 function selectBet(event: string) {
   toggleEdit();
   betStore.selectedBet = betStore.bets?.find((bet) => bet._id === event)!;
 }
+
+onMounted(async () => {
+  await betStore.getBets();
+});
 </script>
 
 <template>
-  <div
-    v-if="!isBetSelected"
-    class="create-container">
+  <div class="create-container">
     <CrushButton
       class="container-button"
       variant="primary"
@@ -46,7 +44,7 @@ function selectBet(event: string) {
       <div
         v-if="showForm"
         class="create-container-form"> 
-        Create BET
+        <CreateOrEditBet />
       </div>
     </transition>
     <div
@@ -71,7 +69,8 @@ function selectBet(event: string) {
         :profit="bet.profit"
         :status="bet.status"
         :teamA="bet.teamA"
-        :teamB="bet.teamB" />
+        :teamB="bet.teamB"
+        @selectBet="selectBet" />
     </div>
   </div>
 </template>
