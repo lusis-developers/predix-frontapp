@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 
 import useBetStore from '@/stores/BetStore';
 
 const betStore = useBetStore();
+
+const emit = defineEmits(['close-form']);
 
 const bet = reactive({
   sport: '',
@@ -14,7 +16,8 @@ const bet = reactive({
   profit: '',
   percentage: '',
   description: ''
-})
+});
+const buttonType = computed(() => betStore.selectedBet ? 'Actualizar' : 'Guardar');
 
 function handleInput(event: string, type: string): void {
   if (type === 'sport') {
@@ -66,6 +69,15 @@ function resetValues() {
   bet.teamB = '';
 }
 
+function closeForm(): void {
+  resetValues();
+  emit('close-form');
+}
+
+function submitBet(): void {
+  console.log('guardando datos')
+}
+
 onMounted(() => {
   if (betStore.selectedBet) {
     setData();
@@ -115,6 +127,17 @@ onMounted(() => {
       label="Apuesta"
       placeholder="El equipo 1 gana al 2"
       @update:modelValue="handleInput($event, 'description')" />
+    <div class="create-edit-container-actions">
+      <CrushButton 
+        variant="secondary"
+        text="Cancelar"
+        @click="closeForm"/>
+      <CrushButton
+        class="container-button-second"
+        variant="primary"
+        :text="buttonType"
+        @click="submitBet" />
+    </div>
   </div>
 </template>
 
@@ -123,5 +146,11 @@ onMounted(() => {
   margin: 24px auto;
   width: 100%;
   max-width: 520px;
+  &-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
 }
 </style>

@@ -13,6 +13,9 @@ const isBetSelected = ref(false);
 
 function toggleForm (): void {
   showForm.value = !showForm.value
+  if (betStore.selectedBet) {
+    betStore.selectedBet = null;
+  }
 }
 
 function toggleEdit() {
@@ -41,7 +44,7 @@ onMounted(async () => {
       <div
         v-if="showForm"
         class="create-container-form"> 
-        <CreateOrEditBet />
+        <CreateOrEditBet @close-form="toggleForm" />
       </div>
     </transition>
     <div
