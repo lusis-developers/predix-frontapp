@@ -7,6 +7,7 @@ import useBetStore from '@/stores/BetStore';
 import useSportStore from '@/stores/SportStore';
 import ToggleInput from '@/components/ToggleInput.vue';
 import SelectInput from '@/components/SelectInput.vue';
+import CalendarInput from '@/components/CalendarInput.vue';
 
 const sportStore = useSportStore();
 const betStore = useBetStore();
@@ -51,6 +52,7 @@ function handleInput(event: string, type: string): void {
     bet.teamB = event;
   }
   if (type === 'date') {
+    console.log(event)
     bet.date = event;
   }
   if (type === 'percentage') {
@@ -143,11 +145,10 @@ onMounted(() => {
       label="Equipo 2"
       placeholder="Red sox"
       @update:modelValue="handleInput($event, 'teamB')" />
-    <CrushTextField 
-      v-model:value="bet.date"
+    <CalendarInput
       label="Fecha"
-      placeholder="12 de enero 1995"
-      @update:modelValue="handleInput($event, 'date')" />
+      :value="bet.date"
+      @input="handleInput($event, 'date')" />
     <CrushTextField 
       v-model:value="bet.profit"
       label="Cuota"
