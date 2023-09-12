@@ -13,7 +13,7 @@ export function formatPriceToDisplay(price: string): string {
   return numericValue.toFixed(2);
 }
 
-export function formatPriceToSave(price: string): number {
+export function formatNumberToSave(price: string): number {
   const formattedPrice = price.replace('.', '').replace(/^0+/, '');
   
   return parseInt(formattedPrice, 10);
@@ -29,4 +29,21 @@ export function formatToCurrency(number: number): string {
   });
 
   return formattedNumber
+}
+
+export function formatNumberToProfit(number: number): string {
+  const numberWithDecimals = number / 100;
+
+  return numberWithDecimals.toString();
+}
+
+export function formatDateToCustom(input: string): string {
+  const date = new Date(input);
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  } as Intl.DateTimeFormatOptions;
+
+  return date.toLocaleDateString('es', options)
 }

@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { BetEnum } from '@/enum/BetEnum';
+import { formatDateToCustom, formatNumberToProfit } from '@/utils/InputFormats';
 import useBetStore from '@/stores/BetStore';
 
 const betStore = useBetStore();
@@ -97,7 +98,7 @@ function deleteBet(): void {
             Fecha
           </p>
           <p class="detail-description">
-            {{ date }}
+            {{ formatDateToCustom(date) }}
           </p>
         </div>
         <div class="bet-card-content-detail">
@@ -137,7 +138,7 @@ function deleteBet(): void {
             Ganancia
           </p>
           <p class="detail-description">
-            {{ profit }}
+            {{ formatNumberToProfit(profit) }}
           </p>
         </div>
         <div class="bet-card-content-detail">
@@ -170,10 +171,12 @@ function deleteBet(): void {
           </p>
           <div class="bet-actions">
             <button
+              class="action"
               @click="editBet">
               <i class="fa-solid fa-pen icon" />
             </button>
             <button
+              class="action"
               @click="deleteBet">
               <i class="fa-solid fa-trash icon erase" />
             </button>
@@ -235,6 +238,9 @@ function deleteBet(): void {
           background-color: transparent;
           outline: none;
           border: none;
+          .action {
+            cursor: pointer;
+          }
           .icon {
             color: $green;
             font-size: 20px;
