@@ -171,10 +171,12 @@ function deleteBet(): void {
           </p>
           <div class="bet-actions">
             <button
+              class="action"
               @click="editBet">
               <i class="fa-solid fa-pen icon" />
             </button>
             <button
+              class="action"
               @click="deleteBet">
               <i class="fa-solid fa-trash icon erase" />
             </button>
@@ -236,6 +238,9 @@ function deleteBet(): void {
           background-color: transparent;
           outline: none;
           border: none;
+          .action {
+            cursor: pointer;
+          }
           .icon {
             color: $green;
             font-size: 20px;
