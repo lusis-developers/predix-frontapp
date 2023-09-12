@@ -14,6 +14,7 @@ const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 import WebIndex from '@/views/WebIndex.vue';
 import WebView from '@/views/Web/index.vue';
 import WebContact from '@/views/Web/TheContact.vue';
+import WebSubscriptions from '@/views/Web/subscription/TheSubscriptions.vue';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -116,7 +117,12 @@ const routes: Array<RouteRecordRaw> = [
         path: 'contact',
         name: 'contact',
         component: WebContact
-      }
+      },
+      {
+        path: 'subscriptions',
+        name: 'subscriptions',
+        component: WebSubscriptions,
+      },
     ]
   }
 ]
