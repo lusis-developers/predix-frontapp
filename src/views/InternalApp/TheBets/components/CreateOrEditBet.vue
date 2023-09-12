@@ -52,7 +52,6 @@ function handleInput(event: string, type: string): void {
     bet.teamB = event;
   }
   if (type === 'date') {
-    console.log(event)
     bet.date = event;
   }
   if (type === 'percentage') {

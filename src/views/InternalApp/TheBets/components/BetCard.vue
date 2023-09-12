@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { BetEnum } from '@/enum/BetEnum';
-import { formatNumberToProfit } from '@/utils/InputFormats';
+import { formatDateToCustom, formatNumberToProfit } from '@/utils/InputFormats';
 import useBetStore from '@/stores/BetStore';
 
 const betStore = useBetStore();
@@ -98,7 +98,7 @@ function deleteBet(): void {
             Fecha
           </p>
           <p class="detail-description">
-            {{ date }}
+            {{ formatDateToCustom(date) }}
           </p>
         </div>
         <div class="bet-card-content-detail">

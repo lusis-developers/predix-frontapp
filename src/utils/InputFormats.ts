@@ -36,3 +36,14 @@ export function formatNumberToProfit(number: number): string {
 
   return numberWithDecimals.toString();
 }
+
+export function formatDateToCustom(input: string): string {
+  const date = new Date(input);
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  } as Intl.DateTimeFormatOptions;
+
+  return date.toLocaleDateString('es', options)
+}
