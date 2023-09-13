@@ -1,6 +1,7 @@
 import APIBase from '../Base';
 import type { ResponseMessageType } from '@/typings/ResponseMessagesTypes';
 import type { Bet } from '@/typings/BetTypes';
+import { BetStatusEnum } from '@/enum/BetEnum';
 
 class APIBets extends APIBase {
   async getBets(): Promise<Bet[]> {
@@ -17,6 +18,14 @@ class APIBets extends APIBase {
 
   async deleteBet(id: string): Promise<ResponseMessageType> {
     return this.delete<ResponseMessageType>(`bets/${id}`)
+  }
+
+  async getPendingBets(): Promise<Bet[]> {
+    return this.get<Bet[]>(`bets/pendings`);
+  }
+
+  async patchUpdateBetStatus(id : string, status: BetStatusEnum): Promise<ResponseMessageType> {
+    return this.patch<ResponseMessageType>(`bets/${id}`, { status: status })
   }
 }
 
