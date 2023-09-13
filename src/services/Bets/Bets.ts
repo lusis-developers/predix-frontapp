@@ -27,6 +27,14 @@ class APIBets extends APIBase {
   async patchUpdateBetStatus(id : string, status: BetStatusEnum): Promise<ResponseMessageType> {
     return this.patch<ResponseMessageType>(`bets/${id}`, { status: status })
   }
+
+  async getFreeBets(): Promise<Bet[]> {
+    return this.get<Bet[]>('bets/is-free');
+  }
+
+  async getFreePendingBets(): Promise<Bet[]> {
+    return this.get<Bet[]>('bets/is-free/pendings');
+  }
 }
 
 

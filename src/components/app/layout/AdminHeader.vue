@@ -9,7 +9,7 @@ const routeTitle = computed(() => route.meta.title);
 <template>
   <header class="header">
     <div class="header-logo">
-      <p>{{ routeTitle }}</p>
+      <p class="header-logo-title">{{ routeTitle }}</p>
     </div>
     <div class="header-name">
       <img src="https://i.pinimg.com/564x/37/8a/27/378a270e775265622393da8c0527417e.jpg" alt="">
@@ -33,7 +33,7 @@ const routeTitle = computed(() => route.meta.title);
     display: flex;
     align-items: center;
     gap: 24px; 
-    p {
+    &-title {
       font-family: $font-secondary;
       font-size: $body-font-size;
       font-weight: 700;

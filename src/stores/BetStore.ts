@@ -9,6 +9,8 @@ const betService = new APIBets();
 interface Roostate {
   bets: Bet[] | null,
   pendingBets: Bet[] | null,
+  freeBets: Bet[] | null,
+  freePendingBets: Bet[] | null,
   selectedBet: Bet | null,
   errorMessage: string | null,
   isLoading: boolean
@@ -18,6 +20,8 @@ export const useBetStore = defineStore('BetStore', {
   state: (): Roostate => ({
     bets: null,
     pendingBets: null,
+    freeBets: null,
+    freePendingBets: null,
     selectedBet: null,
     errorMessage: null,
     isLoading: false
@@ -89,6 +93,30 @@ export const useBetStore = defineStore('BetStore', {
       try {
         await betService.patchUpdateBetStatus(id, status);
         this.getPendingBets();
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async getFreeBets(): Promise<void> {
+      this.isLoading = true;
+      try {
+        const response = await betService.getFreeBets();
+        this.freeBets = response;
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async getFreePendingBets(): Promise<void> {
+      this.isLoading = true;
+      try {
+        const response = await betService.getFreePendingBets();
+        this.freePendingBets = response;
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

@@ -32,16 +32,16 @@ export const userMenuItems: Navigation[] = [
   {
     name: 'Picks',
     link: 'picks',
-    icon: 'fa-solid fa-chart-mixed-up-circle-currency',
-  },
-  {
-    name: 'Perfil',
-    link: 'profile',
-    icon: 'fa-solid fa-chart-mixed-up-circle-currency',
+    icon: 'fa-solid fa-receipt',
   },
   {
     name: 'Estadística',
     link: 'statistics',
-    icon: 'fa-solid fa-user-vneck',
+    icon: 'fa-solid fa-chart-simple',
+  },
+  {
+    name: 'Perfil',
+    link: 'profile',
+    icon: 'fa-solid fa-user',
   },
 ];
