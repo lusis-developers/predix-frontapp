@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 import NavbarLogo from './NavbarLogo.vue';
 import NavbarItem from './NavbarItem.vue';
-import { menutItems } from '@/utils/MenuItems';
+import { menuItems, userMenuItems } from '@/utils/MenuItems';
 
+const route = useRoute();
 const isMenuOpen = ref(false);
+const isAdmin = computed(() => route.path.includes('internal-app'));
+const menu = computed(() => isAdmin.value ? menuItems : userMenuItems)
 
 onMounted(() => {
+  console.log(route.path)
   window.addEventListener('resize', handleResize)
 });
 
@@ -51,7 +56,7 @@ const iconButton =
       <div class="navbar-content">
         <ul class="navbar-content-list">
           <NavbarItem
-            v-for="(item, index) in menutItems"
+            v-for="(item, index) in menu"
             :key="index"
             :link="item.link"
             :icon="item.icon"

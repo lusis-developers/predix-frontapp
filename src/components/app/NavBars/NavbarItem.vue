@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const url = computed(() =>
+  route.path.includes('internal-app')
+    ? `/internal-app/dashboard/${props.link}`
+    : `/dashboard/${props.link}`
+);
+
 const props = defineProps({
   link: {
     type: String,
@@ -17,12 +28,12 @@ const props = defineProps({
     type: Boolean,
     required: true
   }
-})
+});
 </script>
 
 <template>
   <router-link
-    :to="`/internal-app/dashboard/${link}`"
+    :to="url"
     class="navbar-item">
     <i
       class="navbar-item-icon"

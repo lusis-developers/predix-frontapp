@@ -2,5 +2,13 @@
 </script>
 
 <template>
-  Estos son las apuestas de los usuarios
+  <div class="bets">
+    Esta son las apuestas
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.bet {
+  width: 100%;
+}
+</style>
