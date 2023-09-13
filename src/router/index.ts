@@ -20,6 +20,11 @@ const TheBets = () => import('@/views/InternalApp/TheBets/TheBets.vue');
 const ThePlans = () => import('@/views/InternalApp/ThePlans/ThePlans.vue');
 const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 
+// user app views
+const UserDashboard = () => import('@/views/user/DashboardContainer.vue');
+const UserBets = () => import('@/views/user/Bets/TheBets.vue');
+
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -95,6 +100,34 @@ const routes: Array<RouteRecordRaw> = [
         ],
       },   
     ],
+  },
+  {
+    path: '/dashboard',
+    name: 'User Dashboard',
+    component: InternalContainer,
+    meta: {
+      title: 'Dashboard'
+    },
+    children: [
+      {
+        path: '',
+        name: 'user-dashboard',
+        component: UserDashboard,
+        meta: {
+          title: 'Usuario' 
+        },
+        children: [
+          {
+            path: 'picks',
+            name: 'picks',
+            component: UserBets,
+            meta: {
+              title: 'Apuesta y gana 😎'
+            }
+          },
+        ]
+      }
+    ]
   }
 ]
 
