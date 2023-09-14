@@ -7,6 +7,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  link: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
     required: true
@@ -24,7 +28,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="card">
+  <RouterLink :to="`/web/subscriptions/${link}`" class="card">
     <img
       class="card-image" 
       src="https://i.pinimg.com/236x/d2/8d/c0/d28dc0ee9fdde752a1c4a66b7fa45877.jpg" alt="title">
@@ -38,7 +42,7 @@ const props = defineProps({
       class="card-button"
       text="Ver plan"
       primary="primary" />
-  </div>
+  </RouterLink>
 </template>
 
 <style lang="scss" scoped>
@@ -54,6 +58,7 @@ $gap-padding-space: 12px;
   padding-bottom: $gap-padding-space * 2;
   border: 1px solid $white;
   border-radius: 8px;
+  text-decoration: none;
   @media (min-width: $tablet-lower-breakpoint) {
     width: 40%;
   }

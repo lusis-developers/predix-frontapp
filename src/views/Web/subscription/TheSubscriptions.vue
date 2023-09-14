@@ -20,6 +20,7 @@ onMounted(async () => {
       v-if="planStore.plans?.length"
       v-for="(plan, index) in planStore.plans"
       :key="index"
+      :link="plan._id!"
       :image="plan.image"
       :title="plan.name"
       :price="plan.price"
@@ -57,4 +58,4 @@ onMounted(async () => {
     }
   }
 }
-</style>
+</style>@/styles/stores/PlansStore
