@@ -39,7 +39,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.bet {
+.bets {
   width: 100%;
   &-text {
     display: flex;
@@ -59,8 +59,8 @@ onMounted(() => {
   }
   &-container {
     display: grid;
-    place-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    place-items: self-start;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
     gap: 24px;
   }
 }

@@ -26,7 +26,6 @@ const newStatus = ref<BetStatusEnum>(props.status as BetStatusEnum);
 
 function handleStatus(event: BetStatusEnum) {
   newStatus.value = event;
-  console.log(event)
 }
 
 function saveStatus(): void {

@@ -2,6 +2,7 @@
 
 import { BetStatusEnum } from '@/enum/BetEnum';
 import { formatDateToCustom } from '@/utils/InputFormats';
+import { computed } from 'vue';
 
 const props = defineProps({
   sport: {
@@ -40,7 +41,14 @@ const props = defineProps({
     type: String as () => BetStatusEnum,
     required: true
   }
-})
+});
+
+const matchStatus = computed(() => {
+  if (props.status === BetStatusEnum.PENDING) {
+    return 'Por jugarse'
+  }
+  return '';
+});
 </script>
 
 <template>
@@ -95,7 +103,7 @@ const props = defineProps({
         Estado
       </span>
       <span class="user-bet-card-status-value">
-        {{ status }}
+        {{ matchStatus }}
       </span>
     </div>
   </div>
@@ -104,7 +112,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .user-bet-card {
   width: 100%;
-  max-width: 540px;
+  max-width: 640px;
   border: 1px solid $yellow;
   border-radius: 8px;
   padding: 16px;

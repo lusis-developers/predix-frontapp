@@ -45,6 +45,7 @@ export const useBetStore = defineStore('BetStore', {
       try {
         await betService.createBet(bet);
         this.getBets();
+        this.getPendingBets();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
@@ -57,6 +58,7 @@ export const useBetStore = defineStore('BetStore', {
       try {
         await betService.updateBet(this.selectedBet?._id!, bet);
         this.getBets();
+        this.getPendingBets();
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

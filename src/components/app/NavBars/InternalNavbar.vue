@@ -12,7 +12,6 @@ const isAdmin = computed(() => route.path.includes('internal-app'));
 const menu = computed(() => isAdmin.value ? menuItems : userMenuItems)
 
 onMounted(() => {
-  console.log(route.path)
   window.addEventListener('resize', handleResize)
 });
 
