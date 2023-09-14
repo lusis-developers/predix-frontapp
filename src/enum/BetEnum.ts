@@ -6,5 +6,5 @@ export enum BetStatusEnum {
 
 export enum SuscriptionTypeEnum {
   ISFREE = 'isFree',
-  PREMIUM = 'PREMIUM'
+  PREMIUM = 'premium'
 } 

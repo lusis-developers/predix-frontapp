@@ -14,6 +14,7 @@ const props = defineProps({
 
 const suscriptionType = ref(props.value);
 const isFreeClass = computed(() => suscriptionType.value === SuscriptionTypeEnum.ISFREE);
+const toggleText = computed(() => isFreeClass.value ? 'Gratuitos' : 'Suscritos');
 
 function toggle(): void {
   if (suscriptionType.value === SuscriptionTypeEnum.ISFREE) {
@@ -28,17 +29,22 @@ function toggle(): void {
 <template>
   <div class="input-toggle">
       <label>
-        <span>
-          Es gratis
-        </span>
         <div class="input-container">
           <div
             class="toggle-switch"
             @click="toggle">
+            <div class="toggle-switch-back">
+              <span>
+                Gratuitos
+              </span>
+              <span>
+                Suscritos
+              </span>
+            </div>
             <div
               class="slider"
-              :class="{ 'active': isFreeClass }">
-              {{ suscriptionType }}
+              :class="{ 'active': !isFreeClass }">
+              {{ toggleText }}
             </div>
           </div>
         </div>
@@ -68,21 +74,46 @@ function toggle(): void {
   width: 100%;
   height: 30px;
   margin-top: 12px;
-  background-color: #ccc;
-  border-radius: 15px;
+  background-color: transparent;
+  border-bottom: 1px solid $grey;
   cursor: pointer;
+  &-back {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      font-family: $font;
+    }
+  }
 }
 
 .slider {
   position: absolute;
-  width: 100%;
+  z-index: 10;
+  width: 50%;
   height: 30px;
-  border-radius: 50%;
-  background-color: $white;
+  background-color: $dark-blue;
+  border-bottom: 1px solid $green;
   transition: 0.4s;
+  color: $green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $font;
+  font-weight: bold;
 }
 
 .slider.active {
-  transform: translateX(30px);
+  transform: translateX(100%);
 }
 </style>

@@ -1,25 +1,31 @@
 <script setup lang="ts">
 import useBetStore from '@/stores/BetStore';
 
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import UserBetCard from './components/UserBetCard.vue';
 import BetSuscriptionToggle from './components/BetSuscriptionToggle.vue';
 import { SuscriptionTypeEnum } from '@/enum/BetEnum';
 
 const betStore = useBetStore();
 
-const suscriptionType = ref(SuscriptionTypeEnum.ISFREE)
+const suscriptionType = ref(SuscriptionTypeEnum.ISFREE);
+const pendingBets = computed(() => suscriptionType.value === SuscriptionTypeEnum.ISFREE
+  ? betStore.freePendingBets
+  : betStore.premiumPendingBets
+);
 
 function getBets(): void {
   if (suscriptionType.value === SuscriptionTypeEnum.ISFREE) {
     betStore.getFreePendingBets();
-  } else {
-    betStore.getPendingBets();
+  }
+  if (suscriptionType.value === SuscriptionTypeEnum.PREMIUM) {
+    betStore.getPremiumPendingBets();
   }
 }
 
 function toggleBets(event: SuscriptionTypeEnum): void {
   suscriptionType.value = event;
+  getBets();
 }
 
 onMounted(() => {
@@ -42,7 +48,7 @@ onMounted(() => {
     </div>
     <div class="bets-container">
       <UserBetCard
-        v-for="(bet, index) in betStore.freePendingBets"
+        v-for="(bet, index) in pendingBets"
         :key="index"
         :status="bet.status"
         :description="bet.description"
