@@ -35,6 +35,10 @@ class APIBets extends APIBase {
   async getFreePendingBets(): Promise<Bet[]> {
     return this.get<Bet[]>('bets/is-free/pendings');
   }
+
+  async getPremiumPendingBets(): Promise<Bet[]> {
+    return this.get<Bet[]>('bets/premium/pendings');
+  }
 }
 
 

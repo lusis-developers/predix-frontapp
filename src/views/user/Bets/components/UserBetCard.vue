@@ -87,7 +87,7 @@ const matchStatus = computed(() => {
             Porcentaje
           </span>
           <span class="container-number">
-            {{ percentage }}
+            % {{ percentage }}
           </span>
         </div>
       </div>
@@ -151,6 +151,7 @@ const matchStatus = computed(() => {
       flex-direction: column;
       .container {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         gap: 12px;
         &-title {

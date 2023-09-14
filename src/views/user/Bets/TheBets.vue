@@ -1,20 +1,39 @@
 <script setup lang="ts">
 import useBetStore from '@/stores/BetStore';
 
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import UserBetCard from './components/UserBetCard.vue';
+import BetSuscriptionToggle from './components/BetSuscriptionToggle.vue';
+import { SuscriptionTypeEnum } from '@/enum/BetEnum';
 
 const betStore = useBetStore();
 
-onMounted(() => {
-  if (!betStore.freePendingBets) {
+const suscriptionType = ref(SuscriptionTypeEnum.ISFREE)
+
+function getBets(): void {
+  if (suscriptionType.value === SuscriptionTypeEnum.ISFREE) {
     betStore.getFreePendingBets();
+  } else {
+    betStore.getPendingBets();
   }
+}
+
+function toggleBets(event: SuscriptionTypeEnum): void {
+  suscriptionType.value = event;
+}
+
+onMounted(() => {
+  getBets();
 })
 </script>
 
 <template>
   <div class="bets">
+    <div class="bets-toggle">
+      <BetSuscriptionToggle
+        :value="suscriptionType"
+        @update:modelValue="toggleBets" />
+    </div>
     <div
       v-if="!betStore.freePendingBets?.length"
       class="bet-text">
@@ -41,6 +60,9 @@ onMounted(() => {
 <style lang="scss" scoped>
 .bets {
   width: 100%;
+  &-toggle {
+    margin-bottom: 24px;
+  }
   &-text {
     display: flex;
     gap: 12px;
