@@ -50,25 +50,38 @@ const props = defineProps({
     </span>
     <div class="user-bet-card-details">
       <div class="user-bet-card-details-match">
-        <span>
+        <span class="league">
           {{ league }}
         </span>
         <div class="user-bet-card-details-match-details">
-          <span>
+          <span class="team">
             {{ teamA }}
           </span>
           <span>
+            vs
+          </span>
+          <span class="team">
             {{ teamB }}
           </span>
         </div>
       </div>
       <div class="user-bet-card-details-numbers">
-        <span>
-          {{ profit }}
-        </span>
-        <span>
-          {{ percentage }}
-        </span>
+        <div class="container">
+          <span class="container-title">
+            Ganancia
+          </span>
+          <span class="container-number">
+            {{ profit }}
+          </span>
+        </div>
+        <div class="container">
+          <span class="container-title">
+            Porcentaje
+          </span>
+          <span class="container-number">
+            {{ percentage }}
+          </span>
+        </div>
       </div>
     </div>
     <span class="user-bet-card-date">
@@ -81,7 +94,7 @@ const props = defineProps({
       <span>
         Estado
       </span>
-      <span>
+      <span class="user-bet-card-status-value">
         {{ status }}
       </span>
     </div>
@@ -91,12 +104,69 @@ const props = defineProps({
 <style lang="scss" scoped>
 .user-bet-card {
   width: 100%;
+  max-width: 540px;
   border: 1px solid $yellow;
   border-radius: 8px;
-  padding: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   &-sport {
     font-family: $font-secondary;
     font-size: $body-font-size;
+  }
+  &-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-match {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+      font-weight: lighter;
+      font-size: $body-font-size;
+      .league {
+        font-size: $h3-font-size;
+        font-family: $font-secondary;
+      }
+      &-details {
+      font-weight: 300;
+      font-size: $body-font-size;
+      margin-top: 12px;
+      .team {
+        font-weight: 700;
+      }
+    }
+    }
+    &-numbers {
+      display: flex;
+      flex-direction: column;
+      .container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        &-title {
+          font-family: $font-secondary;
+        }
+        &-number {
+          font-family: $font;
+          font-size: $h3-font-size;
+        }
+      }
+    }
+  }
+  &-status {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    font-family: $font-secondary;
+    &-value {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      font-weight: 300;
+      font-family: $font-secondary;
+    }
   }
 }
 </style>
