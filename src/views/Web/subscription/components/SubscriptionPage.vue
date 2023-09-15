@@ -36,7 +36,7 @@ const price = computed(() => {
 			<div class="container-card-price">
 				<p class="container-card-price-span">Total a pagar:</p>
 				<p class="container-card-price-item">
-					{{ formatToCurrency(planSelected?.price) }}
+					{{ formatToCurrency(price) }}
 				</p>
 			</div>
 		</div>
@@ -53,6 +53,9 @@ const price = computed(() => {
         text="Comprar plan"/>
     </div>
 	</div>
+  <figure class="figure">
+    <img src="@/assets/PayWays.png" alt="Métodos de pago">
+  </figure>
 </template>
 
 <style lang="scss" scoped>
@@ -121,6 +124,20 @@ const price = computed(() => {
       border: none;
       max-width: 50%;
     }
+  }
+}
+.figure {
+  padding: 24px;
+  width: 50%;
+  max-width: 200px;
+  margin: 0 auto;
+  @media (min-width: $tablet-lower-breakpoint) {
+    width: 25%;
+  }
+  img {
+    width: 100%;
+    object-fit: cover;
+    margin: 0 auto;
   }
 }
 </style>
