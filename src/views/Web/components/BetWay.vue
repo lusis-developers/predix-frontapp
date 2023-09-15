@@ -6,12 +6,12 @@ const items = [
     text: 'Selecciona el plan de tu preferencia'
   },
   {
-    icon: 'fa-solid fa-fingerprint',
+    icon: 'fa-solid fa-check',
     title: 'apuesta',
     text: 'Revisa tus pronósticos'
   },
   {
-    icon: 'fa-solid fa-fingerprint',
+    icon: 'fa-solid fa-hand-peace',
     title: 'gana',
     text: 'Recolecta tus ganancias'
   },
