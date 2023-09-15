@@ -47,9 +47,6 @@ export const userMenuItems: Navigation[] = [
 ];
 
 export const webMenuItems: Navigation[] = [
-  { name: "Histórico", 
-    link: "/web/historial" 
-  },
   { name: "Contacto", 
     link: "/web/contact" 
   },
