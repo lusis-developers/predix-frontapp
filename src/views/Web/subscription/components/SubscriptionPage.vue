@@ -36,7 +36,7 @@ const price = computed(() => {
 			<div class="container-card-price">
 				<p class="container-card-price-span">Total a pagar:</p>
 				<p class="container-card-price-item">
-					{{ formatToCurrency(price) }}
+					{{ price }}
 				</p>
 			</div>
 		</div>
