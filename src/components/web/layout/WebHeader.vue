@@ -1,19 +1,16 @@
 <script setup lang="ts">
-	import { RouterLink } from "vue-router";
+import { RouterLink } from "vue-router";
+import { webMenuItems } from '@/utils/MenuItems';
+import { computed } from "vue";
 
-	const buttons = [
-		{ text: "Histórico", path: "/" },
-		{ text: "Planes", path: "/" },
-		{ text: "Contacto", path: "contact" },
-		{ text: "Empezar gratis", path: "/" },
-		{ text: "Suscribirse", path: "/" },
-	];
+const emit = defineEmits();
 
-	const emit = defineEmits();
+const toggleMenu = () => {
+	emit("toggle-menu");
+};
 
-	const toggleMenu = () => {
-		emit("toggle-menu");
-	};
+const menu = computed(() => webMenuItems)
+
 </script>
 
 <template>
@@ -29,67 +26,67 @@
 		<div class="header-buttons">
 			<RouterLink
 				class="header-buttons-button"
-				v-for="(button, index) in buttons"
-				:to="button.path"
+				v-for="(button, index) in menu"
+				:to="button.link"
 				:key="index"
 			>
-				{{ button.text }}
+				{{ button.name }}
 			</RouterLink>
 		</div>
 	</header>
 </template>
 
 <style lang="scss" scoped>
-	.header {
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 16px;
+
+	&-icon {
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 12px 16px;
+		color: $white;
 
-		&-icon {
-			display: flex;
-			color: $white;
-
-			@media (min-width: $tablet-upper-breakpoint) {
-				display: none;
-			}
-		}
-
-		&-buttons {
+		@media (min-width: $tablet-upper-breakpoint) {
 			display: none;
-
-			@media (min-width: $tablet-upper-breakpoint) {
-				display: flex;
-				gap: 16px;
-				justify-content: space-around;
-				align-items: center;
-
-				& :first-child,
-				:nth-child(2) {
-					color: $green;
-				}
-
-				& :nth-child(4) {
-					border: 1px solid $green;
-				}
-
-				& :nth-child(5) {
-					background-color: $green;
-					color: $dark-blue;
-				}
-			}
-
-			&-button {
-				border-radius: 8px;
-				text-decoration: none;
-				padding: 12px 16px;
-				color: $white;
-				background: none;
-				border: none;
-				outline: none;
-				font-weight: 700;
-				font-size: $body-font-size;
-			}
 		}
 	}
+
+	&-buttons {
+		display: none;
+
+		@media (min-width: $tablet-upper-breakpoint) {
+			display: flex;
+			gap: 16px;
+			justify-content: space-around;
+			align-items: center;
+
+			& :first-child,
+			:nth-child(2) {
+				color: $green;
+			}
+
+			& :nth-child(4) {
+				border: 1px solid $green;
+			}
+
+			& :nth-child(5) {
+				background-color: $green;
+				color: $dark-blue;
+			}
+		}
+
+		&-button {
+			border-radius: 8px;
+			text-decoration: none;
+			padding: 12px 16px;
+			color: $white;
+			background: none;
+			border: none;
+			outline: none;
+			font-weight: 700;
+			font-size: $body-font-size;
+		}
+	}
+}
 </style>

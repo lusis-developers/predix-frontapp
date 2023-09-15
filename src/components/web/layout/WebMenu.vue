@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { webMenuItems } from '@/utils/MenuItems';
+import { computed } from 'vue';
 
 
 const emit = defineEmits();
@@ -11,20 +13,9 @@ const props = defineProps({
   isVisible: Boolean
 });
 
-const buttons = [
-  { text: "Perfil de estudiante", 
-    path: "/" 
-  },
-  { text: "Configuración", 
-    path: "/" 
-  },
-  { text: "Suscripción", 
-    path: "/" 
-  },
-  { text: "Contacto", 
-    path: "contact" 
-  },
-];
+
+const menu = computed(() => webMenuItems )
+
 </script>
 
 <template>
@@ -43,12 +34,12 @@ const buttons = [
       <div class="section">
         <RouterLink
           class="section-button"
-          v-for="(button, index) in buttons"
+          v-for="(button, index) in menu"
           :key="index"
-          :to="button.path"
+          :to="button.link"
           @click="closeMenu"
         >
-          {{ button.text }}
+          {{ button.name }}
         </RouterLink>
       </div>
     </div>
