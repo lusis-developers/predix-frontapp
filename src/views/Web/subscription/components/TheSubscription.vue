@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { formatToCurrency } from '@/utils/InputFormats';
+import { computed } from 'vue';
+import image from '@/assets/generic-image.jpg'
 
+const defaultImage = image;
 
 const props = defineProps({
   id: {
@@ -13,7 +16,8 @@ const props = defineProps({
   },
   image: {
     type: String,
-    required: true
+    required: true,
+    default: '@/assets/generic-image.jpg'
   },
     title: {
     type: String,
@@ -25,13 +29,15 @@ const props = defineProps({
   },
 })
 
+const displayImage = computed(() => props.image || defaultImage);
+
 </script>
 
 <template>
   <RouterLink :to="`/web/subscriptions/${link}`" class="card">
     <img
       class="card-image" 
-      src="https://i.pinimg.com/236x/d2/8d/c0/d28dc0ee9fdde752a1c4a66b7fa45877.jpg" alt="title">
+      :src="displayImage" :alt="title">
     <p class="card-title">
       {{ title }}
     </p>
