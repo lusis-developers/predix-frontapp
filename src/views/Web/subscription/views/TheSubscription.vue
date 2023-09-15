@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import usePlansStore from '@/stores/PlansStore';
 import type { Plan } from '@/typings/PlanTypes';
-import { formatToCurrency } from '@/utils/InputFormats';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
