@@ -15,7 +15,7 @@ import WebIndex from '@/views/WebIndex.vue';
 import WebView from '@/views/Web/index.vue';
 import WebContact from '@/views/Web/TheContact.vue';
 import WebSubscriptions from '@/views/Web/subscription/TheSubscriptions.vue';
-import WebSubscription from '@/views/Web/subscription/views/TheSubscription.vue';
+import WebSubscription from '@/views/Web/subscription/components/SubscriptionPage.vue';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
