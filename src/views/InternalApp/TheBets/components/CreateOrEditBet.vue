@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive } from 'vue';
 
-import { BetEnum } from '@/enum/BetEnum';
+import { BetStatusEnum } from '@/enum/BetEnum';
 import { formatPriceToDisplay, formatNumberToSave } from '@/utils/InputFormats';
 import useBetStore from '@/stores/BetStore';
 import useSportStore from '@/stores/SportStore';
@@ -105,7 +105,7 @@ function submitBet(): void {
       ...bet,
       percentage: formatNumberToSave(bet.percentage),
       profit: formatNumberToSave(bet.profit),
-      status: BetEnum.PENDING
+      status: BetStatusEnum.PENDING
     }
   if (!isEditing.value) {
     betStore.createBet(data);

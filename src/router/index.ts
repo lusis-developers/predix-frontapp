@@ -25,6 +25,12 @@ const TheBets = () => import('@/views/InternalApp/TheBets/TheBets.vue');
 const ThePlans = () => import('@/views/InternalApp/ThePlans/ThePlans.vue');
 const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 
+// user app views
+const UserDashboard = () => import('@/views/user/DashboardContainer.vue');
+const UserBets = () => import('@/views/user/Bets/TheBets.vue');
+const UserProfile = () => import('@/views/user/Profile/TheProfile.vue');
+
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -131,7 +137,51 @@ const routes: Array<RouteRecordRaw> = [
         component: WebSubscription,
       }
     ]
-  }
+  },
+  {
+    path: '/dashboard',
+    name: 'UserDashboard',
+    component: InternalContainer,
+    meta: {
+      title: 'Tú Dashboard'
+    },
+    children: [
+      {
+        path: '',
+        name: 'user-container',
+        component: DashboardContainer,
+        meta: {
+          title: 'Administrador'
+        },
+        children: [
+          {
+            path: 'picks',
+            name: 'picks',
+            component: UserBets,
+            meta: {
+              title: 'Apuesta y gana 😎'
+            }
+          },
+          {
+            path: 'profile',
+            name: 'profile',
+            component: UserProfile,
+            meta: {
+              title: 'Cuéntanos de ti 😁'
+            }
+          },
+          {
+            path: 'statistics',
+            name: 'statistics',
+            component: UserProfile,
+            meta: {
+              title: 'Cuéntanos de ti 😁'
+            }
+          },
+        ]
+      },   
+    ],
+  },
 ]
 
 const router: Router = createRouter({

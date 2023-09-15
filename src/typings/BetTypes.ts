@@ -1,4 +1,4 @@
-import { BetEnum } from "@/enum/BetEnum"
+import { BetStatusEnum } from "@/enum/BetEnum"
 
 export type Bet = {
   _id?: string,
@@ -11,5 +11,5 @@ export type Bet = {
   percentage: number,
   description: string,
   isFree: boolean,
-  status: BetEnum   
+  status: BetStatusEnum
 }

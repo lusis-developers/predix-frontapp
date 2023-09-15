@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import { BetEnum } from '@/enum/BetEnum';
+import { BetStatusEnum } from '@/enum/BetEnum';
 import { formatDateToCustom, formatNumberToProfit } from '@/utils/InputFormats';
 import useBetStore from '@/stores/BetStore';
 
@@ -51,7 +51,7 @@ const props = defineProps({
     required: true
   },
   status: {
-    type: String as () => BetEnum,
+    type: String as () => BetStatusEnum,
     required: true
   }
 })

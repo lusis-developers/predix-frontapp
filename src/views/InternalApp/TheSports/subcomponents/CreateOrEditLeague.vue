@@ -48,7 +48,6 @@ async function submitImage(): Promise<string> {
 async function prepareData(): Promise<League> {
   const imageResponse = await submitImage();
   const url = !imageResponse.length ? imageUrl.value : imageResponse;
-  console.log(url)
   let league: League; // Inicializa como undefined
   let sport: string;
 
