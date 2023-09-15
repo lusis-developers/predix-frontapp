@@ -112,7 +112,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'webpage',
     component: WebContainer,
     meta: {
-      title: 'Esta es la web'
+      title: 'Predix | Apuesta y gana'
     },
     children: [
       {
