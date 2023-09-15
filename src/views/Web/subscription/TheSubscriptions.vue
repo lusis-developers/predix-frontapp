@@ -58,4 +58,4 @@ onMounted(async () => {
     }
   }
 }
-</style>@/styles/stores/PlansStore
+</style>
