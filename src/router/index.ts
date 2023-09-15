@@ -21,9 +21,10 @@ const ThePlans = () => import('@/views/InternalApp/ThePlans/ThePlans.vue');
 const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 
 // user app views
-const UserDashboard = () => import('@/views/user/DashboardContainer.vue');
+// const UserDashboard = () => import('@/views/user/DashboardContainer.vue');
 const UserBets = () => import('@/views/user/Bets/TheBets.vue');
 const UserProfile = () => import('@/views/user/Profile/TheProfile.vue');
+const UserRegister = () => import('@/views/UserRegister.vue');
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -146,6 +147,14 @@ const routes: Array<RouteRecordRaw> = [
       },   
     ],
   },
+  {
+    path: '/register',
+    name: 'Register',
+    component: UserRegister,
+    meta: {
+      title: 'Regístrate'
+    }
+  }
 ]
 
 const router: Router = createRouter({
