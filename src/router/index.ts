@@ -184,10 +184,17 @@ const routes: Array<RouteRecordRaw> = [
   },
 ]
 
-const router: Router = createRouter({
-  history: createWebHistory(),
-  routes
-})
+const router = createRouter({
+  history: createWebHistory(), 
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({top: 0})
+      }, 0)
+    })
+  }
+});
 
 router.beforeEach((to, _from, next) => {
   document.title = to.meta.title as string;
