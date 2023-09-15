@@ -23,7 +23,7 @@ import TheForm from './components/TheForm.vue';
   align-items: center;
   gap: 48px;
   &-title {
-    font-size: $body-font-size;
+    font-size: $h2-font-size;
     @media (min-width: $tablet-lower-breakpoint) {
       font-size: $h1-font-size;
     }
