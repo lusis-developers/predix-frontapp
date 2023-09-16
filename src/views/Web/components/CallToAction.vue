@@ -36,10 +36,11 @@ const props = defineProps({
         :key="index">
         {{ description.text }}
       </p>
-      <CrushButton
+      <RouterLink 
         class="container-description-button"
-        variant="primary"
-        :text="button"/>
+        to="/web/subscriptions">
+        {{ button }}
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -93,10 +94,14 @@ const props = defineProps({
     }
     &-button {
       width: 75%;
-    }
-    :deep(.crush-primary) {
       background-color: $green;
+      padding: 12px;
+      border-radius: 8px;
       color: $dark-blue;
+      font-size: $h3-font-size;
+      text-align: center;
+      font-weight: 700;
+      text-decoration: none;
     }
   }
 }
