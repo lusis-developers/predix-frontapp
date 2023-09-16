@@ -22,7 +22,7 @@ class APIUsers extends APIBase {
   }
 
   async getSession(): Promise<AxiosResponse<User>> {
-    return this.get('users/profile')
+    return this.get('users/profile');
   } 
 
   // async updateUser(id: string, user: User): Promise<ResponseMessageType> {

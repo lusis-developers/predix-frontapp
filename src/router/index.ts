@@ -5,12 +5,15 @@ import {
   RouteRecordRaw
 } from 'vue-router';
 
+import useUserStore from '@/stores/UserStore';
+
 // import layout components 
 const DefaultContainer = () => import('@/components/webpage/layout/DefaultContainer.vue');
 const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue');
 
 //import web views
 import WebIndex from '@/views/WebIndex.vue';
+import { checkAccess } from './routerAccess';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -49,7 +52,13 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Dashboard',
     component: InternalContainer,
     meta: {
+      requiresAdmin: true,
       title: 'Dashboard'
+    },
+    beforeEnter: async (to, from, next) => {
+      const userStore = useUserStore();
+      await userStore.getSession();
+      await checkAccess(to, from, next);
     },
     children: [
       {
@@ -109,7 +118,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'UserDashboard',
     component: InternalContainer,
     meta: {
+      requiresUser: true,
       title: 'Tú Dashboard'
+    },
+    beforeEnter: async (to, from, next) => {
+      const userStore = useUserStore();
+      await userStore.getSession();
+      console.log('before', userStore.user)
+      await checkAccess(to, from, next);
     },
     children: [
       {
@@ -171,8 +187,9 @@ const router: Router = createRouter({
   routes
 })
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   document.title = to.meta.title as string;
+
   next()
 });
 
