@@ -21,6 +21,10 @@ class APIUsers extends APIBase {
     return this.postWithFormData<AxiosResponse<ImageFile>>(`userImage`, formData);
   }
 
+  async getSession(): Promise<AxiosResponse<User>> {
+    return this.get('users/profile')
+  } 
+
   // async updateUser(id: string, user: User): Promise<ResponseMessageType> {
   //   const data = {
   //     id: id,

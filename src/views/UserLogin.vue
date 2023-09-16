@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 
-import useUserStore from '@/store/Auth';
+import useUserStore from '@/stores/UserStore';
 import { validateEmail } from '@/utils/AuthValidations';
 
 const userStore = useUserStore();
@@ -10,8 +10,8 @@ const userStore = useUserStore();
 const textKey = ref(0);
 const isPasswordVisible = ref(false);
 const userData = reactive({
-  user: '',
-  password: ''
+  email: '',
+  password: '',
 });
 const userRules = {
   emailValidation: [
@@ -26,43 +26,44 @@ const userRules = {
   ],
   passwordValidation: [
     {
-      validate: (value: string) => value.length > 10,
+      validate: (value: string) => value.length > 7,
       message: 'El password debe tener al menos 10 caracteres' 
     }
   ]
 }
 const enableForm = computed(() => {
-  return userData.user !== '' &&
+  return userData.email !== '' &&
     userData.password !== '' &&
-    userRules.emailValidation.every((rule) => rule.validate(userData.user)) &&
+    userRules.emailValidation.every((rule) => rule.validate(userData.email)) &&
     userRules.passwordValidation.every((rule) => rule.validate(userData.password))
-})
+});
 const passwordIcon = computed(() => {
   return isPasswordVisible.value ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
 });
 const textType = computed(() => {
-  return isPasswordVisible.value ? 'text' : 'password'
-})
+  return isPasswordVisible.value ? 'text' : 'password';
+});
+
 
 function resetValue(): void {
-  userData.user = ''
-  userData.password = ''
+  userData.email = '';
+  userData.password = '';
   textKey.value ++
 }
 
-function handleRegister(): void {
-  userStore.loginUser(userData.user, userData.password);
+function handleLogin(): void {
+  userStore.login(userData.email, userData.password);
   resetValue();
 }
 </script>
 
 <template>
-  <div class="register-wrapper crush-container">
-    <div class="register-wrapper-card">
+  <div class="login-wrapper crush-container">
+    <div class="login-wrapper-card">
       <CrushTextField
         :key="textKey"
-        v-model="userData.user"
-        label="Usuario"
+        v-model="userData.email"
+        label="Correo"
         :validRules="userRules.emailValidation" />
       <CrushTextField
         :key="textKey"
@@ -80,30 +81,39 @@ function handleRegister(): void {
       </CrushTextField>
       <CrushButton
         variant="primary"
-        text="Registro"
+        text="Inicia Sesión"
         :dataLoading="userStore.isLoading"
         :disabled="!enableForm"
-        @click.prevent="handleRegister" />
+        @click.prevent="handleLogin" />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.register-wrapper {
+:deep(.calendar-input) {
+  color: $white;
+}
+.login-wrapper {
   margin: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  gap: 16px;
   align-items: center;
   min-height: 100vh;
+  background-color: $dark-blue;
+  .date-message {
+    color: $red;
+  }
   &-card {
-    background: $purple-dark;
+    border: 1px solid $grey;
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    max-width: 360px;
+    max-width: 520px;
     border-radius: 8px;
-    padding: 16px;
+    padding: 32px;
     .hoot-text-field {
       :first-child {
         margin-bottom: 8px;

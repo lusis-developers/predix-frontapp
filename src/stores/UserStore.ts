@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import router from '@/router';
 
 import APIUsers from '@/services/User/User';
 import type { User } from '@/typings/UserTypes';
@@ -38,6 +39,10 @@ export const useUserStore = defineStore('UserStore', {
       try {
         const response = await userService.login(email, password);
         this.user = response.data
+
+        localStorage.setItem('access_token', this.user?.token!);
+
+        await router.push('/dashboard/picks')
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
@@ -49,12 +54,26 @@ export const useUserStore = defineStore('UserStore', {
       this.isLoading = true;
       try {
         await userService.register(email, password, birthdate);
+        await router.push('/login');
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
         this.isLoading = false;
       }
     },
+
+    async getSession(): Promise<void> {
+      this.isLoading = false;
+
+      try {
+        const response = await userService.getSession();
+        this.user = response.data
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    }
 
     // async updateSport(sport: Sport): Promise<void> {
     //   this.isLoading = true;

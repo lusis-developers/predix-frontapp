@@ -25,6 +25,7 @@ const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 const UserBets = () => import('@/views/user/Bets/TheBets.vue');
 const UserProfile = () => import('@/views/user/Profile/TheProfile.vue');
 const UserRegister = () => import('@/views/UserRegister.vue');
+const UserLogin = () => import('@/views/UserLogin.vue')
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -153,6 +154,14 @@ const routes: Array<RouteRecordRaw> = [
     component: UserRegister,
     meta: {
       title: 'Regístrate'
+    }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: UserLogin,
+    meta: {
+      title: 'Inicia Sesión'
     }
   }
 ]
