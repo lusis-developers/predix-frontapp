@@ -25,10 +25,6 @@ const links = [
     name: 'Preguntas frecuentes'
   },
   {
-    link: 'historial',
-    name: 'Histórico'
-  },
-  {
     link: 'plans',
     name: 'Planes'
   }
