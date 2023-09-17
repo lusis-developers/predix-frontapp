@@ -5,7 +5,7 @@ import {
   RouteRecordRaw
 } from 'vue-router';
 
-import useUserStore from '@/stores/UserStore';
+import { checkAccess } from './routerAccess';
 
 // import layout components 
 const DefaultContainer = () => import('@/components/webpage/layout/DefaultContainer.vue');
@@ -13,7 +13,6 @@ const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue'
 
 //import web views
 import WebIndex from '@/views/WebIndex.vue';
-import { checkAccess } from './routerAccess';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
