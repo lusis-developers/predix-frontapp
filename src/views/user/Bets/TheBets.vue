@@ -1,25 +1,30 @@
 <script setup lang="ts">
-import useBetStore from '@/stores/BetStore';
-
 import { computed, onMounted, ref } from 'vue';
+
+import useBetStore from '@/stores/BetStore';
+import useUserStore from '@/stores/UserStore';
 import UserBetCard from './components/UserBetCard.vue';
 import BetSuscriptionToggle from './components/BetSuscriptionToggle.vue';
 import { SuscriptionTypeEnum } from '@/enum/BetEnum';
 
 const betStore = useBetStore();
+const userStore = useUserStore();
 
 const suscriptionType = ref(SuscriptionTypeEnum.ISFREE);
 const pendingBets = computed(() => suscriptionType.value === SuscriptionTypeEnum.ISFREE
   ? betStore.freePendingBets
   : betStore.premiumPendingBets
 );
+const isUserPremium = computed(() => userStore.user?.susbscriptionStatus);
 
 function getBets(): void {
   if (suscriptionType.value === SuscriptionTypeEnum.ISFREE) {
     betStore.getFreePendingBets();
   }
   if (suscriptionType.value === SuscriptionTypeEnum.PREMIUM) {
-    betStore.getPremiumPendingBets();
+    if (isUserPremium.value) {
+      betStore.getPremiumPendingBets();
+    }
   }
 }
 
@@ -60,6 +65,26 @@ onMounted(() => {
         :teamA="bet.teamA"
         :teamB="bet.teamB"  />
     </div>
+    <div
+      v-if="isUserPremium"
+      class="bets-container">
+      <UserBetCard
+        v-for="(bet, index) in pendingBets"
+        :key="index"
+        :status="bet.status"
+        :description="bet.description"
+        :date="bet.date"
+        :league="bet.league"
+        :percentage="bet.percentage"
+        :profit="bet.profit"
+        :sport="bet.sport"
+        :teamA="bet.teamA"
+        :teamB="bet.teamB"  />
+      </div>
+    <span v-if="!isUserPremium && !(suscriptionType === SuscriptionTypeEnum.ISFREE)">
+      <p>Oh! no cuentas con suscripción premium</p>
+      <p class="indication">Una vez te hayas suscritos te daremos más apuestas para ganar</p>
+    </span>
   </div>
 </template>
 
@@ -87,9 +112,13 @@ onMounted(() => {
   }
   &-container {
     display: grid;
-    place-items: self-start;
+    place-items: center;
+    align-items: flex-start;
     grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
     gap: 24px;
+    span {
+      width: 100%;
+    }
   }
 }
 </style>

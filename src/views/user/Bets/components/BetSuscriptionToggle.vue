@@ -55,6 +55,8 @@ function toggle(): void {
 <style lang="scss" scoped>
 .input-toggle {
   width: 100%;
+  position: relative;
+  min-width: 120px;
   label {
     width: 100%;
     span {
