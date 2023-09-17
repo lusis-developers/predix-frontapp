@@ -5,6 +5,8 @@ import {
   RouteRecordRaw
 } from 'vue-router';
 
+import { checkAccess } from './routerAccess';
+
 // import layout components 
 const DefaultContainer = () => import('@/components/webpage/layout/DefaultContainer.vue');
 const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue');
@@ -26,9 +28,11 @@ const ThePlans = () => import('@/views/InternalApp/ThePlans/ThePlans.vue');
 const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 
 // user app views
-const UserDashboard = () => import('@/views/user/DashboardContainer.vue');
+// const UserDashboard = () => import('@/views/user/DashboardContainer.vue');
 const UserBets = () => import('@/views/user/Bets/TheBets.vue');
 const UserProfile = () => import('@/views/user/Profile/TheProfile.vue');
+const UserRegister = () => import('@/views/UserRegister.vue');
+const UserLogin = () => import('@/views/UserLogin.vue')
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -52,7 +56,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Dashboard',
     component: InternalContainer,
     meta: {
+      requiresAdmin: true,
       title: 'Dashboard'
+    },
+    beforeEnter: async (to, from, next) => {
+      await checkAccess(to, from, next);
     },
     children: [
       {
@@ -143,7 +151,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'UserDashboard',
     component: InternalContainer,
     meta: {
+      requiresUser: true,
       title: 'Tú Dashboard'
+    },
+    beforeEnter: async (to, from, next) => {
+      await checkAccess(to, from, next);
     },
     children: [
       {
@@ -182,6 +194,22 @@ const routes: Array<RouteRecordRaw> = [
       },   
     ],
   },
+  {
+    path: '/register',
+    name: 'Register',
+    component: UserRegister,
+    meta: {
+      title: 'Regístrate'
+    }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: UserLogin,
+    meta: {
+      title: 'Inicia Sesión'
+    }
+  }
 ]
 
 const router = createRouter({
@@ -196,8 +224,9 @@ const router = createRouter({
   }
 });
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   document.title = to.meta.title as string;
+
   next()
 });
 

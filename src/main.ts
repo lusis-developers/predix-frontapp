@@ -1,7 +1,7 @@
 import { createVueApp } from './bootloader';
 
 async function main() {
-  const app = createVueApp();
+  const app = await createVueApp();
   app.mount('#app');
 }
 

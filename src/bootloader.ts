@@ -11,7 +11,7 @@ import CrushUpload from '@nabux-crush/crush-upload';
 import CrushAlert from '@nabux-crush/crush-alert';
 
 
-function createVueApp() {
+async function createVueApp() {
   const app = createSSRApp(App); 
   const pinia = createPinia();
 
@@ -27,6 +27,7 @@ function createVueApp() {
   app.component('CrushButton', CrushButton);
   app.component('CrushAlert', CrushAlert);
   app.component('CrushUpload', CrushUpload);
+
   return app;
 }
 
