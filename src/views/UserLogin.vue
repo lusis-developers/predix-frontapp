@@ -59,6 +59,9 @@ function handleLogin(): void {
 
 <template>
   <div class="login-wrapper crush-container">
+    <p class="login-wrapper-title">
+      Que gusto verte nuevamente 🌟 <br> Ingresa ahora
+    </p>
     <div class="login-wrapper-card">
       <CrushTextField
         :key="textKey"
@@ -68,7 +71,7 @@ function handleLogin(): void {
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.password"
-        label="Password"
+        label="Contraseña"
         :type="textType"
         :validRules="userRules.passwordValidation">
         <template #icon>
@@ -110,6 +113,15 @@ function handleLogin(): void {
   align-items: center;
   min-height: 100vh;
   background-color: $dark-blue;
+  padding: 24px;
+  &-title {
+    color: $white;
+    font-size: $body-font-size;
+    text-align: center;
+    @media (min-width: $tablet-lower-breakpoint) {
+      font-size: $body-medium-size;
+    }
+  }
   .date-message {
     color: $red;
   }
@@ -122,6 +134,7 @@ function handleLogin(): void {
     max-width: 520px;
     border-radius: 8px;
     padding: 32px;
+    background: rgba(141, 141, 157, 0.08);
     @media(max-width: $tablet-lower-breakpoint) {
       border: none;
     }

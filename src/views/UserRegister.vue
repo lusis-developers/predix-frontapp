@@ -107,6 +107,9 @@ function handleRegister(): void {
       class="date-message">
       Debes tener al menos 16 años
     </span>
+    <p class="register-wrapper-title">
+      ¿Primera vez en Predix? 🌟 <br> Únete ya
+    </p>
     <div class="register-wrapper-card">
       <CrushTextField
         :key="textKey"
@@ -116,7 +119,7 @@ function handleRegister(): void {
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.password"
-        label="Password"
+        label="Contraseña"
         :type="textType"
         :validRules="userRules.passwordValidation">
         <template #icon>
@@ -130,7 +133,7 @@ function handleRegister(): void {
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.passwordRepeated"
-        label="Repita contraseña"
+        label="Repita su contraseña"
         :type="textRepeatedType"
         :validRules="userRules.passwordRepeatedValidation">
         <template #icon>
@@ -177,8 +180,17 @@ function handleRegister(): void {
   align-items: center;
   min-height: 100vh;
   background-color: $dark-blue;
+  padding: 24px;
   .date-message {
     color: $red;
+  }
+  &-title {
+    color: $white;
+    font-size: $body-font-size;
+    text-align: center;
+    @media (min-width: $tablet-lower-breakpoint) {
+      font-size: $body-medium-size;
+    }
   }
   &-card {
     border: 1px solid $grey;
@@ -189,6 +201,7 @@ function handleRegister(): void {
     max-width: 520px;
     border-radius: 8px;
     padding: 32px;
+    background: rgba(141, 141, 157, 0.08);
     @media(max-width: $tablet-lower-breakpoint) {
       border: none;
     }
