@@ -38,7 +38,7 @@ onMounted(async () => {
     }
   } catch (error) {
     console.error(error);
-    result.value = 'ooppp Algo ocurrio con el pago, contacta con Terranet Soporte';
+    resultText.value = 'ooppp Algo ocurrio con el pago, contacta con Terranet Soporte';
   }
 });
 
