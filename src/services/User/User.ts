@@ -13,7 +13,7 @@ class APIUsers extends APIBase {
 
   async register(email: string, password: string, birthdate: string): Promise<AxiosResponse> {
     return this.post('auth/register', { email, password, birthdate, role: ['user'] })
-  }  
+  }
 
   async uploadUserImage(file: File): Promise<AxiosResponse<ImageFile>> {
     const formData = new FormData();
@@ -22,7 +22,7 @@ class APIUsers extends APIBase {
   }
 
   async getSession(): Promise<AxiosResponse<User>> {
-    return this.get('users/profile');
+    return this.get('users/profile'); 
   } 
 
   // async updateUser(id: string, user: User): Promise<ResponseMessageType> {

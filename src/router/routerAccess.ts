@@ -1,16 +1,15 @@
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 
+import APIUsers from '@/services/User/User';
 import { UserRoleEnum } from '@/enum/UserEnum';
-import useUserStore from '@/stores/UserStore'
 
+const userService = new APIUsers();
 
-export async function checkAccess(to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) {
-  const userStore = useUserStore();
-  
+export async function checkAccess(to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) {  
   try {
-    await userStore.getSession();
-    
-    const userRole = userStore.user?.role;
+    const response = await userService.getSession();
+    const userRole = response.data?.role;
+
     if (!userRole || userRole.length === 0) {
       // if user is not authenticated, redirected to '/'
       next('/');

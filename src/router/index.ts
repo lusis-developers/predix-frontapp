@@ -56,8 +56,6 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Dashboard'
     },
     beforeEnter: async (to, from, next) => {
-      const userStore = useUserStore();
-      await userStore.getSession();
       await checkAccess(to, from, next);
     },
     children: [
@@ -122,9 +120,6 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Tú Dashboard'
     },
     beforeEnter: async (to, from, next) => {
-      const userStore = useUserStore();
-      await userStore.getSession();
-      console.log('before', userStore.user)
       await checkAccess(to, from, next);
     },
     children: [
