@@ -5,15 +5,12 @@ import { useRoute } from 'vue-router';
 import type { Plan } from '@/typings/PlanTypes';
 import usePlansStore from '@/stores/PlansStore';
 import { formatToCurrency } from '@/utils/InputFormats';
+import PaymentButton from '@/components/PaymentButton.vue';
 
 const plansStore = usePlansStore();
 const route = useRoute();
 
-const payphoneScriptUrl = `https://pay.payphonetodoesposible.com/api/button/js?appId=${import.meta.env.VITE_APP_ID}`;
-
 const planSelected = ref<Plan>();
-const clientTransactionId = 'transaction' + Date.now();
-const currency = 'USD';
 
 const price = computed(() => {
   if (planSelected.value?.price) {
@@ -23,53 +20,6 @@ const price = computed(() => {
   }
 });
 
-async function loadPayphoneScript(): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
-    const payphoneScript = document.createElement('script');
-    payphoneScript.src = payphoneScriptUrl;
-    payphoneScript.onload = () => resolve();
-    payphoneScript.onerror = (error) => reject(error);
-    document.head.appendChild(payphoneScript);
-  });
-}
-
-async function initPayment(): Promise<void> {
-  try {
-    await loadPayphoneScript();
-
-    // @ts-ignore
-    const payphoneButton = payphone.Button({
-      token: import.meta.env.VITE_PAYPHONE_SECRET,
-      btnHorizontal: true,
-      btnCard: true,
-      createOrder: (actions: any) => {
-        return actions.prepare({
-          amount: planSelected.value?.price,
-          amountWithoutTax: planSelected.value?.price,
-          currency: currency,
-          clientTransactionId: clientTransactionId,
-          lang: 'es',
-        });
-      },
-      onComplete: (model: any, actions: any) => {
-        return actions.confirm({
-          id: model.id,
-          clientTxId: model.clientTxId,
-        }).then(function (value: any) {
-          if (value.transactionStatus == 'Approved') {
-            alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus)
-          }
-        }).catch(function (error: any) {
-          console.error('error', error)
-        })
-      },
-    });
-    payphoneButton.render("#pp-button");
-  } catch (error: any) {
-    console.log(error);
-  }
-}
-
 onMounted( async () => {
   await plansStore.getPlans();
   if (plansStore.plans) {
@@ -77,7 +27,6 @@ onMounted( async () => {
       (plan) => plan._id === route.params.id
     );
   }
-  initPayment();
 });
 </script>
 
@@ -88,7 +37,7 @@ onMounted( async () => {
 			<p class="container-card-name">
 				{{ planSelected?.name }}
 			</p>
-			<div class="container-card-price">
+			<div class="container-card-price">1
 				<p class="container-card-price-span">Total a pagar:</p>
 				<p class="container-card-price-item">
 					{{ price }}
@@ -102,9 +51,9 @@ onMounted( async () => {
       <p class="container-info-description">
         {{ planSelected?.description }}
       </p>
-      <div class="payment-button-wrapper">
-        <div id="pp-button" />
-      </div>
+      <PaymentButton
+        v-if="planSelected?.price"
+        :price="planSelected?.price!" />
     </div>
 	</div>
   <figure class="figure">
@@ -177,9 +126,6 @@ onMounted( async () => {
       color: $dark-blue;
       border: none;
       max-width: 50%;
-    }
-    .payment-button-wrapper {
-      width: 100%;
     }
   }
 }
