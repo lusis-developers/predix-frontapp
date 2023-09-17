@@ -38,7 +38,7 @@ const props = defineProps({
       </p>
       <RouterLink 
         class="container-description-button"
-        to="/web/subscriptions">
+        to="/subscriptions">
         {{ button }}
       </RouterLink>
     </div>

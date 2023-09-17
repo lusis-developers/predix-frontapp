@@ -21,11 +21,7 @@ const icons = [
 
 const links = [
   {
-    link: 'questions',
-    name: 'Preguntas frecuentes'
-  },
-  {
-    link: 'plans',
+    link: '/subscriptions',
     name: 'Planes'
   }
 ]

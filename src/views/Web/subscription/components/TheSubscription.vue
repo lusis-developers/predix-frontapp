@@ -34,7 +34,7 @@ const displayImage = computed(() => props.image || defaultImage);
 </script>
 
 <template>
-  <RouterLink :to="`/web/subscriptions/${link}`" class="card">
+  <RouterLink :to="`/subscriptions/${link}`" class="card">
     <img
       class="card-image" 
       :src="displayImage" :alt="title">

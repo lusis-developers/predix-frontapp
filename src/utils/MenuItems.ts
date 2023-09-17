@@ -48,15 +48,15 @@ export const userMenuItems: Navigation[] = [
 
 export const webMenuItems: Navigation[] = [
   { name: "Contacto", 
-    link: "/web/contact" 
+    link: "/contact" 
   },
   { name: "Planes", 
-    link: "/web/subscriptions" 
+    link: "/subscriptions" 
   },
   { name: "Empezar gratis", 
-    link: "/" 
+    link: "/register" 
   },
   { name: "Suscribirse", 
-    link: "/web/subscriptions" 
+    link: "/subscriptions" 
   },
 ]

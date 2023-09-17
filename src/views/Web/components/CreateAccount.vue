@@ -9,10 +9,12 @@
     <p>
       Crea tu cuenta y empieza a incrementar tu capital ahora.
     </p>
-    <CrushButton
-      class="container-button"
-      variant="primary"
-      text="Crear cuenta"/>
+    <RouterLink to="/register">
+      <CrushButton
+        class="container-button"
+        variant="primary"
+        text="Crear cuenta"/>
+    </RouterLink>
   </div>
 </template>
 
