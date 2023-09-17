@@ -164,6 +164,12 @@ function handleRegister(): void {
         Inicia sesion ahora
       </RouterLink>
     </span>
+    <img 
+        src="@/assets/footer-image.png"
+        class="register-wrapper-image">
+      <img 
+        src="@/assets/footer-image.png"
+        class="register-wrapper-image2">
   </div>
 </template>
 
@@ -181,6 +187,7 @@ function handleRegister(): void {
   min-height: 100vh;
   background-color: $dark-blue;
   padding: 24px;
+  max-width: $desktop-lower-breakpoint;
   .date-message {
     color: $red;
   }
@@ -224,6 +231,33 @@ function handleRegister(): void {
     &-link {
       color: #62bfd6;
       text-decoration: underline;
+    }
+  }
+  &-image {
+    display: none;
+    @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 120px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: rotate(180deg);
+    }
+    @media (min-width: $desktop-lower-breakpoint) {
+      width: 200px;
+      }
+    &2 {
+      display: none;
+      @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 80px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      }
+      @media (min-width: $desktop-lower-breakpoint) {
+      width: 160px;
+      }
     }
   }
 }

@@ -97,6 +97,12 @@ function handleLogin(): void {
         Regístrate ahora
       </RouterLink> 
     </span>
+    <img 
+      src="@/assets/footer-image.png"
+      class="login-wrapper-image">
+    <img 
+      src="@/assets/footer-image.png"
+      class="login-wrapper-image2">
   </div>
 </template>
 
@@ -135,6 +141,7 @@ function handleLogin(): void {
     border-radius: 8px;
     padding: 32px;
     background: rgba(141, 141, 157, 0.08);
+    backdrop-filter: blur(40px);
     @media(max-width: $tablet-lower-breakpoint) {
       border: none;
     }
@@ -157,6 +164,33 @@ function handleLogin(): void {
     &-link {
       color: #62bfd6;
       text-decoration: underline;
+    }
+  }
+  &-image {
+    display: none;
+    @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 120px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: rotate(180deg);
+    }
+    @media (min-width: $desktop-lower-breakpoint) {
+      width: 200px;
+      }
+    &2 {
+      display: none;
+      @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 80px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      }
+      @media (min-width: $desktop-lower-breakpoint) {
+      width: 160px;
+      }
     }
   }
 }
