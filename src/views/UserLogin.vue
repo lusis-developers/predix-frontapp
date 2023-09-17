@@ -142,8 +142,8 @@ function handleLogin(): void {
   &-span {
     color: $white;
     &-link {
-      color: $grey;
-      text-decoration: none;
+      color: #62bfd6;
+      text-decoration: underline;
     }
   }
 }

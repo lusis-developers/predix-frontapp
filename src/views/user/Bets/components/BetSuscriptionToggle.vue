@@ -28,28 +28,28 @@ function toggle(): void {
 
 <template>
   <div class="input-toggle">
-      <label>
-        <div class="input-container">
+    <label>
+      <div class="input-container">
+        <div
+          class="toggle-switch"
+          @click="toggle">
+          <div class="toggle-switch-back">
+            <span>
+              Gratuitos
+            </span>
+            <span>
+              Suscritos
+            </span>
+          </div>
           <div
-            class="toggle-switch"
-            @click="toggle">
-            <div class="toggle-switch-back">
-              <span>
-                Gratuitos
-              </span>
-              <span>
-                Suscritos
-              </span>
-            </div>
-            <div
-              class="slider"
-              :class="{ 'active': !isFreeClass }">
-              {{ toggleText }}
-            </div>
+            class="slider"
+            :class="{ 'active': !isFreeClass }">
+            {{ toggleText }}
           </div>
         </div>
-      </label>
-    </div>
+      </div>
+    </label>
+  </div>
 </template>
 
 <style lang="scss" scoped>
