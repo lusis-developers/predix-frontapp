@@ -7,15 +7,58 @@ import { useRoute } from "vue-router";
 
 const plansStore = usePlansStore();
 const route = useRoute();
+
+const payphoneScriptUrl = `https://pay.payphonetodoesposible.com/api/button/js?appId=${import.meta.env.VITE_APP_ID}`;
+
 const planSelected = ref<Plan>();
+const clientTransactionId = 'transaction' + Date.now();
+const currency = 'USD';
 
 const price = computed(() => {
-  if (planSelected.value?.price)  {
+  if (planSelected.value?.price) {
     return formatToCurrency(planSelected.value?.price)
   } else {
     return 'Free'
   }
-})
+});
+
+async function loadPayphoneScript(): Promise<void> {
+  let payphoneScript = document.createElement('script');
+  payphoneScript.setAttribute('src', payphoneScriptUrl);
+  document.head.appendChild(payphoneScript);
+  console.log(document.head.appendChild(payphoneScript));
+}
+
+async function initPayment(): Promise<void> {
+  await loadPayphoneScript();
+  const payphoneButton = payphone.Button({
+    token: import.meta.env.VITE_PAYPHONE_SECRET,
+    btnHorizontal: true,
+    btnCard: true,
+    createOrder: (actions: any) => {
+      return actions.prepare({
+        amount: planSelected.value?.price,
+        amountWithoutTax: planSelected.value?.price,
+        currency: currency,
+        clientTransactionId: clientTransactionId,
+        lang: 'es',
+      });
+    },
+    onComplete: (model: any, actions: any) => {
+      return actions.confirm({
+        id: model.id,
+        clientTxId: model.clientTxId,
+      }).then(function (value: any) {
+        if (value.transactionStatus == 'Approved') {
+          alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus)
+        }
+      }).catch(function (error: any) {
+        console.error('error', error)
+      })
+    },
+  });
+  payphoneButton.render("#pp-button");
+}
 
 onMounted( async () => {
   await plansStore.getPlans();
@@ -24,6 +67,7 @@ onMounted( async () => {
       (plan) => plan._id === route.params.id
     );
   }
+  initPayment();
 });
 </script>
 
@@ -47,10 +91,9 @@ onMounted( async () => {
       <p class="container-info-description">
         {{ planSelected?.description }}
       </p>
-      <CrushButton
-        class="container-info-button"
-        variant="primary"
-        text="Comprar plan"/>
+      <div class="payment-button-wrapper">
+        <div class="pp-button" />
+      </div>
     </div>
 	</div>
   <figure class="figure">
