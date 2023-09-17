@@ -4,6 +4,8 @@ import CallToAction from './components/CallToAction.vue';
 import CreateAccount from './components/CreateAccount.vue';
 import TheHero from './components/TheHero.vue';
 import TheForm from './components/TheForm.vue';
+import image1 from '@/assets/Comments.png';
+import image2 from '/src/assets/historial.svg';
 
 const descriptions = [
   {
@@ -20,15 +22,15 @@ const descriptions = [
     <TheHero/>
   </div>
   <CallToAction 
-    :descriptions="descriptions" 
     button="Empezar a ganar"
-    image="/src/assets/Comments.png"/>
+    :descriptions="descriptions" 
+    :image="image1" />
     <BetWay/>
   <CallToAction 
-    :descriptions="descriptions" 
     button="Empezar a ganar"
-    image="/src/assets/historial.svg"
-    :reverse="true"/>
+    :descriptions="descriptions" 
+    :image="image2"
+    :reverse="true" />
   <CreateAccount/>
   <TheForm/>
 </template>
