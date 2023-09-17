@@ -11,7 +11,7 @@ const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue'
 const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 
 //import web views
-import WebView from '@/views/Web/index.vue';
+import WebView from '@/views/Web/WebIndex.vue';
 import WebContact from '@/views/Web/TheContact.vue';
 import WebSubscriptions from '@/views/Web/subscription/TheSubscriptions.vue';
 import WebSubscription from '@/views/Web/subscription/components/SubscriptionDetail.vue';
