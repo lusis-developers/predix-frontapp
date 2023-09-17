@@ -137,6 +137,15 @@ function resetForm() {
         background-color: $green;
         color: $dark-blue;
       }
+      :deep(.crush-button.disabled) {
+        background-color: $grey;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $dark-blue;
+        z-index: 0;
+      }
     }
   }
 }
