@@ -4,7 +4,7 @@
       invierte con propósito
     </h3>
     <p class="hero-description">
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con
+      Transforma la incertidumbre en arte, apuesta con la precisión de un maestro
     </p>
     <div class="hero-container">
       <RouterLink 
