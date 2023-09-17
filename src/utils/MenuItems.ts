@@ -45,3 +45,18 @@ export const userMenuItems: Navigation[] = [
     icon: 'fa-solid fa-user',
   },
 ];
+
+export const webMenuItems: Navigation[] = [
+  { name: "Contacto", 
+    link: "/contact" 
+  },
+  { name: "Planes", 
+    link: "/subscriptions" 
+  },
+  { name: "Empezar gratis", 
+    link: "/register" 
+  },
+  { name: "Suscribirse", 
+    link: "/subscriptions" 
+  },
+]

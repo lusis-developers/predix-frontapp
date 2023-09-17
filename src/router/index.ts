@@ -1,18 +1,20 @@
 import {
   createRouter,
   createWebHistory,
-  Router,
   RouteRecordRaw
 } from 'vue-router';
 
 import { checkAccess } from './routerAccess';
 
 // import layout components 
-const DefaultContainer = () => import('@/components/webpage/layout/DefaultContainer.vue');
 const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue');
+const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 
 //import web views
-import WebIndex from '@/views/WebIndex.vue';
+import WebView from '@/views/Web/index.vue';
+import WebContact from '@/views/Web/TheContact.vue';
+import WebSubscriptions from '@/views/Web/subscription/TheSubscriptions.vue';
+import WebSubscription from '@/views/Web/subscription/components/SubscriptionDetail.vue';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -33,16 +35,32 @@ const UserLogin = () => import('@/views/UserLogin.vue')
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'HomeView',
-    component: DefaultContainer,
+    name: 'webpage',
+    component: WebContainer,
     meta: {
-      title: 'Predix, apuestas deportivas 🏐🥇'
+      title: 'Predix | Apuesta y gana'
     },
     children: [
       {
         path: '',
-        name: 'Web',
-        component: WebIndex,
+        name: 'hero',
+        component: WebView,
+      },
+      {
+        path: 'contact',
+        name: 'contact',
+        component: WebContact
+      },
+      {
+        path: 'subscriptions',
+        name: 'subscriptions',
+        component: WebSubscriptions,
+        
+      },
+      {
+        path: '/subscriptions/:id',
+        name: 'subscription',
+        component: WebSubscription,
       }
     ]
   },
@@ -176,10 +194,17 @@ const routes: Array<RouteRecordRaw> = [
   }
 ]
 
-const router: Router = createRouter({
-  history: createWebHistory(),
-  routes
-})
+const router = createRouter({
+  history: createWebHistory(), 
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({top: 0})
+      }, 0)
+    })
+  }
+});
 
 router.beforeEach(async (to, _from, next) => {
   document.title = to.meta.title as string;
