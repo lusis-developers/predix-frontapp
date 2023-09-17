@@ -98,7 +98,7 @@ const props = defineProps({
       padding: 12px;
       border-radius: 8px;
       color: $dark-blue;
-      font-size: $h3-font-size;
+      font-size: $body-medium-size;
       text-align: center;
       font-weight: 700;
       text-decoration: none;

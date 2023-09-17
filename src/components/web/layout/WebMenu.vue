@@ -59,6 +59,7 @@ const menu = computed(() => webMenuItems )
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  z-index: 10;
   header {
     width: 100%;
     display: flex;

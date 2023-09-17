@@ -86,6 +86,14 @@ function handleLogin(): void {
         :disabled="!enableForm"
         @click.prevent="handleLogin" />
     </div>
+    <span class="login-wrapper-span">
+      ¿Aún no tienes cuenta? 
+      <RouterLink 
+        class="login-wrapper-span-link"
+        to="/register">
+        Regístrate ahora
+      </RouterLink> 
+    </span>
   </div>
 </template>
 
@@ -129,6 +137,13 @@ function handleLogin(): void {
     }
     .crush-button {
       margin-top: 12px;
+    }
+  }
+  &-span {
+    color: $white;
+    &-link {
+      color: #62bfd6;
+      text-decoration: underline;
     }
   }
 }

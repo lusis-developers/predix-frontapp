@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import usePlansStore from "@/stores/PlansStore";
-import type { Plan } from "@/typings/PlanTypes";
-import { formatToCurrency } from "@/utils/InputFormats";
-import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+import type { Plan } from '@/typings/PlanTypes';
+import usePlansStore from '@/stores/PlansStore';
+import { formatToCurrency } from '@/utils/InputFormats';
+import PaymentButton from '@/components/PaymentButton.vue';
 
 const plansStore = usePlansStore();
 const route = useRoute();
+
 const planSelected = ref<Plan>();
 
 const price = computed(() => {
-  if (planSelected.value?.price)  {
+  if (planSelected.value?.price) {
     return formatToCurrency(planSelected.value?.price)
   } else {
     return 'Free'
   }
-})
+});
 
 onMounted( async () => {
   await plansStore.getPlans();
@@ -27,13 +30,14 @@ onMounted( async () => {
 });
 </script>
 
+
 <template>
 	<div class="container">
 		<div class="container-card">
 			<p class="container-card-name">
 				{{ planSelected?.name }}
 			</p>
-			<div class="container-card-price">
+			<div class="container-card-price">1
 				<p class="container-card-price-span">Total a pagar:</p>
 				<p class="container-card-price-item">
 					{{ price }}
@@ -47,10 +51,9 @@ onMounted( async () => {
       <p class="container-info-description">
         {{ planSelected?.description }}
       </p>
-      <CrushButton
-        class="container-info-button"
-        variant="primary"
-        text="Comprar plan"/>
+      <PaymentButton
+        v-if="planSelected?.price"
+        :price="planSelected?.price!" />
     </div>
 	</div>
   <figure class="figure">

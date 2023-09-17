@@ -16,15 +16,16 @@ onMounted(async () => {
     <p class="container-title">
       Suscripciones
     </p>
-    <TheSubscription 
-      v-if="planStore.plans?.length"
-      v-for="(plan, index) in planStore.plans"
-      :key="index"
-      :link="plan._id!"
-      :image="plan.image"
-      :title="plan.name"
-      :price="plan.price"
-      :id="plan._id!"/>
+    <template v-if="planStore.plans?.length">
+      <TheSubscription 
+        v-for="(plan, index) in planStore.plans"
+        :key="index"
+        :link="plan._id!"
+        :image="plan.image"
+        :title="plan.name"
+        :price="plan.price"
+        :id="plan._id!"/>
+    </template>
     <p 
       class="container-text"
       v-else>
