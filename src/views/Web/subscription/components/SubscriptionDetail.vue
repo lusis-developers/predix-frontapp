@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import usePlansStore from "@/stores/PlansStore";
-import type { Plan } from "@/typings/PlanTypes";
-import { formatToCurrency } from "@/utils/InputFormats";
-import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+import type { Plan } from '@/typings/PlanTypes';
+import usePlansStore from '@/stores/PlansStore';
+import { formatToCurrency } from '@/utils/InputFormats';
 
 const plansStore = usePlansStore();
 const route = useRoute();
@@ -13,7 +14,6 @@ const payphoneScriptUrl = `https://pay.payphonetodoesposible.com/api/button/js?a
 const planSelected = ref<Plan>();
 const clientTransactionId = 'transaction' + Date.now();
 const currency = 'USD';
-// let payphone: any;
 
 const price = computed(() => {
   if (planSelected.value?.price) {
@@ -27,8 +27,8 @@ async function loadPayphoneScript(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     const payphoneScript = document.createElement('script');
     payphoneScript.src = payphoneScriptUrl;
-    payphoneScript.onload = () => resolve(); // Utiliza una función de flecha para mantener el contexto adecuado
-    payphoneScript.onerror = (error) => reject(error); // Rechaza la promesa en caso de error de carga y pasa el err≈or
+    payphoneScript.onload = () => resolve();
+    payphoneScript.onerror = (error) => reject(error);
     document.head.appendChild(payphoneScript);
   });
 }
@@ -37,6 +37,7 @@ async function initPayment(): Promise<void> {
   try {
     await loadPayphoneScript();
 
+    // @ts-ignore
     const payphoneButton = payphone.Button({
       token: import.meta.env.VITE_PAYPHONE_SECRET,
       btnHorizontal: true,
@@ -79,6 +80,7 @@ onMounted( async () => {
   initPayment();
 });
 </script>
+
 
 <template>
 	<div class="container">
