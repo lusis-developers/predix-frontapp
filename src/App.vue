@@ -1,7 +1,31 @@
 <script setup lang="ts">
-import {  RouterView } from 'vue-router';
+import {  RouterView, useRouter } from 'vue-router';
+import { onMounted, watch } from 'vue';
 
+import { UserRoleEnum } from './enum/UserEnum';
+import useUserStore from './stores/UserStore';
 
+const router = useRouter();
+const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.getSession();
+});
+
+watch(
+  () => userStore.user,
+  (value) => {
+    if (!value) {
+      router.push('/');
+    }
+    if (value?.role.includes(UserRoleEnum.USER)) {
+      router.push('/dashboard/picks');
+    }
+    if (value?.role.includes(UserRoleEnum.ADMIN)) {
+      router.push('/internal-app/dashboard/bets');
+    }
+  }
+)
 </script>
 
 <template>
