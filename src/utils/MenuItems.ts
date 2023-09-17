@@ -53,10 +53,10 @@ export const webMenuItems: Navigation[] = [
   { name: "Planes", 
     link: "/subscriptions" 
   },
-  { name: "Empezar gratis", 
-    link: "/register" 
-  },
   { name: "Suscribirse", 
     link: "/subscriptions" 
+  },
+  { name: "Iniciar sesión", 
+    link: "/login" 
   },
 ]

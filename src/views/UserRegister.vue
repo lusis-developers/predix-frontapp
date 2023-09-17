@@ -153,6 +153,14 @@ function handleRegister(): void {
         :disabled="!enableForm"
         @click.prevent="handleRegister" />
     </div>
+    <span class="register-wrapper-span">
+      ¿Ya tienes cuenta?
+      <RouterLink 
+        class="register-wrapper-span-link"
+        to="/login">
+        Inicia sesion ahora
+      </RouterLink>
+    </span>
   </div>
 </template>
 
@@ -196,6 +204,13 @@ function handleRegister(): void {
     }
     .crush-button {
       margin-top: 12px;
+    }
+  }
+  &-span {
+    color: $white;
+    &-link {
+      color: $grey;
+      text-decoration: none;
     }
   }
 }

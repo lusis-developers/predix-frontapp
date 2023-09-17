@@ -63,10 +63,10 @@ function resetForm() {
     <div class="container-section">
       <div class="container-section-info">
         <p class="container-section-info-title">
-        Nemo enim ipsam volupta
+          ¿Aún tienes dudas al respecto?
         </p>
         <p class="container-section-info-description">
-          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur maemo enim ipsa
+          No dejes que las dudas te detengan. Completa el formulario y recibe respuestas claras y rápidas de nuestro dedicado equipo de soporte.
         </p>
       </div>
       <form class="container-section-form">
@@ -136,6 +136,15 @@ function resetForm() {
       :deep(.crush-primary) {
         background-color: $green;
         color: $dark-blue;
+      }
+      :deep(.crush-button.disabled) {
+        background-color: $grey;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $dark-blue;
+        z-index: 0;
       }
     }
   }

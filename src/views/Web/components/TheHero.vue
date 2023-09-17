@@ -1,18 +1,17 @@
 <template>
   <div class="hero">
-    <h3>
+    <h3 class="hero-title">
       invierte con propósito
     </h3>
-    <p>
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con
+    <p class="hero-description">
+      Transforma la incertidumbre en arte, apuesta con la precisión de un maestro
     </p>
     <div class="hero-container">
-      <button>
-        Botón
-      </button>
-      <button>
-        Botón
-      </button>
+      <RouterLink 
+        to="/subscriptions"
+        class="hero-container-button">
+        Suscríbete ahora
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -29,7 +28,7 @@
   height: 80vh;
   border-radius: 0px 0px 24px 25px;
   background: linear-gradient(180deg, #070E21 0.6%, #01DF71 534.43%);
-  h3 {
+  &-title {
     color: $white;
     text-align: center;
     font-size: $h2-font-size;
@@ -38,7 +37,7 @@
     }
     text-transform: uppercase;
   }
-  p {
+  &-description {
     text-align: center;
     color: $grey;
     font-size: $body-font-size;
@@ -47,24 +46,17 @@
   &-container {
     display: flex;
     gap: 24px;
-    button {
+    &-button {
       background: none;
       border: none;
       outline: none;
       font-weight: 700;
-      font-size: $body-font-size;
+      font-size: $body-medium-size;
       border-radius: 8px;
-    }
-    & :first-child {
-      padding: 12px 16px;
-      color: $white;
-      border: 1px solid $green;
-    }
-    & :nth-child(2) {
-      padding: 12px 16px;
-      color: $dark-blue;
+      text-decoration: none;
       background-color: $green;
-      
+      color: $dark-blue;
+      padding: 16px 12px;
     }
   }
 }

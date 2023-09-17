@@ -7,12 +7,21 @@ import TheForm from './components/TheForm.vue';
 import image1 from '@/assets/Comments.png';
 import image2 from '/src/assets/historial.svg';
 
-const descriptions = [
+const firstDescriptions = [
   {
     text: 'Pronosticamos por ti'
   },
   {
-    text: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur maemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma'
+    text: 'Descubre el arte de invertir en el deporte con precisión y elegancia. Nuestros pronósticos exclusivos, respaldados por un análisis meticuloso, están diseñados para aquellos que buscan trascender en el mundo de las apuestas. Sé parte de nosotros y toma decisiones con confianza.'
+  },
+]
+
+const secondDescriptions = [
+  {
+    text: 'Pronosticamos por ti'
+  },
+  {
+    text: 'Adéntrate en una experiencia de apuestas sin precedentes. Con nuestra perspicacia analítica, cada pronóstico se convierte en una oportunidad dorada. Únete a nosotros y redefine tus expectativas.'
   },
 ]
 </script>
@@ -23,12 +32,12 @@ const descriptions = [
   </div>
   <CallToAction 
     button="Empezar a ganar"
-    :descriptions="descriptions" 
+    :descriptions="firstDescriptions" 
     :image="image1" />
     <BetWay/>
   <CallToAction 
     button="Empezar a ganar"
-    :descriptions="descriptions" 
+    :descriptions="secondDescriptions" 
     :image="image2"
     :reverse="true" />
   <CreateAccount/>
