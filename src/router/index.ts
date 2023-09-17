@@ -38,17 +38,33 @@ const UserLogin = () => import('@/views/UserLogin.vue')
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'HomeView',
-    component: DefaultContainer,
+    name: 'webpage',
+    component: WebContainer,
     meta: {
-      title: 'Predix, apuestas deportivas 🏐🥇'
+      title: 'Predix | Apuesta y gana'
     },
     children: [
       {
         path: '',
-        name: 'Web',
-        component: WebIndex,
+        name: 'hero',
+        component: WebView,
       },
+      {
+        path: 'contact',
+        name: 'contact',
+        component: WebContact
+      },
+      {
+        path: 'subscriptions',
+        name: 'subscriptions',
+        component: WebSubscriptions,
+        
+      },
+      {
+        path: '/subscriptions/:id',
+        name: 'subscription',
+        component: WebSubscription,
+      }
     ]
   },
   {
@@ -114,37 +130,6 @@ const routes: Array<RouteRecordRaw> = [
         ],
       },   
     ],
-  },
-  {
-    path: '/web',
-    name: 'webpage',
-    component: WebContainer,
-    meta: {
-      title: 'Predix | Apuesta y gana'
-    },
-    children: [
-      {
-        path: '',
-        name: 'hero',
-        component: WebView,
-      },
-      {
-        path: 'contact',
-        name: 'contact',
-        component: WebContact
-      },
-      {
-        path: 'subscriptions',
-        name: 'subscriptions',
-        component: WebSubscriptions,
-        
-      },
-      {
-        path: '/web/subscriptions/:id',
-        name: 'subscription',
-        component: WebSubscription,
-      }
-    ]
   },
   {
     path: '/dashboard',
