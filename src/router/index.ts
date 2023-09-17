@@ -15,6 +15,7 @@ import WebView from '@/views/Web/WebIndex.vue';
 import WebContact from '@/views/Web/TheContact.vue';
 import WebSubscriptions from '@/views/Web/subscription/TheSubscriptions.vue';
 import WebSubscription from '@/views/Web/subscription/components/SubscriptionDetail.vue';
+const PaymentDone = () => import('@/views/PaymentDone.vue');
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -61,6 +62,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/subscriptions/:id',
         name: 'subscription',
         component: WebSubscription,
+      },
+      {
+        path: '/paymentDone/:id',
+        name: 'PaymentDone',
+        component: PaymentDone
       }
     ]
   },
