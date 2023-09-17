@@ -114,6 +114,9 @@ function handleLogin(): void {
     max-width: 520px;
     border-radius: 8px;
     padding: 32px;
+    @media(max-width: $tablet-lower-breakpoint) {
+      border: none;
+    }
     .hoot-text-field {
       :first-child {
         margin-bottom: 8px;

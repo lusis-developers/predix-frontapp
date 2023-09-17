@@ -37,7 +37,8 @@ const displayImage = computed(() => props.image || defaultImage);
   <RouterLink :to="`/subscriptions/${link}`" class="card">
     <img
       class="card-image" 
-      :src="displayImage" :alt="title">
+      :src="displayImage"
+      :alt="title">
     <p class="card-title">
       {{ title }}
     </p>

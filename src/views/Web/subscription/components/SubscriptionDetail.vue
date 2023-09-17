@@ -1,13 +1,13 @@
 <script setup lang="ts">
-	import usePlansStore from "@/stores/PlansStore";
-	import type { Plan } from "@/typings/PlanTypes";
+import usePlansStore from "@/stores/PlansStore";
+import type { Plan } from "@/typings/PlanTypes";
 import { formatToCurrency } from "@/utils/InputFormats";
-	import { computed, onMounted, ref } from "vue";
-	import { useRoute } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
-	const plansStore = usePlansStore();
-	const route = useRoute();
-	const planSelected = ref<Plan>();
+const plansStore = usePlansStore();
+const route = useRoute();
+const planSelected = ref<Plan>();
 
 const price = computed(() => {
   if (planSelected.value?.price)  {
@@ -17,14 +17,14 @@ const price = computed(() => {
   }
 })
 
-	onMounted(() => {
-		console.log(route.params);
-		if (plansStore.plans) {
-			planSelected.value = plansStore.plans.find(
-				(plan) => plan._id === route.params.id
-			);
-		}
-	});
+onMounted( async () => {
+  await plansStore.getPlans();
+  if (plansStore.plans) {
+    planSelected.value = plansStore.plans.find(
+      (plan) => plan._id === route.params.id
+    );
+  }
+});
 </script>
 
 <template>

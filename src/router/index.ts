@@ -1,23 +1,20 @@
 import {
   createRouter,
   createWebHistory,
-  Router,
   RouteRecordRaw
 } from 'vue-router';
 
 import { checkAccess } from './routerAccess';
 
 // import layout components 
-const DefaultContainer = () => import('@/components/webpage/layout/DefaultContainer.vue');
 const InternalContainer = () => import('@/components/app/layout/AdminLayout.vue');
 const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 
 //import web views
-import WebIndex from '@/views/WebIndex.vue';
 import WebView from '@/views/Web/index.vue';
 import WebContact from '@/views/Web/TheContact.vue';
 import WebSubscriptions from '@/views/Web/subscription/TheSubscriptions.vue';
-import WebSubscription from '@/views/Web/subscription/components/SubscriptionPage.vue';
+import WebSubscription from '@/views/Web/subscription/components/SubscriptionDetail.vue';
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
