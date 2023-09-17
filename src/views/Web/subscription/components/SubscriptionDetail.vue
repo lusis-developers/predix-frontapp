@@ -13,6 +13,7 @@ const payphoneScriptUrl = `https://pay.payphonetodoesposible.com/api/button/js?a
 const planSelected = ref<Plan>();
 const clientTransactionId = 'transaction' + Date.now();
 const currency = 'USD';
+// let payphone: any;
 
 const price = computed(() => {
   if (planSelected.value?.price) {
@@ -23,41 +24,49 @@ const price = computed(() => {
 });
 
 async function loadPayphoneScript(): Promise<void> {
-  let payphoneScript = document.createElement('script');
-  payphoneScript.setAttribute('src', payphoneScriptUrl);
-  document.head.appendChild(payphoneScript);
-  console.log(document.head.appendChild(payphoneScript));
+  return new Promise<void>((resolve, reject) => {
+    const payphoneScript = document.createElement('script');
+    payphoneScript.src = payphoneScriptUrl;
+    payphoneScript.onload = () => resolve(); // Utiliza una función de flecha para mantener el contexto adecuado
+    payphoneScript.onerror = (error) => reject(error); // Rechaza la promesa en caso de error de carga y pasa el err≈or
+    document.head.appendChild(payphoneScript);
+  });
 }
 
 async function initPayment(): Promise<void> {
-  await loadPayphoneScript();
-  const payphoneButton = payphone.Button({
-    token: import.meta.env.VITE_PAYPHONE_SECRET,
-    btnHorizontal: true,
-    btnCard: true,
-    createOrder: (actions: any) => {
-      return actions.prepare({
-        amount: planSelected.value?.price,
-        amountWithoutTax: planSelected.value?.price,
-        currency: currency,
-        clientTransactionId: clientTransactionId,
-        lang: 'es',
-      });
-    },
-    onComplete: (model: any, actions: any) => {
-      return actions.confirm({
-        id: model.id,
-        clientTxId: model.clientTxId,
-      }).then(function (value: any) {
-        if (value.transactionStatus == 'Approved') {
-          alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus)
-        }
-      }).catch(function (error: any) {
-        console.error('error', error)
-      })
-    },
-  });
-  payphoneButton.render("#pp-button");
+  try {
+    await loadPayphoneScript();
+
+    const payphoneButton = payphone.Button({
+      token: import.meta.env.VITE_PAYPHONE_SECRET,
+      btnHorizontal: true,
+      btnCard: true,
+      createOrder: (actions: any) => {
+        return actions.prepare({
+          amount: planSelected.value?.price,
+          amountWithoutTax: planSelected.value?.price,
+          currency: currency,
+          clientTransactionId: clientTransactionId,
+          lang: 'es',
+        });
+      },
+      onComplete: (model: any, actions: any) => {
+        return actions.confirm({
+          id: model.id,
+          clientTxId: model.clientTxId,
+        }).then(function (value: any) {
+          if (value.transactionStatus == 'Approved') {
+            alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus)
+          }
+        }).catch(function (error: any) {
+          console.error('error', error)
+        })
+      },
+    });
+    payphoneButton.render("#pp-button");
+  } catch (error: any) {
+    console.log(error);
+  }
 }
 
 onMounted( async () => {
@@ -92,7 +101,7 @@ onMounted( async () => {
         {{ planSelected?.description }}
       </p>
       <div class="payment-button-wrapper">
-        <div class="pp-button" />
+        <div id="pp-button" />
       </div>
     </div>
 	</div>
@@ -166,6 +175,9 @@ onMounted( async () => {
       color: $dark-blue;
       border: none;
       max-width: 50%;
+    }
+    .payment-button-wrapper {
+      width: 100%;
     }
   }
 }
