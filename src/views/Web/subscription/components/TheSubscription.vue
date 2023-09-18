@@ -66,6 +66,7 @@ $gap-padding-space: 12px;
   border: 1px solid $white;
   border-radius: 8px;
   text-decoration: none;
+  z-index: 0;
   @media (min-width: $tablet-lower-breakpoint) {
     width: 40%;
   }
