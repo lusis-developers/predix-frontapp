@@ -6,5 +6,7 @@ export type User = {
   phone: string,
   birthdate: string,
   susbscriptionStatus: boolean,
-  susbscriptionExperitationDate: string 
+  susbscriptionExperitationDate: string,
+  name?: string,
+  lastname?: string,
 }

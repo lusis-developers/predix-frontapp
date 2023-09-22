@@ -38,11 +38,11 @@ export const useUserStore = defineStore('UserStore', {
       this.isLoading = true;
       try {
         const response = await userService.login(email, password);
-        this.user = response.data
+        this.user = response.data;
 
         localStorage.setItem('access_token', this.user?.token!);
 
-        await router.push('/dashboard/picks')
+        await router.push('/dashboard/picks');
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
@@ -64,10 +64,22 @@ export const useUserStore = defineStore('UserStore', {
 
     async getSession(): Promise<void> {
       this.isLoading = false;
-
       try {
         const response = await userService.getSession();
         this.user = response.data;
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async logout(): Promise<void> {
+      this.isLoading = true;
+      try {
+        localStorage.removeItem('access_token');
+        this.user = null;
+        await router.push('/');
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
