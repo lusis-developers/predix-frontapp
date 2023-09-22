@@ -34,11 +34,11 @@ export const userMenuItems: Navigation[] = [
     link: 'picks',
     icon: 'fa-solid fa-receipt',
   },
-  {
-    name: 'Estadística',
-    link: 'statistics',
-    icon: 'fa-solid fa-chart-simple',
-  },
+  // {
+  //   name: 'Estadística',
+  //   link: 'statistics',
+  //   icon: 'fa-solid fa-chart-simple',
+  // },
   {
     name: 'Perfil',
     link: 'profile',
