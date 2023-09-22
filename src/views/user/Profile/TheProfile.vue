@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
+import { useUserStore } from '@/stores/UserStore';
 
 const imageUrl = ref<string>(''); // TODO: read the image url
 const imageFile = ref<File>(new File([], '')); // TODO: store the image file
 
+
+const userStore = useUserStore();
+
 const profile = reactive({
   name: '',
   lastname: '',
-  birthdate: ''
+  img: ''
 });
 
 function handleInput(event: string, type: string): void {
@@ -15,10 +19,7 @@ function handleInput(event: string, type: string): void {
     profile.name = event;
   }
   if (type === 'lastname') {
-    profile.name = event;
-  }
-  if (type === 'birthdate') {
-    profile.birthdate = event;
+    profile.lastname = event;
   }
 }
 
@@ -26,6 +27,10 @@ function handleFileSelected(file: File) {
   imageUrl.value = URL.createObjectURL(file);
   imageFile.value = file;
 }
+
+// function validButton {
+//   if(profile)
+// }
 
 // async function submitImage(): Promise<string> {
 //   if (imageFile.value.size !== 0) {
@@ -84,6 +89,20 @@ function handleFileSelected(file: File) {
 //   resetValue();
 //   emit('close-create-or-edit')
 // }
+
+async function handleSave(): Promise<void> {
+  await userStore.updateUser(profile.name, profile.lastname, imageFile.value);
+}
+
+
+
+const formIsValid = computed(() => {
+  return (
+    profile.name !== '' &&
+    profile.lastname !== '' 
+  )
+})
+
 </script>
 
 <template>
@@ -93,7 +112,7 @@ function handleFileSelected(file: File) {
       <div class="form-upload">
         <CrushUpload @file-selected="handleFileSelected"/>
         <div v-if="imageUrl.length" class="form-upload-image">
-          <img :src="imageUrl">
+          <img class="image" :src="imageUrl">
         </div>
       </div>
     </div>
@@ -111,11 +130,12 @@ function handleFileSelected(file: File) {
         class="names"
         @update:modelValue="handleInput($event, 'lastname')" />
     </div>
-    <div class="profile-calendar">
-      <CalendarInput
-        label="Fecha"
-        :value="profile.birthdate"
-        @input="handleInput($event, 'birthdate')" />
+    <div class="profile-update">
+      <CrushButton
+        :disabled="!formIsValid"
+        variant="primary"
+        text="Guardar"
+        @click="handleSave"/>
     </div>
   </div>
 </template>
@@ -126,18 +146,32 @@ function handleFileSelected(file: File) {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  .form-upload {
+    margin: 0 auto;
+    max-width: 480px;
+    &-image {
+      width: 100%;
+      .image {
+        width: 100%;
+      }
+    }
+  }
   &-names {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    gap: 24px;
     .name {
       max-width: 250px;
       width: 100%;
     }
   }
-  &-calendar {
-    width: 100%;
+  &-update {
+    margin: 0 auto;
+    :deep(.crush-primary) {
+      color: $dark-blue;
+    }
   }
 }
 </style>
