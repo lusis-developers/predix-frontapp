@@ -9,4 +9,5 @@ export type User = {
   susbscriptionExperitationDate: string,
   name?: string,
   lastname?: string,
+  _id?: string
 }

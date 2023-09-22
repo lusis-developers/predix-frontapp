@@ -85,7 +85,7 @@ export const useUserStore = defineStore('UserStore', {
       } finally {
         this.isLoading = false;
       }
-    }
+    },
 
     // async updateSport(sport: Sport): Promise<void> {
     //   this.isLoading = true;
@@ -98,6 +98,18 @@ export const useUserStore = defineStore('UserStore', {
     //     this.isLoading = false;
     //   }
     // },
+    async updateUser(user: User): Promise<void> {
+      this.isLoading = true;
+      try {
+        await userService.updateUser(this.user?._id!, user);
+        await this.getSession();  
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    
   }
 });
 
