@@ -115,7 +115,7 @@ onMounted(() => {
     display: grid;
     place-items: center;
     align-items: flex-start;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 24px;
     span {
       width: 100%;
