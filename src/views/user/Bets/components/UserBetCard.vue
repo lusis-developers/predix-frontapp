@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 
 import { BetStatusEnum } from '@/enum/BetEnum';
 import { formatDateToCustom, formatNumberToProfit } from '@/utils/InputFormats';
-import { computed } from 'vue';
+
 
 const props = defineProps({
   sport: {
