@@ -46,10 +46,10 @@ onMounted(() => {
         @update:modelValue="toggleBets" />
     </div>
     <div
-      v-if="!betStore.freePendingBets?.length"
-      class="bet-text">
-      <p>Oh! no tenemos apuestas por el momento</p>
-      <p class="indication">Una vez te hayas suscritos te diremos como ganar tus apuestas</p>
+      v-if="suscriptionType === SuscriptionTypeEnum.ISFREE && pendingBets && !pendingBets.length"
+      class="bets-text">
+      <p class="bets-text-message">Oh! no tenemos apuestas por el momento</p>
+      <p class="bets-text-message indication">Una vez te hayas suscritos te diremos como ganar tus apuestas</p>
     </div>
     <div class="bets-container">
       <UserBetCard
@@ -81,8 +81,8 @@ onMounted(() => {
         :teamA="bet.teamA"
         :teamB="bet.teamB"  />
       </div>
-    <span v-if="!isUserPremium && !(suscriptionType === SuscriptionTypeEnum.ISFREE)">
-      <p>Oh! no cuentas con suscripción premium</p>
+    <span class="nosub-text" v-if="!isUserPremium && !(suscriptionType === SuscriptionTypeEnum.ISFREE)">
+      <p class="bets-text-message">Oh! no cuentas con suscripción premium</p>
       <p class="indication">Una vez te hayas suscritos te daremos más apuestas para ganar</p>
     </span>
   </div>
@@ -90,7 +90,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .bets {
-  width: 100%;
+  padding: 0 24px;
   &-toggle {
     margin-bottom: 24px;
   }
@@ -101,8 +101,9 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     text-align: center;
-    p {
+    &-message {
       color: $white;
+      text-align: center;
       font-family: $font-secondary;
       font-size: $h2-font-size;
     }
@@ -114,10 +115,22 @@ onMounted(() => {
     display: grid;
     place-items: center;
     align-items: flex-start;
-    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 24px;
     span {
       width: 100%;
+    }
+  }
+  .nosub-text {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .indication {
+      font-family: $font-secondary;
+      font-size: $body-font-size;
+      text-align: center;
     }
   }
 }
