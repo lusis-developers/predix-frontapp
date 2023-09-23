@@ -34,6 +34,7 @@ onMounted(async () => {
     isLoading.value = false;
 
     if (response.transactionStatus === 'Approved') {
+      console.log('me suscribo')
       userSuscribed();
     }
 

@@ -21,8 +21,8 @@ export const useSubscriptionStore = defineStore('SubscriptionStore', {
     async subscribe() {
       this.isLoading = true;
       try {
-        await subscriptionService.updateSubscription(this.planId!);
         await subscriptionService.updateSubscription(localStorage.getItem('planId')!);
+        localStorage.removeItem('planId');
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
