@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import TheSubscription from './components/TheSubscription.vue';
+import TheSubscription from '@/components/TheSubscription.vue';
 
 import usePlanStore from '@/stores/PlansStore';
 
