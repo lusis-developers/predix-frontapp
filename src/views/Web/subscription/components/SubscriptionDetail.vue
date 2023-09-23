@@ -3,15 +3,13 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import type { Plan } from '@/typings/PlanTypes';
-import usePlansStore from '@/stores/PlansStore';
-import useSubscriptionStore from '@/stores/SubscriptionStore';
 import { formatToCurrency } from '@/utils/InputFormats';
+import usePlansStore from '@/stores/PlansStore';
 import PaymentButton from '@/components/PaymentButton.vue';
 
 const route = useRoute();
 
 const plansStore = usePlansStore();
-const subscriptionStore = useSubscriptionStore();
 
 const planSelected = ref<Plan>();
 

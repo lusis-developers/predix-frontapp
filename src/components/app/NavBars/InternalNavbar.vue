@@ -32,11 +32,15 @@ const sideBarWidth = computed(() => {
     return isMenuOpen.value ? '188px' : '54px';
   }
 });
-const iconButton =
-  computed(() => isMenuOpen.value
+const iconButton = computed(() => isMenuOpen.value
     ? 'fa-solid fa-chevron-left'
     : 'fa-solid fa-chevron-right'
-  );
+);
+
+function redirectToPlans() {
+
+}
+
 </script>
 
 <template>
@@ -62,6 +66,24 @@ const iconButton =
             :name="item.name"
             :isMenuOpen="isMenuOpen" />
         </ul>
+        <div
+          v-if="!isAdmin"
+          class="navbar-content-suscribe">
+          <CrushButton
+            v-if="isMenuOpen"
+            variant="primary"
+            text="Suscríbete"
+            @click="redirectToPlans" />
+          <button
+            v-else
+            class="navbar-content-suscribe-action"
+            @click="redirectToPlans">
+            <img
+              src="@/assets/logo-small.svg"
+              alt="predix">
+            <span class="notification" />
+          </button>
+        </div>
       </div>
     </div>
   </Transition>
@@ -104,6 +126,9 @@ const iconButton =
     padding: 24px 12px;
     scroll-behavior: smooth;
     border-top: 1px solid $grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -114,6 +139,26 @@ const iconButton =
       gap: 16px;
       list-style-type: none;
       padding: 0;
+    }
+    &-suscribe {
+      display: flex;
+      justify-content: center;
+      &-action {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        position: relative;
+        .notification {
+          background-color: #d06363;
+          border: 1px solid $white;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          position: absolute;
+          top: -8px;
+          right: 4px;
+        }
+      }
     }
   }
 }
