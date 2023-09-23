@@ -30,6 +30,7 @@ class APIUsers extends APIBase {
       id: id,
       ...user
     }
+    console.log('service', data)
     return this.patch<ResponseMessageType>(`users/${id}`, data);
   }
 }

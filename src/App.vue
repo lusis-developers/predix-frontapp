@@ -14,20 +14,21 @@ onMounted(() => {
 
 watch(
   () => userStore.user,
-  (value) => {
-    if (!value) {
+  (newValue, oldValue) => {
+    if (!newValue) {
       router.push('/');
       return;
     }
     if (localStorage.getItem('is-buying')) {
       router.push('/dashboard/subscription');
-      return
+      localStorage.removeItem('is-buying');
+      return;
     }
-    if (value?.role.includes(UserRoleEnum.USER)) {
+    if (newValue?.role?.includes(UserRoleEnum.USER) && !oldValue) {
       router.push('/dashboard/picks');
       return;
     }
-    if (value?.role.includes(UserRoleEnum.ADMIN)) {
+    if (newValue?.role?.includes(UserRoleEnum.ADMIN) && !oldValue) {
       router.push('/internal-app/dashboard/bets');
       return;
     }

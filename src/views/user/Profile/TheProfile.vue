@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 
 import { useUserStore } from '@/stores/UserStore';
 import type { User } from '@/typings/UserTypes';
@@ -35,7 +35,6 @@ function handleInput(event: string, type: string): void {
 function handleFileSelected(file: File) {
   imageUrl.value = URL.createObjectURL(file);
   imageFile.value = file;
-  console.log('imageFile:', imageFile.value)
 }
 
 async function submitUser(): Promise<void> {
@@ -46,8 +45,9 @@ async function submitUser(): Promise<void> {
     lastname: profile.lastname,
     userImage: url
   };
-  console.log(data)
-  // await userStore.updateUser(data); 
+  await userStore.updateUser(data);
+  resetValues();
+
 }
 
 async function submitImage(): Promise<string> {
@@ -59,18 +59,41 @@ async function submitImage(): Promise<string> {
   return '';
 }
 
+function resetValues(): void {
+  imageFile.value = new File([], '');
+  imageUrl.value = '';
+  profile.name = '';
+  profile.lastname = '';
+}
 
+function setValues(): void {
+  imageUrl.value = userStore.user?.userImage!;
+  profile.name = userStore.user?.name!;
+  profile.lastname = userStore.user?.lastname!;
+}
 
+onMounted(async () => {
+  if (userStore.user) {
+    await userStore.getSession();
+    setValues();
+  }
+});
 </script>
 
 <template>
   <div class="profile">
     <div class="profile-image">
-      <p class="form-description">Subir imagen</p>
+      <p class="form-description">
+        Subir imagen
+      </p>
       <div class="form-upload">
         <CrushUpload @file-selected="handleFileSelected"/>
-        <div v-if="imageUrl.length" class="form-upload-image">
-          <img class="image" :src="imageUrl">
+        <div
+          v-if="imageUrl?.length"
+          class="form-upload-image">
+          <img
+            :src="imageUrl"
+            class="image" />
         </div>
       </div>
     </div>
