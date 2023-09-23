@@ -33,6 +33,8 @@ onMounted(async () => {
     const response = await result.json();
     isLoading.value = false;
 
+    console.log('estamos pagando')
+
     if (response.transactionStatus === 'Approved') {
       console.log('me suscribo')
       userSuscribed();
