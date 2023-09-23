@@ -94,7 +94,6 @@ export const useUserStore = defineStore('UserStore', {
     async updateUser(user: User): Promise<void> {
       this.isLoading = true;
       try {
-        console.log(user);
         await userService.updateUser(this.user?.id!, user);
         await this.getSession();
       } catch (error: any) {

@@ -1,165 +1,194 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
 
-import { useUserStore } from '@/stores/UserStore';
-import type { User } from '@/typings/UserTypes';
+import { BetStatusEnum } from '@/enum/BetEnum';
+import { formatDateToCustom, formatNumberToProfit } from '@/utils/InputFormats';
+import { computed } from 'vue';
 
-const imageUrl = ref<string>(''); // TODO: read the image url
-const imageFile = ref<File>(new File([], '')); // TODO: store the image file
-
-
-const userStore = useUserStore();
-
-const profile = reactive({
-  name: '',
-  lastname: '',
-  img: ''
+const props = defineProps({
+  sport: {
+    type: String,
+    required: true
+  },
+  league: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  profit: {
+    type: Number,
+    required: true
+  },
+  percentage: {
+    type: Number,
+    required: true
+  },
+  teamA: {
+    type: String,
+    required: true
+  },
+  teamB: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String as () => BetStatusEnum,
+    required: true
+  }
 });
 
-const formIsValid = computed(() => {
-  return (
-    profile.name !== '' &&
-    profile.lastname !== '' 
-  )
-})
-
-function handleInput(event: string, type: string): void {
-  if (type === 'name') {
-    profile.name = event;
-  }
-  if (type === 'lastname') {
-    profile.lastname = event;
-  }
-}
-
-function handleFileSelected(file: File) {
-  imageUrl.value = URL.createObjectURL(file);
-  imageFile.value = file;
-}
-
-async function submitUser(): Promise<void> {
-  const imageResponse = await submitImage();
-  const url = !imageResponse.length ? imageUrl.value : imageResponse;
-  const data: User = {
-    name: profile.name,
-    lastname: profile.lastname,
-    userImage: url
-  };
-  await userStore.updateUser(data);
-  resetValues();
-
-}
-
-async function submitImage(): Promise<string> {
-  if (imageFile.value.size !== 0) {
-    const result = await userStore.uploadUserImage(imageFile.value!);
-
-    return result?.url!;
+const matchStatus = computed(() => {
+  if (props.status === BetStatusEnum.PENDING) {
+    return 'Por jugarse'
   }
   return '';
-}
-
-function resetValues(): void {
-  imageFile.value = new File([], '');
-  imageUrl.value = '';
-  profile.name = '';
-  profile.lastname = '';
-}
-
-function setValues(): void {
-  imageUrl.value = userStore.user?.userImage!;
-  profile.name = userStore.user?.name!;
-  profile.lastname = userStore.user?.lastname!;
-}
-
-onMounted(async () => {
-  if (userStore.user) {
-    await userStore.getSession();
-    setValues();
-  }
 });
 </script>
 
 <template>
-  <div class="profile">
-    <div class="profile-image">
-      <p class="form-description">
-        Subir imagen
-      </p>
-      <div class="form-upload">
-        <CrushUpload @file-selected="handleFileSelected"/>
-        <div
-          v-if="imageUrl?.length"
-          class="form-upload-image">
-          <img
-            :src="imageUrl"
-            class="image" />
+  <div class="user-bet-card">
+    <span class="user-bet-card-sport">
+      {{ sport }}
+    </span>
+    <div class="user-bet-card-details">
+      <div class="user-bet-card-details-match">
+        <span class="league">
+          {{ league }}
+        </span>
+        <div class="user-bet-card-details-match-details">
+          <span class="team">
+            {{ teamA }}
+          </span>
+          <span>
+            vs
+          </span>
+          <span class="team">
+            {{ teamB }}
+          </span>
+        </div>
+      </div>
+      <div class="user-bet-card-details-numbers">
+        <div class="container">
+          <span class="container-title">
+            Ganancia
+          </span>
+          <span class="container-number">
+            {{ formatNumberToProfit(profit) }}
+          </span>
+        </div>
+        <div class="container">
+          <span class="container-title">
+            Porcentaje
+          </span>
+          <span class="container-number">
+            {{ percentage }}%
+          </span>
         </div>
       </div>
     </div>
-    <div class="profile-names">
-      <CrushTextField 
-        v-model:value="profile.name"
-        label="Nombre"
-        placeholder="Luis"
-        class="names"
-        @update:modelValue="handleInput($event, 'name')" />
-      <CrushTextField 
-        v-model:value="profile.lastname"
-        label="Apellidos"
-        placeholder="Reyes"
-        class="names"
-        @update:modelValue="handleInput($event, 'lastname')" />
-    </div>
-    <div class="profile-update">
-      <CrushButton
-        :disabled="!formIsValid"
-        variant="primary"
-        text="Guardar"
-        @click="submitUser"/>
+    <span class="user-bet-card-date">
+      {{ formatDateToCustom(date) }}
+    </span>
+    <p class="user-bet-card-description">
+      {{ description }}
+    </p>
+    <div class="user-bet-card-status">
+      <span>
+        Estado
+      </span>
+      <span class="user-bet-card-status-value">
+        {{ matchStatus }}
+      </span>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.profile {
+.user-bet-card {
   width: 100%;
+  max-width: 640px;
+  border: 1px solid $yellow;
+  border-radius: 8px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px;
-  &-image {
-    display: flex;
-    gap: 12px;
-    flex-direction: column;
+  gap: 12px;
+  &-sport {
+    font-family: $font-secondary;
+    font-size: $body-font-size;
   }
-  .form-upload {
-    margin: 0 auto;
-    max-width: 480px;
-    &-image {
-      width: 100%;
-      .image {
-        width: 100%;
-        margin-top: 16px;
-        border-radius: 8px;
+  &-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    &-match {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+      font-weight: lighter;
+      font-size: $body-font-size;
+      .league {
+        font-size: $h3-font-size;
+        font-family: $font-secondary;
+      }
+      &-details {
+      font-weight: 300;
+      font-size: $body-font-size;
+      margin-top: 12px;
+      .team {
+        font-weight: 700;
+        color: rgb(232, 113, 113);
+      }
+    }
+    }
+    &-numbers {
+      display: flex;
+      flex-direction: column;
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 12px;
+        &-title {
+          font-family: $font-secondary;
+        }
+        &-number {
+          color: $green;
+          font-family: $font;
+          font-size: $h3-font-size;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%; 
+        }
       }
     }
   }
-  &-names {
+  &-description {
+    color: $green;
+    font-family: $font-secondary;
+    font-size: $body-font-size;
+  }
+  &-status {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-    .name {
-      max-width: 250px;
-      width: 100%;
-    }
-  }
-  &-update {
-    margin: 0 auto;
-    :deep(.crush-primary) {
-      color: $dark-blue;
+    font-weight: 700;
+    font-family: $font-secondary;
+    &-value {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      font-weight: 300;
+      font-family: $font-secondary;
     }
   }
 }
