@@ -25,13 +25,14 @@ class APIUsers extends APIBase {
     return this.get('users/profile'); 
   } 
 
-  // async updateUser(id: string, user: User): Promise<ResponseMessageType> {
-  //   const data = {
-  //     id: id,
-  //     ...sport
-  //   }
-  //   return this.put<ResponseMessageType>(`sports/${id}`, data);
-  // }
+  async updateUser(id: string, user: User): Promise<ResponseMessageType> {
+    const data = {
+      id: id,
+      ...user
+    }
+    console.log('service', data)
+    return this.patch<ResponseMessageType>(`users/${id}`, data);
+  }
 }
 
 

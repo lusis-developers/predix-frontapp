@@ -22,7 +22,9 @@ const userDisplayed = computed(() => userStore.user?.name ?? userStore.user?.ema
         v-if="userStore.user?.userImage"
         :src="userStore.user?.userImage"
         :alt="userDisplayed">
-      <i class="fa-solid fa-user" />
+      <i
+        v-else
+        class="fa-solid fa-user" />
       <p>{{ userDisplayed }}</p>
       <i class="fa-solid fa-chevron-down"></i>
       <div class="header-name-options">

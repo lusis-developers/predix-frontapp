@@ -89,19 +89,21 @@ export const useUserStore = defineStore('UserStore', {
       } finally {
         this.isLoading = false;
       }
-    }
+    },
 
-    // async updateSport(sport: Sport): Promise<void> {
-    //   this.isLoading = true;
-    //   try {
-    //     await sportService.updateSport(this.selectedSport?._id!, sport);
-    //     this.getSports();
-    //   } catch (error: any) {
-    //     this.errorMessage = error.message;
-    //   } finally {
-    //     this.isLoading = false;
-    //   }
-    // },
+    async updateUser(user: User): Promise<void> {
+      this.isLoading = true;
+      try {
+        console.log(user);
+        await userService.updateUser(this.user?.id!, user);
+        await this.getSession();
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    
   }
 });
 
