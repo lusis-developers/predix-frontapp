@@ -17,12 +17,18 @@ watch(
   (value) => {
     if (!value) {
       router.push('/');
+      return;
+    }
+    if (localStorage.getItem('is-buying')) {
+      router.push('/dashboard/subscription');
     }
     if (value?.role.includes(UserRoleEnum.USER)) {
       router.push('/dashboard/picks');
+      return;
     }
     if (value?.role.includes(UserRoleEnum.ADMIN)) {
       router.push('/internal-app/dashboard/bets');
+      return;
     }
   }
 )
