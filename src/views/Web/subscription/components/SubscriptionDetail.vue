@@ -29,7 +29,7 @@ onMounted( async () => {
     planSelected.value = plansStore.plans.find(
       (plan) => plan._id === route.params.id
     );
-    subscriptionStore.planId = planSelected.value?._id!;
+    localStorage.setItem('planId', planSelected.value?._id!);
   }
 });
 </script>

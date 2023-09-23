@@ -22,10 +22,12 @@ export const useSubscriptionStore = defineStore('SubscriptionStore', {
       this.isLoading = true;
       try {
         await subscriptionService.updateSubscription(this.planId!);
+        await subscriptionService.updateSubscription(localStorage.getItem('planId')!);
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
         this.isLoading = false;
+        localStorage.removeItem('planId');
       }
     }
   }
