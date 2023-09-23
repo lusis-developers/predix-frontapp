@@ -44,7 +44,6 @@ export const useUserStore = defineStore('UserStore', {
 
         if (localStorage.getItem('is-buying') === 'true') {
           await router.push('/dashboard/subscription');
-          console.log('suscription')
         } else {
           await router.push('/dashboard/picks');
         }

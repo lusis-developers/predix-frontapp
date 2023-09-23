@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import { formatToCurrency } from '@/utils/InputFormats';
 
 import defaultImage from '@/assets/generic-image.jpg'
 
 const route = useRoute();
+const router = useRouter();
 
 const props = defineProps({
   id: {
@@ -22,7 +23,7 @@ const props = defineProps({
     required: true,
     default: '@/assets/generic-image.jpg'
   },
-    title: {
+  title: {
     type: String,
     required: true,
   },
@@ -30,7 +31,7 @@ const props = defineProps({
     type: Number,
     required: true
   },
-})
+});
 
 const displayImage = computed(() => props.image || defaultImage);
 const isUser = computed(() => route.path.includes('dashboard'));
@@ -38,10 +39,14 @@ const subscriptionRedirection = computed(() => isUser.value
   ? `/dashboard/subscription/${props.link}`
   : `/subscriptions/${props.link}`
 );
+
+function redirectToSubscriptionDetail(): void {
+  router.push(subscriptionRedirection.value);
+}
 </script>
 
 <template>
-  <RouterLink :to="subscriptionRedirection" class="card">
+  <div class="card">
     <img
       class="card-image" 
       :src="displayImage"
@@ -55,8 +60,9 @@ const subscriptionRedirection = computed(() => isUser.value
     <CrushButton
       class="card-button"
       text="Ver plan"
-      primary="primary" />
-  </RouterLink>
+      primary="primary"
+      @click="redirectToSubscriptionDetail" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
