@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 import type { Plan } from '@/typings/PlanTypes';
 import { formatToCurrency } from '@/utils/InputFormats';
 import usePlansStore from '@/stores/PlansStore';
-
-// import PaymentButton from '@/components/PaymentButton.vue';
+import PaymentButton from '@/components/PaymentButton.vue';
 
 const route = useRoute();
-const router = useRouter();
 
 const plansStore = usePlansStore();
 
@@ -22,11 +20,6 @@ const price = computed(() => {
     return 'Free'
   }
 });
-
-function redirectToBuy() {
-  localStorage.setItem('is-buying', 'true');
-  router.push('/login');
-}
 
 onMounted( async () => {
   await plansStore.getPlans();
@@ -60,10 +53,9 @@ onMounted( async () => {
       <p class="container-info-description">
         {{ planSelected?.description }}
       </p>
-      <CrushButton
-        variant="primary"
-        text="Comprar"
-        @click="redirectToBuy" />
+      <PaymentButton
+        v-if="planSelected?.price"
+        :price="planSelected?.price!" />
     </div>
 	</div>
   <figure class="figure">

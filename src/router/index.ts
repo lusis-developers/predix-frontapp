@@ -30,7 +30,9 @@ const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 const UserBets = () => import('@/views/user/Bets/TheBets.vue');
 const UserProfile = () => import('@/views/user/Profile/TheProfile.vue');
 const UserRegister = () => import('@/views/UserRegister.vue');
-const UserLogin = () => import('@/views/UserLogin.vue')
+const UserLogin = () => import('@/views/UserLogin.vue');
+const UserSubscription = () => import('@/views/user/Subscription/TheSubscriptions.vue');
+const UserSubscriptionDetail = () => import('@/views/user/Subscription/components/SubscriptionDetail.vue');
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -171,11 +173,19 @@ const routes: Array<RouteRecordRaw> = [
             }
           },
           {
-            path: 'statistics',
-            name: 'statistics',
-            component: UserProfile,
+            path: 'subscription',
+            name: 'subscription',
+            component: UserSubscription,
             meta: {
-              title: 'Cuéntanos de ti 😁'
+              title: 'Falta poco 😁'
+            }
+          },
+          {
+            path: 'subscription/:id',
+            name: 'subscription-payment',
+            component: UserSubscriptionDetail,
+            meta: {
+              title: 'Un paso más 😁'
             }
           },
         ]

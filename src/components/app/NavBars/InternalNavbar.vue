@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import NavbarLogo from './NavbarLogo.vue';
 import NavbarItem from './NavbarItem.vue';
 import { menuItems, userMenuItems } from '@/utils/MenuItems';
 
 const route = useRoute();
+const router = useRouter();
+
 const isMenuOpen = ref(false);
 const isAdmin = computed(() => route.path.includes('internal-app'));
 const menu = computed(() => isAdmin.value ? menuItems : userMenuItems)
@@ -38,7 +40,7 @@ const iconButton = computed(() => isMenuOpen.value
 );
 
 function redirectToPlans() {
-
+  router.push('/dashboard/subscription');
 }
 
 </script>
