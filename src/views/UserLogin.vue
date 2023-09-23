@@ -193,5 +193,12 @@ function handleLogin(): void {
       }
     }
   }
+  &-span {
+    color: $white;
+    &-link {
+      color: $grey;
+      text-decoration: none;
+    }
+  }
 }
 </style>

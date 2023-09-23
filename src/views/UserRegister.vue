@@ -170,6 +170,14 @@ function handleRegister(): void {
       <img 
         src="@/assets/footer-image.png"
         class="register-wrapper-image2">
+    <span class="register-wrapper-span">
+      ¿Ya tienes cuenta?
+      <RouterLink 
+        class="register-wrapper-span-link"
+        to="/login">
+        Inicia sesion ahora
+      </RouterLink>
+    </span>
   </div>
 </template>
 
