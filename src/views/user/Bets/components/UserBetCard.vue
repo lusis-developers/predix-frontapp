@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { BetStatusEnum } from '@/enum/BetEnum';
-import { formatDateToCustom } from '@/utils/InputFormats';
+import { formatDateToCustom, formatNumberToProfit } from '@/utils/InputFormats';
 import { computed } from 'vue';
 
 const props = defineProps({
@@ -79,7 +79,7 @@ const matchStatus = computed(() => {
             Ganancia
           </span>
           <span class="container-number">
-            {{ profit }}
+            {{ formatNumberToProfit(profit) }}
           </span>
         </div>
         <div class="container">
@@ -87,7 +87,7 @@ const matchStatus = computed(() => {
             Porcentaje
           </span>
           <span class="container-number">
-            {{ percentage }} %
+            {{ percentage }}%
           </span>
         </div>
       </div>
@@ -144,6 +144,7 @@ const matchStatus = computed(() => {
       margin-top: 12px;
       .team {
         font-weight: 700;
+        color: rgb(232, 113, 113);
       }
     }
     }
@@ -163,6 +164,7 @@ const matchStatus = computed(() => {
           color: $green;
           font-family: $font;
           font-size: $h3-font-size;
+          text-align: center;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
