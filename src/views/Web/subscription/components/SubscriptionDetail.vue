@@ -4,11 +4,14 @@ import { useRoute } from 'vue-router';
 
 import type { Plan } from '@/typings/PlanTypes';
 import usePlansStore from '@/stores/PlansStore';
+import useSubscriptionStore from '@/stores/SubscriptionStore';
 import { formatToCurrency } from '@/utils/InputFormats';
 import PaymentButton from '@/components/PaymentButton.vue';
 
-const plansStore = usePlansStore();
 const route = useRoute();
+
+const plansStore = usePlansStore();
+const subscriptionStore = useSubscriptionStore();
 
 const planSelected = ref<Plan>();
 
@@ -26,6 +29,7 @@ onMounted( async () => {
     planSelected.value = plansStore.plans.find(
       (plan) => plan._id === route.params.id
     );
+    subscriptionStore.planId = planSelected.value?._id!;
   }
 });
 </script>
