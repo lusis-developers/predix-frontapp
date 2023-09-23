@@ -127,6 +127,12 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 24px;
+  &-image {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+  }
   .form-upload {
     margin: 0 auto;
     max-width: 480px;
