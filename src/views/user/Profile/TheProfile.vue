@@ -134,6 +134,8 @@ onMounted(async () => {
       width: 100%;
       .image {
         width: 100%;
+        margin-top: 16px;
+        border-radius: 8px;
       }
     }
   }
