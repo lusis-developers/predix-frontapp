@@ -13,7 +13,7 @@ const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 //import web views
 import WebView from '@/views/Web/WebIndex.vue';
 import WebContact from '@/views/Web/TheContact.vue';
-const WebSubscriptions = () => import('@/views/Web/Subscription/TheSubscriptions.vue');
+const WebSubscriptions = () => import('@/views/Web/subscription/TheSubscriptions.vue');
 const PaymentDone = () => import('@/views/PaymentDone.vue');
 
 // internal app views
