@@ -2,8 +2,14 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
+import useUserStore from '@/stores/UserStore';
+
 const route = useRoute();
+
+const userStore = useUserStore();
+
 const routeTitle = computed(() => route.meta.title);
+const userDisplayed = computed(() => userStore.user?.name ?? userStore.user?.email);
 </script>
 
 <template>
@@ -12,11 +18,20 @@ const routeTitle = computed(() => route.meta.title);
       <p class="header-logo-title">{{ routeTitle }}</p>
     </div>
     <div class="header-name">
-      <img src="https://i.pinimg.com/564x/37/8a/27/378a270e775265622393da8c0527417e.jpg" alt="">
-      <p>Diego Reyes</p>
+      <img
+        v-if="userStore.user?.userImage"
+        :src="userStore.user?.userImage"
+        :alt="userDisplayed">
+      <i
+        v-else
+        class="fa-solid fa-user" />
+      <p>{{ userDisplayed }}</p>
       <i class="fa-solid fa-chevron-down"></i>
       <div class="header-name-options">
-        <p> Cerrar sesión </p>
+        <CrushButton
+          variant="primary"
+          text="Cerrar Sesión"
+          @click="userStore.logout" />
       </div>
     </div>
   </header>

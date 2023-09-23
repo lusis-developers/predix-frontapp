@@ -2,8 +2,7 @@
 import { webMenuItems } from '@/utils/MenuItems';
 import { computed } from 'vue';
 
-
-const emit = defineEmits();
+const emit = defineEmits(['toggle-menu']);
 
 const closeMenu = () => {
   emit('toggle-menu');

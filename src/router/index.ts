@@ -13,8 +13,7 @@ const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 //import web views
 import WebView from '@/views/Web/WebIndex.vue';
 import WebContact from '@/views/Web/TheContact.vue';
-import WebSubscriptions from '@/views/Web/subscription/TheSubscriptions.vue';
-import WebSubscription from '@/views/Web/subscription/components/SubscriptionDetail.vue';
+const WebSubscriptions = () => import('@/views/Web/subscription/TheSubscriptions.vue');
 const PaymentDone = () => import('@/views/PaymentDone.vue');
 
 // internal app views
@@ -30,7 +29,9 @@ const TheSports = () => import('@/views/InternalApp/TheSports/TheSports.vue');
 const UserBets = () => import('@/views/user/Bets/TheBets.vue');
 const UserProfile = () => import('@/views/user/Profile/TheProfile.vue');
 const UserRegister = () => import('@/views/UserRegister.vue');
-const UserLogin = () => import('@/views/UserLogin.vue')
+const UserLogin = () => import('@/views/UserLogin.vue');
+const UserSubscription = () => import('@/views/user/Subscription/TheSubscriptions.vue');
+const SubscriptionDetail = () => import('@/components/SubscriptionDetail.vue');
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -60,8 +61,8 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/subscriptions/:id',
-        name: 'subscription',
-        component: WebSubscription,
+        name: 'web-subscription',
+        component: SubscriptionDetail,
       },
       {
         path: '/paymentDone/:id',
@@ -171,11 +172,19 @@ const routes: Array<RouteRecordRaw> = [
             }
           },
           {
-            path: 'statistics',
-            name: 'statistics',
-            component: UserProfile,
+            path: 'subscription',
+            name: 'subscription',
+            component: UserSubscription,
             meta: {
-              title: 'Cuéntanos de ti 😁'
+              title: 'Falta poco 😁'
+            }
+          },
+          {
+            path: 'subscription/:id',
+            name: 'subscription-payment',
+            component: SubscriptionDetail,
+            meta: {
+              title: 'Un paso más 😁'
             }
           },
         ]

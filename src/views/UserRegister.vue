@@ -107,6 +107,9 @@ function handleRegister(): void {
       class="date-message">
       Debes tener al menos 16 años
     </span>
+    <p class="register-wrapper-title">
+      ¿Primera vez en Predix? 🌟 <br> Únete ya
+    </p>
     <div class="register-wrapper-card">
       <CrushTextField
         :key="textKey"
@@ -116,7 +119,7 @@ function handleRegister(): void {
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.password"
-        label="Password"
+        label="Contraseña"
         :type="textType"
         :validRules="userRules.passwordValidation">
         <template #icon>
@@ -130,7 +133,7 @@ function handleRegister(): void {
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.passwordRepeated"
-        label="Repita contraseña"
+        label="Repita su contraseña"
         :type="textRepeatedType"
         :validRules="userRules.passwordRepeatedValidation">
         <template #icon>
@@ -161,6 +164,20 @@ function handleRegister(): void {
         Inicia sesion ahora
       </RouterLink>
     </span>
+    <img 
+        src="@/assets/footer-image.png"
+        class="register-wrapper-image">
+      <img 
+        src="@/assets/footer-image.png"
+        class="register-wrapper-image2">
+    <span class="register-wrapper-span">
+      ¿Ya tienes cuenta?
+      <RouterLink 
+        class="register-wrapper-span-link"
+        to="/login">
+        Inicia sesion ahora
+      </RouterLink>
+    </span>
   </div>
 </template>
 
@@ -177,8 +194,18 @@ function handleRegister(): void {
   align-items: center;
   min-height: 100vh;
   background-color: $dark-blue;
+  padding: 24px;
+  max-width: $desktop-lower-breakpoint;
   .date-message {
     color: $red;
+  }
+  &-title {
+    color: $white;
+    font-size: $body-font-size;
+    text-align: center;
+    @media (min-width: $tablet-lower-breakpoint) {
+      font-size: $body-medium-size;
+    }
   }
   &-card {
     border: 1px solid $grey;
@@ -189,6 +216,7 @@ function handleRegister(): void {
     max-width: 520px;
     border-radius: 8px;
     padding: 32px;
+    background: rgba(141, 141, 157, 0.08);
     @media(max-width: $tablet-lower-breakpoint) {
       border: none;
     }
@@ -211,6 +239,33 @@ function handleRegister(): void {
     &-link {
       color: #62bfd6;
       text-decoration: underline;
+    }
+  }
+  &-image {
+    display: none;
+    @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 120px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: rotate(180deg);
+    }
+    @media (min-width: $desktop-lower-breakpoint) {
+      width: 200px;
+      }
+    &2 {
+      display: none;
+      @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 80px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      }
+      @media (min-width: $desktop-lower-breakpoint) {
+      width: 160px;
+      }
     }
   }
 }

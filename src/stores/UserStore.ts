@@ -38,11 +38,15 @@ export const useUserStore = defineStore('UserStore', {
       this.isLoading = true;
       try {
         const response = await userService.login(email, password);
-        this.user = response.data
+        this.user = response.data;
 
         localStorage.setItem('access_token', this.user?.token!);
 
-        await router.push('/dashboard/picks')
+        if (localStorage.getItem('is-buying') === 'true') {
+          await router.push('/dashboard/subscription');
+        } else {
+          await router.push('/dashboard/picks');
+        }
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
@@ -64,7 +68,6 @@ export const useUserStore = defineStore('UserStore', {
 
     async getSession(): Promise<void> {
       this.isLoading = false;
-
       try {
         const response = await userService.getSession();
         this.user = response.data;
@@ -73,19 +76,34 @@ export const useUserStore = defineStore('UserStore', {
       } finally {
         this.isLoading = false;
       }
-    }
+    },
 
-    // async updateSport(sport: Sport): Promise<void> {
-    //   this.isLoading = true;
-    //   try {
-    //     await sportService.updateSport(this.selectedSport?._id!, sport);
-    //     this.getSports();
-    //   } catch (error: any) {
-    //     this.errorMessage = error.message;
-    //   } finally {
-    //     this.isLoading = false;
-    //   }
-    // },
+    async logout(): Promise<void> {
+      this.isLoading = true;
+      try {
+        localStorage.removeItem('access_token');
+        this.user = null;
+        await router.push('/');
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async updateUser(user: User): Promise<void> {
+      this.isLoading = true;
+      try {
+        console.log(user);
+        await userService.updateUser(this.user?.id!, user);
+        await this.getSession();
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    
   }
 });
 

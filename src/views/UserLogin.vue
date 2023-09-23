@@ -59,6 +59,9 @@ function handleLogin(): void {
 
 <template>
   <div class="login-wrapper crush-container">
+    <p class="login-wrapper-title">
+      Que gusto verte nuevamente 🌟 <br> Ingresa ahora
+    </p>
     <div class="login-wrapper-card">
       <CrushTextField
         :key="textKey"
@@ -68,7 +71,7 @@ function handleLogin(): void {
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.password"
-        label="Password"
+        label="Contraseña"
         :type="textType"
         :validRules="userRules.passwordValidation">
         <template #icon>
@@ -94,6 +97,12 @@ function handleLogin(): void {
         Regístrate ahora
       </RouterLink> 
     </span>
+    <img 
+      src="@/assets/footer-image.png"
+      class="login-wrapper-image">
+    <img 
+      src="@/assets/footer-image.png"
+      class="login-wrapper-image2">
   </div>
 </template>
 
@@ -110,6 +119,15 @@ function handleLogin(): void {
   align-items: center;
   min-height: 100vh;
   background-color: $dark-blue;
+  padding: 24px;
+  &-title {
+    color: $white;
+    font-size: $body-font-size;
+    text-align: center;
+    @media (min-width: $tablet-lower-breakpoint) {
+      font-size: $body-medium-size;
+    }
+  }
   .date-message {
     color: $red;
   }
@@ -122,6 +140,8 @@ function handleLogin(): void {
     max-width: 520px;
     border-radius: 8px;
     padding: 32px;
+    background: rgba(141, 141, 157, 0.08);
+    backdrop-filter: blur(40px);
     @media(max-width: $tablet-lower-breakpoint) {
       border: none;
     }
@@ -144,6 +164,40 @@ function handleLogin(): void {
     &-link {
       color: #62bfd6;
       text-decoration: underline;
+    }
+  }
+  &-image {
+    display: none;
+    @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 120px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: rotate(180deg);
+    }
+    @media (min-width: $desktop-lower-breakpoint) {
+      width: 200px;
+      }
+    &2 {
+      display: none;
+      @media (min-width: $tablet-lower-breakpoint) {
+      display: flex;
+      width: 80px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      }
+      @media (min-width: $desktop-lower-breakpoint) {
+      width: 160px;
+      }
+    }
+  }
+  &-span {
+    color: $white;
+    &-link {
+      color: $grey;
+      text-decoration: none;
     }
   }
 }

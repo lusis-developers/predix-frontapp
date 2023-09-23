@@ -8,7 +8,7 @@ const planStore = usePlanStore();
 
 onMounted(async () => {
   await planStore.getPlans();
-})
+});
 </script>
 
 <template>

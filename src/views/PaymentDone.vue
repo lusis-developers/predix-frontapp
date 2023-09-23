@@ -2,7 +2,11 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 
+import useSubscriptionStore from '@/stores/SubscriptionStore';
+
 const route = useRoute();
+
+const subscriptionStore = useSubscriptionStore();
 
 const isLoading = ref(true);
 const resultText = ref('');
@@ -30,7 +34,7 @@ onMounted(async () => {
     isLoading.value = false;
 
     if (response.transactionStatus === 'Approved') {
-      paymentOnWisphub();
+      userSuscribed();
     }
 
     if (response.transactionStatus === 'Canceled') {
@@ -42,19 +46,8 @@ onMounted(async () => {
   }
 });
 
-async function paymentOnWisphub() {
-  // try {
-  //   const storedBillsId = JSON.parse(localStorage.getItem('bills'));
-  //   const request = {
-  //     ids: storedBillsId,
-  //   };
-
-  //   const response = await axios.post(`${import.meta.env.VITE_NUXT_API}api/payment`, request);
-  //   result.value = 'Tu pago fue aceptado exitosamente';
-  // } catch (e) {
-  //   console.error(e);
-  // }
-  console.log('pago ejecutado')
+async function userSuscribed() {
+  await subscriptionStore.subscribe();
 }
 
 </script>
