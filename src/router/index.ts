@@ -62,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/subscriptions/:id',
-        name: 'subscription',
+        name: 'web-subscription',
         component: WebSubscription,
       },
       {

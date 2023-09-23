@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { formatToCurrency } from '@/utils/InputFormats';
 import { computed } from 'vue';
-import image from '@/assets/generic-image.jpg'
-
-const defaultImage = image;
+import defaultImage from '@/assets/generic-image.jpg'
 
 const props = defineProps({
   id: {

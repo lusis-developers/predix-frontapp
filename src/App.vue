@@ -21,6 +21,7 @@ watch(
     }
     if (localStorage.getItem('is-buying')) {
       router.push('/dashboard/subscription');
+      return
     }
     if (value?.role.includes(UserRoleEnum.USER)) {
       router.push('/dashboard/picks');
