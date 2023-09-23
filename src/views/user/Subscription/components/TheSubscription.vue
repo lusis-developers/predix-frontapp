@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { formatToCurrency } from '@/utils/InputFormats';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+import { formatToCurrency } from '@/utils/InputFormats';
+
 import defaultImage from '@/assets/generic-image.jpg'
+
+const route = useRoute();
 
 const props = defineProps({
   id: {
@@ -28,11 +33,15 @@ const props = defineProps({
 })
 
 const displayImage = computed(() => props.image || defaultImage);
-
+const isUser = computed(() => route.path.includes('dashboard'));
+const subscriptionRedirection = computed(() => isUser.value
+  ? `/dashboard/subscription/${props.link}`
+  : `/subscriptions/${props.link}`
+);
 </script>
 
 <template>
-  <RouterLink :to="`/subscriptions/${link}`" class="card">
+  <RouterLink :to="subscriptionRedirection" class="card">
     <img
       class="card-image" 
       :src="displayImage"
@@ -64,7 +73,6 @@ $gap-padding-space: 12px;
   border: 1px solid $white;
   border-radius: 8px;
   text-decoration: none;
-  z-index: 0;
   @media (min-width: $tablet-lower-breakpoint) {
     width: 40%;
   }

@@ -42,7 +42,12 @@ export const useUserStore = defineStore('UserStore', {
 
         localStorage.setItem('access_token', this.user?.token!);
 
-        await router.push('/dashboard/picks');
+        if (localStorage.getItem('is-buying') === 'true') {
+          await router.push('/dashboard/subscription');
+          console.log('suscription')
+        } else {
+          await router.push('/dashboard/picks');
+        }
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
