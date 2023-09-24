@@ -29,7 +29,7 @@ onMounted(async () => {
       },
       body: data,
     });
-
+    console.log(data)
     const response = await result.json();
     isLoading.value = false;
 
