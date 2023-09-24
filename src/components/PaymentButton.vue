@@ -27,45 +27,33 @@ async function initPayment(): Promise<void> {
     await loadPayphoneScript();
 
     // @ts-ignore
-    const response = await payphone.Button({
-        token: import.meta.env.VITE_PAYPHONE_SECRET,
-        btnHorizontal: true,
-        btnCard: true,
-        createOrder: async (actions: any) => {
-          try {
-            const result = await actions.prepare({
-              amount: props.price,
-              amountWithoutTax: props.price,
-              currency: currency,
-              clientTransactionId: clientTransactionId,
-              lang: 'es'
-            });
-            return result;
-          } catch (error) {
-            console.error("Error en prepare:", error);
-            throw error; // Propaga el error hacia arriba
+    const payphoneButton = payphone.Button({
+      token: import.meta.env.VITE_PAYPHONE_SECRET,
+      btnHorizontal: true,
+      btnCard: true,
+      createOrder: (actions: any) => {
+        return actions.prepare({
+          amount: props.price,
+          amountWithoutTax: props.price,
+          currency: currency,
+          clientTransactionId: clientTransactionId,
+          lang: 'es',
+        });
+      },
+      onComplete: (model: any, actions: any) => {
+        return actions.confirm({
+          id: model.id,
+          clientTxId: model.clientTxId,
+        }).then(function (value: any) {
+          if (value.transactionStatus == 'Approved') {
+            alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus)
           }
-        },
-        onComplete: async (model: any, actions: any) => {
-          try {
-            console.log("Modelo:");
-            console.log(model);
-            const value = await actions.confirm({
-              id: model.id,
-              clientTxId: model.clientTxId,
-            });
-            console.log(value)
-            if (value.transactionStatus === 'Approved') {
-              console.log('La transacción fue aprobada.');
-            } else {
-              console.error('La transacción no fue aprobada.');
-            }
-          } catch (error) {
-            console.error("Error en onComplete:", error);
-          }
-        }
-    }).render("#pp-button");
-    console.log('response', response)
+        }).catch(function (error: any) {
+          console.error('error', error)
+        })
+      },
+    });
+    payphoneButton.render("#pp-button");
   } catch (error: any) {
     console.log(error);
   }
