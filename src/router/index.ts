@@ -64,11 +64,6 @@ const routes: Array<RouteRecordRaw> = [
         name: 'web-subscription',
         component: SubscriptionDetail,
       },
-      {
-        path: '/paymentDone/:id',
-        name: 'PaymentDone',
-        component: PaymentDone
-      }
     ]
   },
   {
@@ -136,7 +131,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: '/dashboard',
+    path: '/user-dashboard',
     name: 'UserDashboard',
     component: InternalContainer,
     meta: {
@@ -187,6 +182,18 @@ const routes: Array<RouteRecordRaw> = [
               title: 'Un paso más 😁'
             }
           },
+          {
+            path: 'paymentDone/',
+            name: 'PaymentDone',
+            component: PaymentDone,
+            props: (route) => ({
+              id: route.query.id,
+              clientTransactionId: route.query.clientTransactionId
+            }),
+            meta: {
+              title: 'Suscripción'
+            }
+          }
         ]
       },   
     ],

@@ -57,6 +57,8 @@ async function initPayment(): Promise<void> {
     payphoneButton.render("#pp-button");
   } catch (error: any) {
     console.log(error);
+  } finally {
+    localStorage.removeItem('is-is-paying');
   }
 }
 

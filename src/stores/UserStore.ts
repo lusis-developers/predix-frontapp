@@ -43,9 +43,9 @@ export const useUserStore = defineStore('UserStore', {
         localStorage.setItem('access_token', this.user?.token!);
 
         if (localStorage.getItem('is-buying') === 'true') {
-          await router.push('/dashboard/subscription');
+          await router.push('/user-dashboard/subscription');
         } else {
-          await router.push('/dashboard/picks');
+          await router.push('/user-dashboard/picks');
         }
       } catch (error: any) {
         this.errorMessage = error.message;

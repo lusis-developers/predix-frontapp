@@ -36,7 +36,7 @@ const props = defineProps({
 const displayImage = computed(() => props.image || defaultImage);
 const isUser = computed(() => route.path.includes('dashboard'));
 const subscriptionRedirection = computed(() => isUser.value
-  ? `/dashboard/subscription/${props.link}`
+  ? `/user-dashboard/subscription/${props.link}`
   : `/subscriptions/${props.link}`
 );
 

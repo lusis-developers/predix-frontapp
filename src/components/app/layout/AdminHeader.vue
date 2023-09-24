@@ -15,7 +15,9 @@ const userDisplayed = computed(() => userStore.user?.name ?? userStore.user?.ema
 <template>
   <header class="header">
     <div class="header-logo">
-      <p class="header-logo-title">{{ routeTitle }}</p>
+      <p class="header-logo-title">
+        {{ routeTitle }}
+      </p>
     </div>
     <div class="header-name">
       <img

@@ -25,12 +25,12 @@ watch(
       return;
     }
     if (localStorage.getItem('is-buying')) {
-      router.push('/dashboard/subscription');
+      router.push('/user-dashboard/subscription');
       localStorage.removeItem('is-buying');
       return;
     }
     if (newValue?.role?.includes(UserRoleEnum.USER) && !oldValue) {
-      router.push('/dashboard/picks');
+      router.push('/user-dashboard/picks');
       console.log('estoy redirigiendo desde app?')
       return;
     }

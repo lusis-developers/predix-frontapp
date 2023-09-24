@@ -40,7 +40,7 @@ const iconButton = computed(() => isMenuOpen.value
 );
 
 function redirectToPlans() {
-  router.push('/dashboard/subscription');
+  router.push('/user-dashboard/subscription');
 }
 
 </script>

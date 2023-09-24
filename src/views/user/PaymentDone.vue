@@ -64,12 +64,13 @@ async function userSuscribed() {
     <div
       v-else
       class="payment-done">
-      <p>
+      <p class="message">
         {{ resultText }}
       </p>
-      <router-link
-        to="/">
-        Regresa al inicio
+      <router-link to="/user-dashboard/picks">
+        <CrushButton
+          variant="primary"
+          text="Ir a mis picks" />
       </router-link>
     </div>
   </div>
@@ -79,5 +80,16 @@ async function userSuscribed() {
 .payment {
   width: 100%;
   display: flex;
+  justify-content: center;
+  &-done {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .message {
+      font-size: $h3-font-size;
+      margin: 64px;
+    }
+  }
 }
 </style>
