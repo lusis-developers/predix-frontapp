@@ -4,7 +4,6 @@ import APIBase from '../Base';
 
 class APISubscription extends APIBase {
   async updateSubscription(planId: string): Promise<AxiosResponse> {
-    console.log('SERVICIO suscripcion', planId)
     return this.post(`subscription`, { planId });
   }
 

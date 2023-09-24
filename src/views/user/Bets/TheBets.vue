@@ -22,11 +22,8 @@ function getBets(): void {
     betStore.getFreePendingBets();
   }
   if (suscriptionType.value === SuscriptionTypeEnum.PREMIUM) {
-    console.log('hello')
-    console.log(userStore.user)
     if (isUserPremium.value) {
 
-      console.log('estamos listos')
       betStore.getPremiumPendingBets();
     }
   }

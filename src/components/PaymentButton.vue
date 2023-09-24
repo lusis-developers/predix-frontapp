@@ -41,7 +41,6 @@ async function initPayment(): Promise<void> {
         });
       },
       onComplete: (model: any, actions: any) => {
-        console.log()
         return actions.confirm({
           id: model.id,
           clientTxId: model.clientTxId,
