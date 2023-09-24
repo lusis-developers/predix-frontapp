@@ -7,7 +7,7 @@ const route = useRoute();
 const url = computed(() =>
   route.path.includes('internal-app')
     ? `/internal-app/dashboard/${props.link}`
-    : `/dashboard/${props.link}`
+    : `/user-dashboard/${props.link}`
 );
 
 const props = defineProps({

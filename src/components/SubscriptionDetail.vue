@@ -21,7 +21,7 @@ const price = computed(() => {
     return 'Free'
   }
 });
-const isUser = computed(() => route.path.includes('/dashboard'));
+const isUser = computed(() => route.path.includes('/user-dashboard'));
 const paymentButtonDisplayed = computed(() => isUser.value && planSelected.value);
 
 function redirectToBuy() {
