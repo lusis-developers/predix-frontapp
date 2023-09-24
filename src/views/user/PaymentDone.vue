@@ -35,10 +35,12 @@ onMounted(async () => {
 
     if (response.transactionStatus === 'Approved') {
       userSuscribed();
+      console.log('usuario pago correctamente y ha sido confirmado y el estado de la transaccion es aprobado')
     }
-
+    
     if (response.transactionStatus === 'Canceled') {
       resultText.value = 'Tu pago fue cancelado. Por favor escoge otro método de pago u otra tarjeta';
+      console.log('error en el pago y estado de la transaccion es cancelado')
     }
   } catch (error) {
     console.error(error);
