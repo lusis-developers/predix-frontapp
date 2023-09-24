@@ -65,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
         component: SubscriptionDetail,
       },
       {
-        path: '/paymentDone/:id',
+        path: '/paymentDone',
         name: 'PaymentDone',
         component: PaymentDone
       }
