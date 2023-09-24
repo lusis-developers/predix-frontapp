@@ -1,8 +1,11 @@
 import { defineStore } from 'pinia';
 
 import APISubscription from '@/services/Subscription/Subscription';
+import useUserStore from './UserStore';
 
 const subscriptionService = new APISubscription();
+
+const userStore = useUserStore();
 
 interface Roostate {
   planId: string | null,
@@ -28,6 +31,7 @@ export const useSubscriptionStore = defineStore('SubscriptionStore', {
         this.isLoading = false;
         localStorage.removeItem('planId');
         localStorage.removeItem('is-paying');
+        userStore.getSession();
       }
     }
   }
