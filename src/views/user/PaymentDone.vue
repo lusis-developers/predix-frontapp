@@ -35,6 +35,7 @@ onMounted(async () => {
 
     if (response.transactionStatus === 'Approved') {
       userSuscribed();
+      resultText.value = 'Tu pago fue correctamente realizado'
       console.log('usuario pago correctamente y ha sido confirmado y el estado de la transaccion es aprobado')
     }
     

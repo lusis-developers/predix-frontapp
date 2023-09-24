@@ -26,6 +26,7 @@ async function initPayment(): Promise<void> {
   try {
     await loadPayphoneScript();
     localStorage.setItem('is-paying', 'true');
+
     // @ts-ignore
     const payphoneButton = payphone.Button({
       token: import.meta.env.VITE_PAYPHONE_SECRET,
@@ -58,7 +59,7 @@ async function initPayment(): Promise<void> {
   } catch (error: any) {
     console.log(error);
   } finally {
-    localStorage.removeItem('is-is-paying');
+    localStorage.removeItem('is-paying');
   }
 }
 

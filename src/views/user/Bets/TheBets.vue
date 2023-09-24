@@ -83,7 +83,9 @@ onMounted(() => {
         :teamA="bet.teamA"
         :teamB="bet.teamB"  />
       </div>
-    <span class="nosub-text" v-if="!isUserPremium && !(suscriptionType === SuscriptionTypeEnum.ISFREE)">
+    <span
+      v-if="!isUserPremium && !(suscriptionType === SuscriptionTypeEnum.ISFREE)"
+      class="nosub-text">
       <p class="bets-text-message">Oh! no cuentas con suscripción premium</p>
       <p class="indication">Una vez te hayas suscritos te daremos más apuestas para ganar</p>
     </span>
