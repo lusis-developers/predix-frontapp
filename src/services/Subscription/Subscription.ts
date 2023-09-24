@@ -4,11 +4,11 @@ import APIBase from '../Base';
 
 class APISubscription extends APIBase {
   async updateSubscription(planId: string): Promise<AxiosResponse> {
-    return this.post(`subscription`, { planId });
+    return this.patch(`subscription`, { planId });
   }
 
   async removeSubscription(planId: string): Promise<AxiosResponse> {
-    return this.post(`remove-subscription`, { planId });
+    return this.patch(`remove-subscription`, { planId });
   }
 }
 
