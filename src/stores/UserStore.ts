@@ -71,6 +71,7 @@ export const useUserStore = defineStore('UserStore', {
       try {
         const response = await userService.getSession();
         this.user = response.data;
+        console.log(this.user)
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

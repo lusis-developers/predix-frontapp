@@ -15,14 +15,18 @@ const pendingBets = computed(() => suscriptionType.value === SuscriptionTypeEnum
   ? betStore.freePendingBets
   : betStore.premiumPendingBets
 );
-const isUserPremium = computed(() => userStore.user?.susbscriptionStatus);
+const isUserPremium = computed(() => userStore.user?.susbcriptionStatus);
 
 function getBets(): void {
   if (suscriptionType.value === SuscriptionTypeEnum.ISFREE) {
     betStore.getFreePendingBets();
   }
   if (suscriptionType.value === SuscriptionTypeEnum.PREMIUM) {
+    console.log('hello')
+    console.log(userStore.user)
     if (isUserPremium.value) {
+
+      console.log('estamos listos')
       betStore.getPremiumPendingBets();
     }
   }
