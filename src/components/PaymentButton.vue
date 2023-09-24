@@ -40,19 +40,21 @@ async function initPayment(): Promise<void> {
           lang: 'es',
         });
       },
-      onComplete: (model: any, actions: any) => {
-        console.log(model)
-        console.log(actions)
-        return actions.confirm({
-          id: model.id,
-          clientTxId: model.clientTxId,
-        }).then(function (value: any) {
-          if (value.transactionStatus == 'Approved') {
-            alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus)
+      onComplete: async (model: any, actions: any) => {
+        try {
+          const value = await actions.confirm({
+            id: model.id,
+            clientTxId: model.clientTxId,
+          });
+
+          console.log('value', value)
+
+          if (value.transactionStatus === 'Approved') {
+            alert(`paso ${value.transactionId} recibido, estado ${value.transactionsStatus}`);
           }
-        }).catch(function (error: any) {
-          console.error('error', error)
-        })
+        } catch (error) {
+          console.error('error', error);
+        }
       },
     });
     payphoneButton.render("#pp-button");
