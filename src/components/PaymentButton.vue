@@ -25,7 +25,7 @@ async function loadPayphoneScript(): Promise<void> {
 async function initPayment(): Promise<void> {
   try {
     await loadPayphoneScript();
-
+    localStorage.setItem('is-paying', 'true');
     // @ts-ignore
     const payphoneButton = payphone.Button({
       token: import.meta.env.VITE_PAYPHONE_SECRET,
@@ -47,7 +47,7 @@ async function initPayment(): Promise<void> {
         }).then(function (value: any) {
           if (value.transactionStatus == 'Approved') {
             console.log('este es un pago aprobado desde el boton de pago con un estado de transaccion aprobado')
-            alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus)
+            alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus);
           }
         }).catch(function (error: any) {
           console.error('error', error)
