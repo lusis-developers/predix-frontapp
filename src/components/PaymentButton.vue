@@ -28,17 +28,17 @@ async function initPayment(): Promise<void> {
 
     // @ts-ignore
     const response = await payphone.Button({
-        token: "TU-TOKEN-DE-AUTENTICACION",
+        token: import.meta.env.VITE_PAYPHONE_SECRET,
         btnHorizontal: true,
         btnCard: true,
         createOrder: async (actions: any) => {
           try {
             const result = await actions.prepare({
-              amount: 100,
-              amountWithoutTax: 100,
-              currency: "USD",
-              clientTransactionId: "identificador-único",
-              lang: "es"
+              amount: props.price,
+              amountWithoutTax: props.price,
+              currency: currency,
+              clientTransactionId: clientTransactionId,
+              lang: 'es'
             });
             return result;
           } catch (error) {
