@@ -23,7 +23,6 @@ function getBets(): void {
   }
   if (suscriptionType.value === SuscriptionTypeEnum.PREMIUM) {
     if (isUserPremium.value) {
-
       betStore.getPremiumPendingBets();
     }
   }
@@ -52,7 +51,9 @@ onMounted(() => {
       <p class="bets-text-message">Oh! no tenemos apuestas por el momento</p>
       <p class="bets-text-message indication">Una vez te hayas suscritos te diremos como ganar tus apuestas</p>
     </div>
-    <div class="bets-container">
+    <div
+      v-if="!isUserPremium"
+      class="bets-container">
       <UserBetCard
         v-for="(bet, index) in pendingBets"
         :key="index"
