@@ -46,7 +46,6 @@ async function initPayment(): Promise<void> {
           clientTxId: model.clientTxId,
         }).then(function (value: any) {
           if (value.transactionStatus == 'Approved') {
-            console.log('este es un pago aprobado desde el boton de pago con un estado de transaccion aprobado')
             alert('paso' + value.transactionId + 'recibido, ' + 'estado' + value.transactionsStatus);
           }
         }).catch(function (error: any) {

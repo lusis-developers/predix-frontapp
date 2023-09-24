@@ -15,13 +15,11 @@ onMounted(() => {
 watch(
   () => userStore.user,
   (newValue, oldValue) => {
-    console.log('redirigjo desde app')
     if (!newValue) {
       router.push('/');
       return;
     }
     if (localStorage.getItem('is-paying')) {
-      console.log('no redirijo')
       return;
     }
     if (localStorage.getItem('is-buying')) {
@@ -31,7 +29,6 @@ watch(
     }
     if (newValue?.role?.includes(UserRoleEnum.USER) && !oldValue) {
       router.push('/user-dashboard/picks');
-      console.log('estoy redirigiendo desde app?')
       return;
     }
     if (newValue?.role?.includes(UserRoleEnum.ADMIN) && !oldValue) {
