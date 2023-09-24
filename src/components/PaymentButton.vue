@@ -25,7 +25,6 @@ async function loadPayphoneScript(): Promise<void> {
 async function initPayment(): Promise<void> {
   try {
     await loadPayphoneScript();
-    localStorage.setItem('is-paying', 'true');
 
     // @ts-ignore
     const payphoneButton = payphone.Button({
@@ -58,12 +57,11 @@ async function initPayment(): Promise<void> {
     payphoneButton.render("#pp-button");
   } catch (error: any) {
     console.log(error);
-  } finally {
-    localStorage.removeItem('is-paying');
   }
 }
 
 onMounted(() => {
+  localStorage.setItem('is-paying', 'true');
   initPayment();
 })
 </script>

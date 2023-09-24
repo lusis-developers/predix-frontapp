@@ -27,6 +27,7 @@ export const useSubscriptionStore = defineStore('SubscriptionStore', {
       } finally {
         this.isLoading = false;
         localStorage.removeItem('planId');
+        localStorage.removeItem('is-paying');
       }
     }
   }
