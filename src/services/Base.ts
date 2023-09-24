@@ -32,7 +32,11 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(error);
+      const errorDetails = {
+        status: error.response.status,
+        message: error.response?.data?.message || error.message
+      }
+      throw errorDetails;
     }
   }
 
@@ -44,7 +48,11 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(error);
+      const errorDetails = {
+        status: error.response.status,
+        message: error.response?.data?.message || error.message
+      }
+      throw errorDetails;
     }
   }
 
@@ -57,7 +65,11 @@ class APIBase {
       const response: AxiosResponse<T> = await axios.post(url, formData, { headers });
       return response.data;
     } catch (error: any) {
-      throw new Error(error);
+      const errorDetails = {
+        status: error.response.status,
+        message: error.response?.data?.message || error.message
+      }
+      throw errorDetails;
     }
   }
 
@@ -69,7 +81,11 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(error);
+      const errorDetails = {
+        status: error.response.status,
+        message: error.response?.data?.message || error.message
+      }
+      throw errorDetails;
     }
   }
 
@@ -81,7 +97,11 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(error);
+      const errorDetails = {
+        status: error.response.status,
+        message: error.response?.data?.message || error.message
+      }
+      throw errorDetails;
     }
   }
 
@@ -93,7 +113,11 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(error);
+      const errorDetails = {
+        status: error.response.status,
+        message: error.response?.data?.message || error.message
+      }
+      throw errorDetails;
     }
   }
 }
