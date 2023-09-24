@@ -32,7 +32,7 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(`GET request to ${url} failed: ${error.message}`);
+      throw new Error(error);
     }
   }
 
@@ -44,7 +44,7 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(`POST request to ${url} failed: ${error.message}`);
+      throw new Error(error);
     }
   }
 
@@ -57,7 +57,7 @@ class APIBase {
       const response: AxiosResponse<T> = await axios.post(url, formData, { headers });
       return response.data;
     } catch (error: any) {
-      throw new Error(`POST request to ${url} failed: ${error.message}`);
+      throw new Error(error);
     }
   }
 
@@ -69,7 +69,7 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(`PUT request to ${url} failed: ${error.message}`);
+      throw new Error(error);
     }
   }
 
@@ -81,7 +81,7 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(`PATCH request to ${url} failed: ${error.message}`);
+      throw new Error(error);
     }
   }
 
@@ -93,7 +93,7 @@ class APIBase {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(`DELETE request to ${url} failed: ${error.message}`);
+      throw new Error(error);
     }
   }
 }
