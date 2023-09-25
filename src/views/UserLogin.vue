@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 
 import useUserStore from '@/stores/UserStore';
 import { validateEmail } from '@/utils/AuthValidations';
@@ -55,6 +55,11 @@ function handleLogin(): void {
   userStore.login(userData.email, userData.password);
   resetValue();
 }
+
+watch(userData, () => {
+  userStore.errorMessage = '';
+}, {deep: true});
+
 </script>
 
 <template>
@@ -62,6 +67,11 @@ function handleLogin(): void {
     <p class="login-wrapper-title">
       Que gusto verte nuevamente 🌟 <br> Ingresa ahora
     </p>
+    <span 
+      v-if="userStore.errorMessage"
+      class="login-wrapper-warning">
+      *{{ userStore.errorMessage }}*
+    </span>
     <div class="login-wrapper-card">
       <CrushTextField
         :key="textKey"
@@ -128,6 +138,9 @@ function handleLogin(): void {
       font-size: $body-medium-size;
     }
   }
+  &-warning {
+    color: rgb(229, 116, 116);
+  }
   .date-message {
     color: $red;
   }
@@ -162,7 +175,7 @@ function handleLogin(): void {
   &-span {
     color: $white;
     &-link {
-      color: #62bfd6;
+      color: $link-color;
       text-decoration: underline;
     }
   }
@@ -191,13 +204,6 @@ function handleLogin(): void {
       @media (min-width: $desktop-lower-breakpoint) {
       width: 160px;
       }
-    }
-  }
-  &-span {
-    color: $white;
-    &-link {
-      color: $grey;
-      text-decoration: none;
     }
   }
 }
