@@ -48,7 +48,9 @@ export const useUserStore = defineStore('UserStore', {
           await router.push('/user-dashboard/picks');
         }
       } catch (error: any) {
-        this.errorMessage = error.message;
+        if(error.status === 401) {
+          this.errorMessage = 'Usuario o contraseña no válidos';
+        }
       } finally {
         this.isLoading = false;
       }
@@ -60,7 +62,7 @@ export const useUserStore = defineStore('UserStore', {
         await userService.register(email, password, birthdate);
         await router.push('/login');
       } catch (error: any) {
-        this.errorMessage = error.message;
+        this.errorMessage = 'Ups, hay un problema con el correo, inténtalo más tarde :D';
       } finally {
         this.isLoading = false;
       }
@@ -72,7 +74,7 @@ export const useUserStore = defineStore('UserStore', {
         const response = await userService.getSession();
         this.user = response.data;
       } catch (error: any) {
-        this.errorMessage = error.message;
+        console.error(error)
       } finally {
         this.isLoading = false;
       }
