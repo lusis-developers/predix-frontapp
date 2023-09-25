@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 
 import useUserStore from '@/stores/UserStore';
 import { calculateAge, validateEmail, validateSymbol } from '@/utils/AuthValidations';
@@ -98,6 +98,11 @@ function handleRegister(): void {
   userStore.register(userData.email, userData.password, userData.birthdate);
   resetValue();
 }
+
+watch(userData, () => {
+  userStore.errorMessage = '';
+}, {deep: true});
+
 </script>
 
 <template>
@@ -110,6 +115,11 @@ function handleRegister(): void {
     <p class="register-wrapper-title">
       ¿Primera vez en Predix? 🌟 <br> Únete ya
     </p>
+    <span 
+      v-if="userStore.errorMessage"
+      class="register-wrapper-warning">
+      *{{ userStore.errorMessage }}*
+    </span>
     <div class="register-wrapper-card">
       <CrushTextField
         :key="textKey"
@@ -167,17 +177,9 @@ function handleRegister(): void {
     <img 
         src="@/assets/footer-image.png"
         class="register-wrapper-image">
-      <img 
-        src="@/assets/footer-image.png"
-        class="register-wrapper-image2">
-    <span class="register-wrapper-span">
-      ¿Ya tienes cuenta?
-      <RouterLink 
-        class="register-wrapper-span-link"
-        to="/login">
-        Inicia sesion ahora
-      </RouterLink>
-    </span>
+    <img 
+      src="@/assets/footer-image.png"
+      class="register-wrapper-image2" />
   </div>
 </template>
 
@@ -206,6 +208,9 @@ function handleRegister(): void {
     @media (min-width: $tablet-lower-breakpoint) {
       font-size: $body-medium-size;
     }
+  }
+  &-warning {
+    color: rgb(229, 116, 116);
   }
   &-card {
     border: 1px solid $grey;
@@ -237,7 +242,7 @@ function handleRegister(): void {
   &-span {
     color: $white;
     &-link {
-      color: #62bfd6;
+      color: $link-color;
       text-decoration: underline;
     }
   }
