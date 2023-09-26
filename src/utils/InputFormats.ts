@@ -39,6 +39,8 @@ export function formatNumberToProfit(number: number): string {
 
 export function formatDateToCustom(input: string): string {
   const date = new Date(input);
+  date.setUTCHours(0, 0, 0, 0);
+
   const options = {
     year: 'numeric',
     month: 'long',
