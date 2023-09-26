@@ -64,20 +64,20 @@ const matchStatus = computed(() => {
         </span>
         <div class="user-bet-card-details-match-details">
           <span class="team">
-            {{ teamA }}
+            <span class="team-prefix">E1: </span>{{ teamA }}
           </span>
           <span>
             vs
           </span>
           <span class="team">
-            {{ teamB }}
+            <span class="team-prefix">E2: </span>{{ teamB }}
           </span>
         </div>
       </div>
       <div class="user-bet-card-details-numbers">
         <div class="container">
           <span class="container-title">
-            Ganancia
+            Cuota
           </span>
           <span class="container-number">
             {{ formatNumberToProfit(profit) }}
@@ -91,6 +91,7 @@ const matchStatus = computed(() => {
             {{ percentage }}%
           </span>
         </div>
+        <span class="container-message">*De tu capital*</span>
       </div>
     </div>
     <span class="user-bet-card-date">
@@ -146,6 +147,9 @@ const matchStatus = computed(() => {
       .team {
         font-weight: 700;
         color: rgb(232, 113, 113);
+        &-prefix {
+          color: $white;
+        }
       }
     }
     }
@@ -156,10 +160,12 @@ const matchStatus = computed(() => {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-direction: row;
         flex-wrap: nowrap;
         gap: 12px;
         &-title {
           font-family: $font-secondary;
+          text-align: center;
         }
         &-number {
           color: $green;
@@ -170,6 +176,12 @@ const matchStatus = computed(() => {
           overflow: hidden;
           text-overflow: ellipsis;
           width: 100%; 
+          text-align: right;
+        }
+        &-message {
+          color: $yellow;
+          text-align: left;
+          font-size: $body-font-x-small;
         }
       }
     }
