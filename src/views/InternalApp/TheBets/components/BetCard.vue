@@ -58,7 +58,7 @@ const props = defineProps({
 
 const isCardOpen = ref(false);
 
-const arrowPosition = computed(() => isCardOpen.value ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up')
+const arrowPosition = computed(() => !isCardOpen.value ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up')
 const betIsFree = computed(() => props.isFree ? 'Gratuito' : 'Premium')
 
 function toggleBet(): void {
@@ -92,16 +92,7 @@ function deleteBet(): void {
           {{ description }}
         </p>
       </div>
-      <template v-if="isCardOpen">
-        <div class="bet-card-content-detail">
-          <p class="title">
-            Fecha
-          </p>
-          <p class="detail-description">
-            {{ formatDateToCustom(date) }}
-          </p>
-        </div>
-        <div class="bet-card-content-detail">
+      <div class="bet-card-content-detail">
           <p class="title">
             Equipo 1
           </p>
@@ -115,6 +106,15 @@ function deleteBet(): void {
           </p>
           <p class="detail-description">
             {{ teamB }}
+          </p>
+        </div>
+      <template v-if="isCardOpen">
+        <div class="bet-card-content-detail">
+          <p class="title">
+            Fecha
+          </p>
+          <p class="detail-description">
+            {{ formatDateToCustom(date) }}
           </p>
         </div>
         <div class="bet-card-content-detail">
@@ -184,6 +184,13 @@ function deleteBet(): void {
         </div>
       </template>
     </div>
+    <span
+      class="status"
+      :class="{
+        'status-pending': status === BetStatusEnum.PENDING, 
+        'status-win': status === BetStatusEnum.WIN, 
+        'status-lost': status === BetStatusEnum.LOST 
+      }" />
   </div>
 </template>
 
@@ -250,6 +257,22 @@ function deleteBet(): void {
           }
         }
       }
+    }
+  }
+  .status {
+    margin-top: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: none;
+    &-pending {
+      background-color: $grey;
+    }
+    &-win {
+      background-color: $green;
+    }
+    &-lost {
+      background-color: $red;
     }
   }
 }

@@ -38,14 +38,17 @@ export function formatNumberToProfit(number: number): string {
 }
 
 export function formatDateToCustom(input: string): string {
-  const date = new Date(input);
-  date.setUTCHours(0, 0, 0, 0);
-
   const options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   } as Intl.DateTimeFormatOptions;
 
-  return date.toLocaleDateString('es', options)
+  const dateWithoutZ = input.replace('Z', '');
+  
+  const date = new Date(dateWithoutZ);
+
+  const formattedDate = date.toLocaleDateString('es', options);
+
+  return formattedDate;
 }
