@@ -137,12 +137,14 @@ export const useUserStore = defineStore('UserStore', {
       }
     },
 
-    async udpatePassword(id: string, password: string): Promise<void> {
+    async updatePassword(id: string, password: string): Promise<void> {
       this.isLoading = true;
       try {
         await userService.updatePassword(id, password);
+        this.passwordSent = true;
       } catch (error: any) {
         this.errorMessage = error.message;
+        this.passwordSent = false;
       } finally {
         this.isLoading = false;
       }

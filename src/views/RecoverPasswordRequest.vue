@@ -27,7 +27,6 @@ const enableForm = computed(() => {
   return userData.email !== '' &&
     userRules.emailValidation.every((rule) => rule.validate(userData.email))
 });
-const emailSent = computed(() => userStore.emailSent !== null && userStore.emailSent);
 
 function resetValue(): void {
   userData.email = '';

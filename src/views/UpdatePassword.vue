@@ -60,7 +60,7 @@ function resetValue(): void {
 }
 
 function updatePassword(): void {
-  userStore.udpatePassword(token.value, userData.password.trim());
+  userStore.updatePassword(token.value, userData.password.trim());
   resetValue();
 }
 
@@ -79,7 +79,9 @@ watch(userData, () => {
       class="password-update-warning">
       *{{ userStore.errorMessage }}*
     </span>
-    <div class="password-update-card">
+    <div
+      v-if="userStore.passwordSent === null"
+      class="password-update-card">
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.password"
@@ -115,6 +117,16 @@ watch(userData, () => {
         :disabled="!enableForm"
         @click.prevent="updatePassword" />
     </div>
+    <template v-else-if="userStore.passwordSent === true">
+      <p class="recover-password-email-wrapper-title">
+        Tu contraseña ha sido restablecida.
+      </p>
+    </template>
+    <template v-else-if="userStore.passwordSent === false">
+      <p class="recover-password-email-wrapper-title">
+        Algo ocurrió vuelve a intentarlo o contáctate con nosotros.
+      </p>
+    </template>
     <span class="password-update-span">
       ¿Ya tienes cuenta?
       <RouterLink 
