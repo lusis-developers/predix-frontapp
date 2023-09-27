@@ -17,7 +17,7 @@ watch(
   () => userStore.user,
   (newValue, oldValue) => {
     if (!newValue) {
-      if (route.path.includes('no-email-verify')) {
+      if (route.path.includes('no-email-verify') && !userStore.user?.emailVerified) {
         return;
       }
       router.push('/');
