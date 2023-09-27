@@ -118,6 +118,28 @@ export const useUserStore = defineStore('UserStore', {
       } finally {
         this.isLoading = false;
       }
+    },
+
+    async updatePasswordRequest(email: string): Promise<void> {
+      this.isLoading = true;
+      try {
+        await userService.updatePasswordRequest(email);
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async udpatePassword(id: string, password: string): Promise<void> {
+      this.isLoading = true;
+      try {
+        await userService.updatePassword(id, password);
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
     }
     
   }

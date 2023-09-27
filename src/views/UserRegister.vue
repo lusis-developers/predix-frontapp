@@ -95,7 +95,7 @@ function resetValue(): void {
 }
 
 function handleRegister(): void {
-  userStore.register(userData.email, userData.password, userData.birthdate);
+  userStore.register(userData.email.trim().toLowerCase(), userData.password.trim(), userData.birthdate);
   resetValue();
 }
 

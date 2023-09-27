@@ -18,6 +18,7 @@ const PaymentDone = () => import('@/views/user/PaymentDone.vue');
 const RecoveryRequest = () => import('@/views/RecoverPasswordRequest.vue');
 const EmailVerified = () => import('@/views/EmailVerified.vue');
 const NoEmailVerified = () => import('@/views/NotEmailVerified.vue');
+const UpdatePassword = () => import('@/views/UpdatePassword.vue');
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -218,11 +219,19 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/recover-password/:id',
+    path: '/recover-password',
     name: 'Recovery Request',
     component: RecoveryRequest,
     meta: {
       title: 'Recupera contraseña'
+    }
+  },
+  {
+    path: '/recover-password/:id',
+    name: 'Updating password',
+    component: UpdatePassword,
+    meta: {
+      title: 'Restablece contraseña'
     }
   },
   {

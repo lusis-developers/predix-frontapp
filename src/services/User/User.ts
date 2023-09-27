@@ -36,6 +36,17 @@ class APIUsers extends APIBase {
   async verifyEmail(id: string): Promise<ResponseMessageType> {
     return this.patch(`auth/email-verification`, { id: id })
   }
+  
+  async updatePasswordRequest(email: string): Promise<ResponseMessageType> {
+    return this.patch(`auth/password-recovery-request`, { email: email })
+  }
+
+  async updatePassword(id: string, password: string): Promise<ResponseMessageType> {
+    return this.patch(`auth/password-recovery`, {
+      id: id,
+      password: password
+    })
+  } 
 }
 
 

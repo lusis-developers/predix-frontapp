@@ -10,7 +10,6 @@ const userStore = useUserStore();
 const textKey = ref(0);
 const userData = reactive({
   email: '',
-  password: '',
 });
 const userRules = {
   emailValidation: [
@@ -29,27 +28,25 @@ const enableForm = computed(() => {
     userRules.emailValidation.every((rule) => rule.validate(userData.email))
 });
 
-
 function resetValue(): void {
   userData.email = '';
   textKey.value ++
 }
 
-function sendRevocerEmail(): void {
-  userStore.login(userData.email, userData.password);
+function sendRecoverEmail(): void {
+  userStore.updatePasswordRequest(userData.email);
   resetValue();
 }
 
 watch(userData, () => {
   userStore.errorMessage = '';
-}, {deep: true});
-
+}, { deep: true });
 </script>
 
 <template>
   <div class="recover-password-email-wrapper crush-container">
     <p class="recover-password-email-wrapper-title">
-      Que gusto verte nuevamente 🌟 <br> Ingresa ahora
+      Recupera contraseña 🌟 <br> Ingresa tu correo
     </p>
     <span 
       v-if="userStore.errorMessage"
@@ -64,10 +61,10 @@ watch(userData, () => {
         :validRules="userRules.emailValidation" />
       <CrushButton
         variant="primary"
-        text="Inicia Sesión"
+        text="Recuperar contraseña"
         :dataLoading="userStore.isLoading"
         :disabled="!enableForm"
-        @click.prevent="sendRevocerEmail" />
+        @click.prevent="sendRecoverEmail" />
     </div>
     <span class="recover-password-email-wrapper-span">
       Inicia sesión 

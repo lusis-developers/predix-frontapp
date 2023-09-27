@@ -1,83 +1,85 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
+import { validateSymbol } from '@/utils/AuthValidations';
 import useUserStore from '@/stores/UserStore';
-import { validateEmail } from '@/utils/AuthValidations';
 
+const route = useRoute();
 const userStore = useUserStore();
 
 // it forces to re-render the component once the value change
 const textKey = ref(0);
 const isPasswordVisible = ref(false);
+const isRepeatedPasswordVisible = ref(false);
 const userData = reactive({
-  email: '',
   password: '',
+  passwordRepeated: '',
 });
 const userRules = {
-  emailValidation: [
-    {
-      validate: (value: string) => validateEmail(value),
-      message: 'Ingresa un correo válido' 
-    },
-    {
-      validate: (value: string) => value.length,
-      message: 'Ingresa un correo'
-    }
-  ],
   passwordValidation: [
     {
       validate: (value: string) => value.length > 7,
       message: 'El password debe tener al menos 10 caracteres' 
+    },
+    {
+      validate: (value: string) => validateSymbol(value),
+      message: 'El password debe tener al menos un caracter especial $%&|<>#^ caracteres' 
     }
+  ],
+  passwordRepeatedValidation: [
+    {
+      validate: (value: string) => userData.password === value,
+      message: 'El password no coincide'
+    },
   ]
 }
 const enableForm = computed(() => {
-  return userData.email !== '' &&
-    userData.password !== '' &&
-    userRules.emailValidation.every((rule) => rule.validate(userData.email)) &&
-    userRules.passwordValidation.every((rule) => rule.validate(userData.password))
+  return userData.password !== '' &&
+    userRules.passwordValidation.every((rule) => rule.validate(userData.password)) &&
+    userRules.passwordRepeatedValidation.every((rule) => rule.validate(userData.passwordRepeated))
 });
 const passwordIcon = computed(() => {
   return isPasswordVisible.value ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
 });
+const passwordRepeatedIcon = computed(() => {
+  return isRepeatedPasswordVisible.value ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+});
 const textType = computed(() => {
   return isPasswordVisible.value ? 'text' : 'password';
 });
-
+const textRepeatedType = computed(() => {
+  return isRepeatedPasswordVisible.value ? 'text' : 'password';
+});
+const token = computed(() => route.params.id as string);
 
 function resetValue(): void {
-  userData.email = '';
   userData.password = '';
+  userData.passwordRepeated = '';
   textKey.value ++
 }
 
-function handleLogin(): void {
-  userStore.login(userData.email.trim().toLocaleLowerCase(), userData.password.trim());
+function updatePassword(): void {
+  userStore.udpatePassword(token.value, userData.password.trim());
   resetValue();
 }
 
 watch(userData, () => {
   userStore.errorMessage = '';
 }, {deep: true});
-
 </script>
 
 <template>
-  <div class="login-wrapper crush-container">
-    <p class="login-wrapper-title">
-      Que gusto verte nuevamente 🌟 <br> Ingresa ahora
+  <div class="password-update crush-container">
+    <p class="password-update-title">
+      Restablece contraseña 🌟 <br>
     </p>
     <span 
       v-if="userStore.errorMessage"
-      class="login-wrapper-warning">
+      class="password-update-warning">
       *{{ userStore.errorMessage }}*
     </span>
-    <div class="login-wrapper-card">
-      <CrushTextField
-        :key="textKey"
-        v-model="userData.email"
-        label="Correo"
-        :validRules="userRules.emailValidation" />
+    <div class="password-update-card">
       <CrushTextField
         :key="textKey"
         v-model.trim="userData.password"
@@ -92,34 +94,41 @@ watch(userData, () => {
           </button>
         </template>
       </CrushTextField>
+      <CrushTextField
+        :key="textKey"
+        v-model.trim="userData.passwordRepeated"
+        label="Repita su contraseña"
+        :type="textRepeatedType"
+        :validRules="userRules.passwordRepeatedValidation">
+        <template #icon>
+          <button
+            class="icon-button"
+            @click="isRepeatedPasswordVisible = !isRepeatedPasswordVisible">
+            <i :class="passwordRepeatedIcon" />
+          </button>
+        </template>
+      </CrushTextField>
       <CrushButton
         variant="primary"
-        text="Inicia Sesión"
+        text="Registro"
         :dataLoading="userStore.isLoading"
         :disabled="!enableForm"
-        @click.prevent="handleLogin" />
+        @click.prevent="updatePassword" />
     </div>
-    <span class="login-wrapper-span">
+    <span class="password-update-span">
+      ¿Ya tienes cuenta?
       <RouterLink 
-        class="login-wrapper-span-link"
-        to="/recover-password">
-        ¿Olvidaste contraseña?
-      </RouterLink> 
-    </span>
-    <span class="login-wrapper-span">
-      ¿Aún no tienes cuenta? 
-      <RouterLink 
-        class="login-wrapper-span-link"
-        to="/register">
-        Regístrate ahora
-      </RouterLink> 
+        class="password-update-span-link"
+        to="/login">
+        Inicia sesion ahora
+      </RouterLink>
     </span>
     <img 
-      src="@/assets/footer-image.png"
-      class="login-wrapper-image">
+        src="@/assets/footer-image.png"
+        class="password-update-image">
     <img 
       src="@/assets/footer-image.png"
-      class="login-wrapper-image2">
+      class="password-update-image2" />
   </div>
 </template>
 
@@ -127,7 +136,7 @@ watch(userData, () => {
 :deep(.calendar-input) {
   color: $white;
 }
-.login-wrapper {
+.password-update {
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -137,6 +146,10 @@ watch(userData, () => {
   min-height: 100vh;
   background-color: $dark-blue;
   padding: 24px;
+  max-width: $desktop-lower-breakpoint;
+  .date-message {
+    color: $red;
+  }
   &-title {
     color: $white;
     font-size: $body-font-size;
@@ -148,9 +161,6 @@ watch(userData, () => {
   &-warning {
     color: rgb(229, 116, 116);
   }
-  .date-message {
-    color: $red;
-  }
   &-card {
     border: 1px solid $grey;
     display: flex;
@@ -161,7 +171,6 @@ watch(userData, () => {
     border-radius: 8px;
     padding: 32px;
     background: rgba(141, 141, 157, 0.08);
-    backdrop-filter: blur(40px);
     @media(max-width: $tablet-lower-breakpoint) {
       border: none;
     }
