@@ -20,8 +20,8 @@ watch(
       router.push('/');
       return;
     }
-    if (route.path.includes('no-email-verify') && !newValue.emailVerified && newValue !== null) {
-      return;
+    if (route.path.includes('no-email-verify') && !newValue.emailVerified) {
+      router.push('/no-email-verify');
     }
     if (localStorage.getItem('is-paying')) {
       return;
@@ -31,11 +31,11 @@ watch(
       localStorage.removeItem('is-buying');
       return;
     }
-    if (newValue?.role?.includes(UserRoleEnum.USER) && !oldValue && newValue.emailVerified) {
+    if (newValue?.role?.includes(UserRoleEnum.USER) && !oldValue) {
       router.push('/user-dashboard/picks');
       return;
     }
-    if (newValue?.role?.includes(UserRoleEnum.ADMIN) && !oldValue && newValue.emailVerified) {
+    if (newValue?.role?.includes(UserRoleEnum.ADMIN) && !oldValue) {
       router.push('/internal-app/dashboard/bets');
       return;
     }
