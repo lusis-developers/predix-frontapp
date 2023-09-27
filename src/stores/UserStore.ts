@@ -104,6 +104,17 @@ export const useUserStore = defineStore('UserStore', {
         this.isLoading = false;
       }
     },
+
+    async verifyEmail(id: string): Promise<void> {
+      this.isLoading = true;
+      try {
+        await userService.verifyEmail(id);
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    }
     
   }
 });

@@ -15,6 +15,8 @@ import WebView from '@/views/Web/WebIndex.vue';
 import WebContact from '@/views/Web/TheContact.vue';
 const WebSubscriptions = () => import('@/views/Web/subscription/TheSubscriptions.vue');
 const PaymentDone = () => import('@/views/user/PaymentDone.vue');
+const RecoveryRequest = () => import('@/views/RecoverPasswordRequest.vue');
+const EmailVerified = () => import('@/views/EmailVerified.vue');
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -213,7 +215,23 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Inicia Sesión'
     }
-  }
+  },
+  {
+    path: '/recover-password/:id',
+    name: 'Recovery Request',
+    component: RecoveryRequest,
+    meta: {
+      title: 'Recupera contraseña'
+    }
+  },
+  {
+    path: '/email-verified/:id',
+    name: 'Email verified',
+    component: EmailVerified,
+    meta: {
+      title: 'Verificación de correo'
+    }
+  },
 ]
 
 const router = createRouter({

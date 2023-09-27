@@ -32,6 +32,10 @@ class APIUsers extends APIBase {
     }
     return this.patch<ResponseMessageType>(`users/${id}`, data);
   }
+
+  async verifyEmail(id: string): Promise<ResponseMessageType> {
+    return this.patch(`auth/email-verification`, { id: id })
+  }
 }
 
 
