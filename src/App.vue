@@ -20,7 +20,7 @@ watch(
       router.push('/');
       return;
     }
-    if (route.path.includes('no-email-verify') && !newValue.emailVerified) {
+    if (route.path.includes('no-email-verify') && !newValue.emailVerified && newValue !== null) {
       return;
     }
     if (localStorage.getItem('is-paying')) {
@@ -31,11 +31,11 @@ watch(
       localStorage.removeItem('is-buying');
       return;
     }
-    if (newValue?.role?.includes(UserRoleEnum.USER) && !oldValue) {
+    if (newValue?.role?.includes(UserRoleEnum.USER) && !oldValue && newValue.emailVerified) {
       router.push('/user-dashboard/picks');
       return;
     }
-    if (newValue?.role?.includes(UserRoleEnum.ADMIN) && !oldValue) {
+    if (newValue?.role?.includes(UserRoleEnum.ADMIN) && !oldValue && newValue.emailVerified) {
       router.push('/internal-app/dashboard/bets');
       return;
     }
