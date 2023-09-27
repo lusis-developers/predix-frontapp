@@ -42,6 +42,10 @@ export const useUserStore = defineStore('UserStore', {
 
         localStorage.setItem('access_token', this.user?.token!);
 
+        if (!this.user.emailVerified) {
+          router.push('/no-email-verify');
+        }
+
         if (localStorage.getItem('is-buying') === 'true') {
           await router.push('/user-dashboard/subscription');
         } else {

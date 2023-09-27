@@ -21,7 +21,7 @@ export async function checkAccess(to: RouteLocationNormalized, _from: RouteLocat
       next();
     } else if (userRole?.includes(UserRoleEnum.USER) && to.meta.requiresUser) {
       if (!emailVerified) {
-        next('/email-to-verify');
+        next('/no-email-verify');
       }
       next();
     } else {
