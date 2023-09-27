@@ -20,7 +20,7 @@ watch(
       router.push('/');
       return;
     }
-    if (route.path.includes('no-email-verify') && !userStore.user?.emailVerified) {
+    if (route.path.includes('no-email-verify') && !newValue.emailVerified) {
       return;
     }
     if (localStorage.getItem('is-paying')) {
