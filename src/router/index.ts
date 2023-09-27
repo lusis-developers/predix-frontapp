@@ -225,16 +225,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Recupera contraseña'
     },
-    children: [
-      {
-        path: ':id',
-        name: 'Updating password',
-        component: UpdatePassword,
-        meta: {
-          title: 'Restablece contraseña'
-        }
-      },  
-    ]
+  },
+  {
+    path: '/update-password/:id',
+    name: 'Updating password',
+    component: UpdatePassword,
+    meta: {
+      title: 'Restablece contraseña'
+    }
   },
   {
     path: '/email-verified/:id',
