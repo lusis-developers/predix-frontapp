@@ -10,14 +10,18 @@ const userService = new APIUsers();
 interface Roostate {
   user: User | null,
   errorMessage: string | null,
-  isLoading: boolean
+  isLoading: boolean,
+  emailSent: boolean | null,
+  passwordSent: boolean | null
 }
 
 export const useUserStore = defineStore('UserStore', {
   state: (): Roostate => ({
     user: null,
     errorMessage: null,
-    isLoading: false
+    isLoading: false,
+    emailSent: null,
+    passwordSent: null
   }),
 
   actions: {
@@ -124,8 +128,10 @@ export const useUserStore = defineStore('UserStore', {
       this.isLoading = true;
       try {
         await userService.updatePasswordRequest(email);
+        this.emailSent = true;
       } catch (error: any) {
         this.errorMessage = error.message;
+        this.emailSent = false;
       } finally {
         this.isLoading = false;
       }

@@ -38,7 +38,7 @@ class APIUsers extends APIBase {
   }
   
   async updatePasswordRequest(email: string): Promise<ResponseMessageType> {
-    return this.patch(`auth/password-recovery-request`, { email: email })
+    return this.post(`auth/password-recovery-request`, { email: email })
   }
 
   async updatePassword(id: string, password: string): Promise<ResponseMessageType> {

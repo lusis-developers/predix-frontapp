@@ -27,6 +27,7 @@ const enableForm = computed(() => {
   return userData.email !== '' &&
     userRules.emailValidation.every((rule) => rule.validate(userData.email))
 });
+const emailSent = computed(() => userStore.emailSent !== null && userStore.emailSent);
 
 function resetValue(): void {
   userData.email = '';
@@ -48,32 +49,44 @@ watch(userData, () => {
     <p class="recover-password-email-wrapper-title">
       Recupera contraseña 🌟 <br> Ingresa tu correo
     </p>
-    <span 
-      v-if="userStore.errorMessage"
-      class="recover-password-email-wrapper-warning">
-      *{{ userStore.errorMessage }}*
-    </span>
-    <div class="recover-password-email-wrapper-card">
-      <CrushTextField
-        :key="textKey"
-        v-model="userData.email"
-        label="Correo"
-        :validRules="userRules.emailValidation" />
-      <CrushButton
-        variant="primary"
-        text="Recuperar contraseña"
-        :dataLoading="userStore.isLoading"
-        :disabled="!enableForm"
-        @click.prevent="sendRecoverEmail" />
-    </div>
-    <span class="recover-password-email-wrapper-span">
-      Inicia sesión 
-      <RouterLink 
-        class="recover-password-email-wrapper-span-link"
-        to="/register">
-        Inicia sesión
-      </RouterLink> 
-    </span>
+    <template v-if="userStore.emailSent === null">
+      <span 
+        v-if="userStore.errorMessage"
+        class="recover-password-email-wrapper-warning">
+        *{{ userStore.errorMessage }}*
+      </span>
+      <div class="recover-password-email-wrapper-card">
+        <CrushTextField
+          :key="textKey"
+          v-model="userData.email"
+          label="Correo"
+          :validRules="userRules.emailValidation" />
+        <CrushButton
+          variant="primary"
+          text="Recuperar contraseña"
+          :dataLoading="userStore.isLoading"
+          :disabled="!enableForm"
+          @click.prevent="sendRecoverEmail" />
+      </div>
+      <span class="recover-password-email-wrapper-span">
+        Inicia sesión 
+        <RouterLink 
+          class="recover-password-email-wrapper-span-link"
+          to="/register">
+          Inicia sesión
+        </RouterLink> 
+      </span>
+    </template>
+    <template v-else-if="userStore.emailSent === true">
+      <p class="recover-password-email-wrapper-title">
+        Revisa tu correo para restablecer tu contraseña.
+      </p>
+    </template>
+    <template v-else-if="userStore.emailSent === false">
+      <p class="recover-password-email-wrapper-title">
+        Algo ocurrió vuelve a intentarlo o contáctate con nosotros.
+      </p>
+    </template>
     <img 
       src="@/assets/footer-image.png"
       class="recover-password-email-wrapper-image">
