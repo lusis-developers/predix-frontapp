@@ -9,6 +9,7 @@ export async function checkAccess(to: RouteLocationNormalized, _from: RouteLocat
   try {
     const response = await userService.getSession();
     const userRole = response.data?.role;
+    const emailVerified = response.data.emailVerified;
 
     if (!userRole || userRole.length === 0) {
       // if user is not authenticated, redirected to '/'
@@ -19,6 +20,9 @@ export async function checkAccess(to: RouteLocationNormalized, _from: RouteLocat
     if (userRole?.includes(UserRoleEnum.ADMIN) && to.meta.requiresAdmin) {
       next();
     } else if (userRole?.includes(UserRoleEnum.USER) && to.meta.requiresUser) {
+      if (!emailVerified) {
+        next('/email-to-verify');
+      }
       next();
     } else {
       next('/access-denied');

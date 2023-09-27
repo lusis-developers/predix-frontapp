@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {  RouterView, useRouter } from 'vue-router';
+import {  RouterView, useRoute, useRouter } from 'vue-router';
 import { onMounted, watch } from 'vue';
 
 import { UserRoleEnum } from './enum/UserEnum';
 import useUserStore from './stores/UserStore';
 
 const router = useRouter();
+const route = useRoute();
 const userStore = useUserStore();
 
 onMounted(() => {
@@ -16,6 +17,9 @@ watch(
   () => userStore.user,
   (newValue, oldValue) => {
     if (!newValue) {
+      if (route.path.includes('no-email-verify')) {
+        return;
+      }
       router.push('/');
       return;
     }

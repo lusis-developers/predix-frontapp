@@ -17,6 +17,7 @@ const WebSubscriptions = () => import('@/views/Web/subscription/TheSubscriptions
 const PaymentDone = () => import('@/views/user/PaymentDone.vue');
 const RecoveryRequest = () => import('@/views/RecoverPasswordRequest.vue');
 const EmailVerified = () => import('@/views/EmailVerified.vue');
+const NoEmailVerified = () => import('@/views/NotEmailVerified.vue');
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -230,6 +231,14 @@ const routes: Array<RouteRecordRaw> = [
     component: EmailVerified,
     meta: {
       title: 'Verificación de correo'
+    }
+  },
+  {
+    path: '/no-email-verify',
+    name: 'No verify email',
+    component: NoEmailVerified,
+    meta: {
+      title: 'Por favor, verifica tu email'
     }
   },
 ]

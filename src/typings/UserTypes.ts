@@ -9,5 +9,6 @@ export type User = {
   subscriptionExperitationDate?: string,
   name: string,
   lastname: string,
-  id?: string
+  id?: string,
+  emailVerified?: boolean
 }
