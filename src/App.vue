@@ -17,10 +17,10 @@ watch(
   () => userStore.user,
   (newValue, oldValue) => {
     if (!newValue) {
-      if (route.path.includes('no-email-verify') && !userStore.user?.emailVerified) {
-        return;
-      }
       router.push('/');
+      return;
+    }
+    if (route.path.includes('no-email-verify') && !userStore.user?.emailVerified) {
       return;
     }
     if (localStorage.getItem('is-paying')) {
