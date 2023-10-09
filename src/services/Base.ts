@@ -5,6 +5,7 @@ class APIBase {
 
   constructor() {
     this.baseUrl = import.meta.env.VITE_PREDIX_API || 'http://localhost:8000/api';
+    console.log('API Base URL:', this.baseUrl);
   }
 
   private buildUrl(endpoint: string): string {
