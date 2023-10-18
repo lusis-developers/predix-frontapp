@@ -1,5 +1,5 @@
 <template>
-  <p class="title">
+  <p class="title-principal">
     Términos y Condiciones de uso de Predix.ec
   </p>
   <div class="container">
@@ -102,6 +102,12 @@
 </template>
 
 <style lang="scss" scoped>
+.title-principal {
+  font-size: $h2-font-size;
+  font-weight: 700;
+  font-family: $font-secondary;
+  padding: 16px;
+}
 .title {
   font-size: $h2-font-size;
   font-weight: 700;
