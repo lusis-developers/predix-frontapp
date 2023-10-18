@@ -13,12 +13,14 @@ const WebContainer = () => import('@/components/web/layout/WebContainer.vue')
 //import web views
 import WebView from '@/views/Web/WebIndex.vue';
 import WebContact from '@/views/Web/TheContact.vue';
+
 const WebSubscriptions = () => import('@/views/Web/subscription/TheSubscriptions.vue');
 const PaymentDone = () => import('@/views/user/PaymentDone.vue');
 const RecoveryRequest = () => import('@/views/RecoverPasswordRequest.vue');
 const EmailVerified = () => import('@/views/EmailVerified.vue');
 const NoEmailVerified = () => import('@/views/NotEmailVerified.vue');
 const UpdatePassword = () => import('@/views/UpdatePassword.vue');
+const TermsAndConditions = () => import('@/views/TermsAndConditions.vue');
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -68,6 +70,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'web-subscription',
         component: SubscriptionDetail,
       },
+      {
+        path: 'termsAndConditions',
+        name: 'terms-conditions',
+        component: TermsAndConditions
+      }
     ]
   },
   {
