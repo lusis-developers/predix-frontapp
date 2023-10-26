@@ -17,6 +17,7 @@ const userData = reactive({
   password: '',
   birthdate: '',
   passwordRepeated: '',
+  termsAccepted: false
 });
 const userRules = {
   emailValidation: [
@@ -53,7 +54,8 @@ const enableForm = computed(() => {
     !isMinor.value &&
     userRules.emailValidation.every((rule) => rule.validate(userData.email)) &&
     userRules.passwordValidation.every((rule) => rule.validate(userData.password)) &&
-    userRules.passwordRepeatedValidation.every((rule) => rule.validate(userData.passwordRepeated))
+    userRules.passwordRepeatedValidation.every((rule) => rule.validate(userData.passwordRepeated)) &&
+    userData.termsAccepted
 });
 const passwordIcon = computed(() => {
   return isPasswordVisible.value ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
@@ -159,6 +161,17 @@ watch(userData, () => {
         class="calendar-input"
         :value="userData.birthdate"
         @input="handleInput($event)" />
+        <div class="register-wrapper-card-conditions">
+          <p class="register-wrapper-card-conditions-indication">
+            <input type="checkbox" v-model="userData.termsAccepted"/>
+            Al registrarte estas aceptando nuestros  
+            <RouterLink 
+              to="/terms-conditions"
+              class="link">
+              términos y condiciones
+            </RouterLink>
+          </p>
+        </div>
       <CrushButton
         variant="primary"
         text="Registro"
@@ -237,6 +250,19 @@ watch(userData, () => {
     }
     .crush-button {
       margin-top: 12px;
+    }
+    &-conditions {
+      width: 100%;
+      &-indication {
+        font-size: $body-font-size;
+        font-family: $font-secondary;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        .link {
+          color: #13d1bf;
+        }
+      }
     }
   }
   &-span {
