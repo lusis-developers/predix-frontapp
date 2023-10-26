@@ -25,7 +25,7 @@ const links = [
     name: 'Planes'
   },
   {
-    link: '/termsandconditions',
+    link: '/terms-conditions',
     name: 'Términos y condiciones'
   }
 ]
