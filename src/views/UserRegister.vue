@@ -256,9 +256,6 @@ watch(userData, () => {
       &-indication {
         font-size: $body-font-size;
         font-family: $font-secondary;
-        display: flex;
-        align-items: center;
-        gap: 4px;
         .link {
           color: #13d1bf;
         }
