@@ -71,7 +71,7 @@ const routes: Array<RouteRecordRaw> = [
         component: SubscriptionDetail,
       },
       {
-        path: 'termsAndConditions',
+        path: 'terms-Conditions',
         name: 'terms-conditions',
         component: TermsAndConditions
       }
