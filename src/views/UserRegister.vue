@@ -164,7 +164,7 @@ watch(userData, () => {
         <div class="register-wrapper-card-conditions">
           <p class="register-wrapper-card-conditions-indication">
             <input type="checkbox" v-model="userData.termsAccepted"/>
-            Al registrarte estas aceptando nuestros  
+            Al registrarte aceptas nuestros  
             <RouterLink 
               to="/terms-conditions"
               class="link">
