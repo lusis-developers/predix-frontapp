@@ -23,6 +23,10 @@ const links = [
   {
     link: '/subscriptions',
     name: 'Planes'
+  },
+  {
+    link: '/terms-conditions',
+    name: 'Términos y condiciones'
   }
 ]
 </script>
