@@ -27,6 +27,10 @@ const links = [
   {
     link: '/terms-conditions',
     name: 'Términos y condiciones'
+  },
+  {
+    link: '/privacy-policy',
+    name: 'Políticas de privacidad'
   }
 ]
 </script>

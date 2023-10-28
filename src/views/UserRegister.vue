@@ -170,6 +170,12 @@ watch(userData, () => {
               class="link">
               términos y condiciones
             </RouterLink>
+            y nuestras  
+            <RouterLink 
+              to="/privacy-policy"
+              class="link">
+              políticas de privacidad
+            </RouterLink>
           </p>
         </div>
       <CrushButton

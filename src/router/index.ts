@@ -20,6 +20,7 @@ const EmailVerified = () => import('@/views/EmailVerified.vue');
 const NoEmailVerified = () => import('@/views/NotEmailVerified.vue');
 const UpdatePassword = () => import('@/views/UpdatePassword.vue');
 const TermsAndConditions = () => import('@/views/Web/TermsAndConditions.vue');
+const PrivacyPolicy = () => import('@/views/Web/PrivacyPolicy.vue');
 
 // internal app views
 const DashboardContainer = () => import('@/views/InternalApp/DashboardContainer.vue');
@@ -73,6 +74,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'terms-Conditions',
         name: 'terms-conditions',
         component: TermsAndConditions
+      },
+      {
+        path: 'privacy-policy',
+        name: 'privacy-policy',
+        component: PrivacyPolicy
       }
     ]
   },
