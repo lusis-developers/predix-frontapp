@@ -43,7 +43,7 @@
 			<p class="title">Rendimiento y Responsabilidad</p>
 			<p class="container-text">
 				1. Predix.ec no garantiza una rentabilidad del 100%. El
-				rendimiento mensual promedio es del 30%, pero puede variar. 2.
+				rendimiento mensual promedio es del 5% o más, pero puede variar. 2.
 				Los usuarios acceden a nuestros servicios y siguen nuestras
 				recomendaciones bajo su propia responsabilidad. Predix.ec no
 				asume ninguna responsabilidad legal por pérdidas de capital en
