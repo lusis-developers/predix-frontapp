@@ -2,6 +2,7 @@
 import {  RouterView, useRoute, useRouter } from 'vue-router';
 import { onMounted, watch } from 'vue';
 
+import loadMetricoolScript from './scripts/Metricool';
 import { UserRoleEnum } from './enum/UserEnum';
 import useUserStore from './stores/UserStore';
 
@@ -11,6 +12,7 @@ const userStore = useUserStore();
 
 onMounted(() => {
   userStore.getSession();
+  loadMetricoolScript();
 });
 
 watch(
