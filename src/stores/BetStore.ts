@@ -41,7 +41,6 @@ export const useBetStore = defineStore('BetStore', {
         this.bets = response.bets;
         this.totalPages = Math.ceil(response.total/limit);
         this.currentPage = page;
-        console.log('response', response)
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {
