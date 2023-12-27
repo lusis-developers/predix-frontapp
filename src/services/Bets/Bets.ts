@@ -4,8 +4,8 @@ import type { Bet } from '@/typings/BetTypes';
 import { BetStatusEnum } from '@/enum/BetEnum';
 
 class APIBets extends APIBase {
-  async getBets(): Promise<Bet[]> {
-    return this.get<Bet[]>('bets');
+  async getBets(limit = 10, page = 1): Promise<{ bets: Bet[], total: number, totalPages: number }> {
+    return this.get<{ bets: Bet[], total: number, totalPages: number }>(`bets?limit=${limit}&page=${page}`);
   }
 
   async createBet(bet: Bet): Promise<Bet> {
