@@ -5,8 +5,9 @@ import { BetStatusEnum } from '@/enum/BetEnum';
 import { PaginatedResponse } from '@/typings/Pagination';
 
 class APIBets extends APIBase {
-  async getBets(limit = 10, page = 1): Promise<PaginatedResponse<Bet>> {
-    return this.get<PaginatedResponse<Bet>>(`bets?limit=${limit}&page=${page}`);
+  async getBets(limit: number = 10, page: number = 1): Promise<PaginatedResponse<Bet>> {
+    const response = await this.get<PaginatedResponse<Bet>>(`bets?limit=${limit}&page=${page}`);
+    return response;
   }
 
   async createBet(bet: Bet): Promise<Bet> {

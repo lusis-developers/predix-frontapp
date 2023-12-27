@@ -6,6 +6,7 @@ export type Pagination = {
 };
 
 export type PaginatedResponse<T> = {
-  items: T[];
+  bets: T[];
   pagination: Pagination;
+  total: number;
 };

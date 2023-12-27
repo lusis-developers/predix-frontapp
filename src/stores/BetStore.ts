@@ -34,7 +34,7 @@ export const useBetStore = defineStore('BetStore', {
   }),
 
   actions: {
-    async getBets(page = 1, limit = 10 ): Promise<void> {
+    async getBets(page: number = 1, limit: number = 10 ): Promise<void> {
       this.isLoading = true;
       try {
         const response = await betService.getBets(limit, page);
