@@ -40,8 +40,6 @@ async function loadBets(page: number) {
 
 
 onMounted(async () => {
-  await betStore.getBets(betStore.currentPage, 10); 
-
   if (!betStore.bets) {
     await betStore.getBets();
   }
@@ -93,9 +91,8 @@ onMounted(async () => {
     <CrushPagination 
       :currentPage="betStore.currentPage"
       :totalPages="betStore.totalPages || 0"
-      @changePage="changePage"
       class="create-container-pagination"
-      />
+      @changePage="changePage" />
   </div>
 </template>
 
