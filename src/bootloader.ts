@@ -9,6 +9,7 @@ import CrushTextArea from '@nabux-crush/crush-text-area'
 import CrushButton from '@nabux-crush/crush-button';
 import CrushUpload from '@nabux-crush/crush-upload';
 import CrushAlert from '@nabux-crush/crush-alert';
+import CrushPagination from '@nabux-crush/crush-pagination';
 
 
 async function createVueApp() {
@@ -27,6 +28,7 @@ async function createVueApp() {
   app.component('CrushButton', CrushButton);
   app.component('CrushAlert', CrushAlert);
   app.component('CrushUpload', CrushUpload);
+  app.component('CrushPagination', CrushPagination);
 
   return app;
 }
