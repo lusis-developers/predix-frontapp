@@ -14,7 +14,9 @@ interface Roostate {
   premiumPendingBets: Bet[] | null, 
   selectedBet: Bet | null,
   errorMessage: string | null,
-  isLoading: boolean
+  isLoading: boolean,
+  totalPages: number,
+  currentPage: number,
 }
 
 export const useBetStore = defineStore('BetStore', {
@@ -26,15 +28,19 @@ export const useBetStore = defineStore('BetStore', {
     premiumPendingBets: null,
     selectedBet: null,
     errorMessage: null,
-    isLoading: false
+    isLoading: false,
+    totalPages: 0,
+    currentPage: 1,
   }),
 
   actions: {
-    async getBets(): Promise<void> {
+    async getBets(page: number = 1, limit: number = 10 ): Promise<void> {
       this.isLoading = true;
       try {
-        const bets = await betService.getBets();
-        this.bets = bets;
+        const response = await betService.getBets(limit, page);
+        this.bets = response.bets;
+        this.totalPages = Math.ceil(response.total/limit);
+        this.currentPage = page;
       } catch (error: any) {
         this.errorMessage = error.message;
       } finally {

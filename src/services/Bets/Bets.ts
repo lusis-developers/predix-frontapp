@@ -2,10 +2,12 @@ import APIBase from '../Base';
 import type { ResponseMessageType } from '@/typings/ResponseMessagesTypes';
 import type { Bet } from '@/typings/BetTypes';
 import { BetStatusEnum } from '@/enum/BetEnum';
+import { PaginatedResponse } from '@/typings/Pagination';
 
 class APIBets extends APIBase {
-  async getBets(): Promise<Bet[]> {
-    return this.get<Bet[]>('bets');
+  async getBets(limit: number = 10, page: number = 1): Promise<PaginatedResponse<Bet>> {
+    const response = await this.get<PaginatedResponse<Bet>>(`bets?limit=${limit}&page=${page}`);
+    return response;
   }
 
   async createBet(bet: Bet): Promise<Bet> {

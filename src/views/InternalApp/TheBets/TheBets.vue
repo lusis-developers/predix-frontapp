@@ -30,6 +30,15 @@ function selectBet(event: string) {
   betStore.selectedBet = betStore.bets?.find((bet) => bet._id === event)!;
 }
 
+function changePage(newPage: number) {
+  loadBets(newPage)
+}
+
+async function loadBets(page: number) {
+  await betStore.getBets(page, 10);
+}
+
+
 onMounted(async () => {
   if (!betStore.bets) {
     await betStore.getBets();
@@ -79,6 +88,11 @@ onMounted(async () => {
         :teamB="bet.teamB"
         @selectBet="selectBet" />
     </div>
+    <CrushPagination 
+      :currentPage="betStore.currentPage"
+      :totalPages="betStore.totalPages || 0"
+      class="create-container-pagination"
+      @changePage="changePage" />
   </div>
 </template>
 
@@ -121,6 +135,18 @@ onMounted(async () => {
     flex-direction: column;
     gap: 16px;
     margin: 24px 0;
+  }
+  &-pagination {
+    width: 300px;
+    padding: 16px;
+    margin: 0 auto;
+    :deep(span) {
+      color: $white;
+    }
+    :deep(.container-nav-button) {
+      background-color: $green;
+      color: $dark-blue;
+    }
   }
 }
 
