@@ -93,8 +93,8 @@ onMounted(async () => {
     <CrushPagination 
       :currentPage="betStore.currentPage"
       :totalPages="betStore.totalPages || 0"
-      @changePage="changePage"
-      class="create-container-pagination"/>
+      class="create-container-pagination"
+      @changePage="changePage"/>
   </div>
 </template>
 
