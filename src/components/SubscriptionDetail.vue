@@ -58,9 +58,9 @@ onMounted( async () => {
       <p class="container-info-tag">
         Tu suscripción incluye:
       </p>
-      <p class="container-info-description">
-        {{ planSelected?.description }}
-      </p>
+      <div
+        v-html="planSelected?.description"
+        class="container-info-description" />
       <PaymentButton
         v-if="paymentButtonDisplayed"
         :price="planSelected?.price!" />
