@@ -189,7 +189,8 @@ function deleteBet(): void {
       :class="{
         'status-pending': status === BetStatusEnum.PENDING, 
         'status-win': status === BetStatusEnum.WIN, 
-        'status-lost': status === BetStatusEnum.LOST 
+        'status-lost': status === BetStatusEnum.LOST,
+        'status-push': status === BetStatusEnum.PUSH,
       }" />
   </div>
 </template>
@@ -273,6 +274,9 @@ function deleteBet(): void {
     }
     &-lost {
       background-color: $red;
+    }
+    &-push {
+      background-color: $sky-blue;
     }
   }
 }
