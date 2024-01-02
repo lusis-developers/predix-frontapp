@@ -24,6 +24,9 @@ function toggleSwitch() {
       switchValue.value = BetStatusEnum.LOST;
       break;
     case BetStatusEnum.LOST:
+      switchValue.value = BetStatusEnum.PUSH;
+      break;
+    case BetStatusEnum.PUSH:
       switchValue.value = BetStatusEnum.PENDING;
       break;
     default:
@@ -33,16 +36,20 @@ function toggleSwitch() {
   switchText();
 }
 
+
 function switchText() {
-  switch (textButton.value) {
-    case 'Pendiente':
+  switch (switchValue.value) {
+    case BetStatusEnum.PENDING:
+      textButton.value = 'Pendiente';
+      break;
+    case BetStatusEnum.WIN:
       textButton.value = 'Ganada';
       break;
-    case 'Ganada':
+    case BetStatusEnum.LOST:
       textButton.value = 'Perdida';
       break;
-    case 'Perdida':
-      textButton.value = 'Pendiente';
+    case BetStatusEnum.PUSH:
+      textButton.value = 'Empate'; 
       break;
     default:
       textButton.value = 'Pendiente';
@@ -54,6 +61,7 @@ const switchClass = computed(() => {
     'custom-switch-pending': switchValue.value === BetStatusEnum.PENDING,
     'custom-switch-win': switchValue.value === BetStatusEnum.WIN,
     'custom-switch-lost': switchValue.value === BetStatusEnum.LOST,
+    'custom-switch-push': switchValue.value === BetStatusEnum.PUSH,
   }
 });
 </script>
@@ -118,6 +126,13 @@ const switchClass = computed(() => {
   background-color: #f44336;
   .slider {
     transform: translateX(140px);
+  }
+}
+
+.custom-switch-push {
+  background-color: $sky-blue; 
+  .slider {
+    transform: translateX(160px); 
   }
 }
 </style>
