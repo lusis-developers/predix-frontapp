@@ -22,7 +22,6 @@ const props = defineProps({
 });
 
 const textKey = ref(0);
-const maxLength = 500;
 const plan = reactive({
   name: '',
   price: '',
@@ -136,11 +135,7 @@ onMounted(() => {
       placeholder="1000"
       prependContent="$"
       @update:modelValue="formattedPrice" />
-    <CrushEditor
-      v-model="plan.description"
-      label="Descripción"
-      placeholder="Agrega la descripción"
-      :max-length="maxLength" />
+    <CrushEditor v-model="plan.description" />
   </div>
   <div class="container-button">
     <CrushButton
