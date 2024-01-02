@@ -151,10 +151,10 @@ onMounted(() => {
       @update:modelValue="formattedPrice" />
     <CrushTextArea
       v-model:value="plan.description"
-      label="Descripción"
-      placeholder="Agrega la descripción"
       :max-length="maxLength"
       :valid-rules="rules.validateDescription"
+      placeholder="Agrega la descripción"
+      label="Descripción"
       @update:modelValue="descriptioInput" />
   </div>
   <div class="container-button">
@@ -168,10 +168,10 @@ onMounted(() => {
       text="Cancelar"
       @click="emit('closeForm')"/>
     <CrushButton
-      class="container-button-second"
-      variant="primary"
       :text="buttonType"
       :disabled="!isFormValid"
+      variant="primary"
+      class="container-button-second"
       @click="submitPlan" />
   </div>
 </template>
