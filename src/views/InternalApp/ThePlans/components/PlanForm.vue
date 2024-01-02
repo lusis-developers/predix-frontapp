@@ -18,16 +18,14 @@ const props = defineProps({
     type: String,
     required: true,
     default: FormTypeEnum
-  }
+  },
+  isFileValid: Boolean
 });
 
 const textKey = ref(0);
-const maxLength = 500;
-// const isButtonActive = ref(false);
 const isFormValid = computed(() => {
-  return rules.validateName.every(rule => rule.validate(plan.name)) &&
-    rules.validatePrice.every(rule => rule.validate(plan.price)) &&
-    rules.validateDescription.every(rule => rule.validate(plan.description));
+  return props.isFileValid && rules.validateName.every(rule => rule.validate(plan.name)) &&
+    rules.validatePrice.every(rule => rule.validate(plan.price));
 });
 const plan = reactive({
   name: '',
@@ -57,14 +55,6 @@ const rules = {
       message: 'Por favor, ingresa solo números mayores a 0'
     },
   ],
-  validateDescription: [
-    {
-      validate: (value: string) => value.split(' ').length >= 4,
-    },
-    {
-      validate: (value: string) => value.split(' ').length <= maxLength,
-    },
-  ]
 };
 
 async function submitPlan() {
@@ -76,7 +66,12 @@ async function submitPlan() {
   if (props.formType === FormTypeEnum.EDIT) {
     data.image = planStore.selectedPlan?.image!;
     planStore.updatePlan(data);
-  } else {
+  } 
+  if (!props.isFileValid) {
+    alert('No puedes enviar este plan porque el archivo es demasiado grande.');
+    return;
+  }
+  else {
     await submitImage();
     data.image = plan.image;
     await planStore.createPlan(data);
@@ -111,10 +106,6 @@ function formattedPrice(event: string): void {
 
 function nameInput(event: string): void {
   plan.name = event;
-}
-
-function descriptioInput(event: string): void {
-  plan.description = event;
 }
 
 async function deletePlan(): Promise<void> {

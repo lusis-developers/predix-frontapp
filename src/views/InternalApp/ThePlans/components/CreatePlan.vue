@@ -19,10 +19,18 @@ const props = defineProps({
 
 const fileURL = ref<string>(''); // TODO: read the image url
 const imageFile = ref<File>(new File([], '')); // TODO: store the image file
+const isFileValid = ref(false);
 
 function handleFileSelected(file: File) {
-  fileURL.value = URL.createObjectURL(file);
-  imageFile.value = file;
+  if (file.size > 1024 * 1024 ) {
+    alert("El archivo no puede ser superior a 1mb de peso.");
+    isFileValid.value = false;
+    resetImage()
+  } else {
+    fileURL.value = URL.createObjectURL(file);
+    imageFile.value = file;
+    isFileValid.value = true;
+  }
 }
 
 function resetImage() {
@@ -50,6 +58,7 @@ onMounted(() => {
   <PlanForm 
     :file="imageFile"
     :formType="formType"
+    :is-file-valid="isFileValid"
     @update:plan="resetImage"
     @closeForm="emit('closeForm')"/>
 </template>
