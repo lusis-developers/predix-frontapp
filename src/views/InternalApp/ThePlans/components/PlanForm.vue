@@ -147,6 +147,11 @@ onMounted(() => {
       placeholder="Agrega la descripción"
       :max-length="maxLength"
       @update:modelValue="descriptioInput" />
+    <CrushEditor
+      v-model="plan.description"
+      label="Descripción"
+      placeholder="Agrega la descripción"
+      :max-length="maxLength" />
   </div>
   <div class="container-button">
     <CrushButton
