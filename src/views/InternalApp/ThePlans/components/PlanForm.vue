@@ -67,10 +67,6 @@ async function submitPlan() {
     data.image = planStore.selectedPlan?.image!;
     planStore.updatePlan(data);
   } 
-  if (!props.isFileValid) {
-    alert('No puedes enviar este plan porque el archivo es demasiado grande.');
-    return;
-  }
   else {
     await submitImage();
     data.image = plan.image;
