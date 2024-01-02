@@ -19,7 +19,10 @@ const props = defineProps({
     required: true,
     default: FormTypeEnum
   },
-  isFileValid: Boolean
+  isFileValid: {
+    type: Boolean,
+    required: true,
+  }
 });
 
 const textKey = ref(0);
@@ -66,8 +69,7 @@ async function submitPlan() {
   if (props.formType === FormTypeEnum.EDIT) {
     data.image = planStore.selectedPlan?.image!;
     planStore.updatePlan(data);
-  } 
-  else {
+  } else {
     await submitImage();
     data.image = plan.image;
     await planStore.createPlan(data);

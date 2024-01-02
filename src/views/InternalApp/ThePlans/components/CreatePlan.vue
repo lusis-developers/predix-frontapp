@@ -58,7 +58,7 @@ onMounted(() => {
   <PlanForm 
     :file="imageFile"
     :formType="formType"
-    :is-file-valid="isFileValid"
+    :isFileValid="isFileValid"
     @update:plan="resetImage"
     @closeForm="emit('closeForm')"/>
 </template>
