@@ -149,13 +149,7 @@ onMounted(() => {
       placeholder="1000"
       prependContent="$"
       @update:modelValue="formattedPrice" />
-    <CrushTextArea
-      v-model:value="plan.description"
-      :max-length="maxLength"
-      :valid-rules="rules.validateDescription"
-      placeholder="Agrega la descripción"
-      label="Descripción"
-      @update:modelValue="descriptioInput" />
+    <CrushEditor v-model="plan.description" />
   </div>
   <div class="container-button">
     <CrushButton
