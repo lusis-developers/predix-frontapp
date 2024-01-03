@@ -18,10 +18,18 @@ const props = defineProps({
     type: String,
     required: true,
     default: FormTypeEnum
+  },
+  isFileValid: {
+    type: Boolean,
+    required: true,
   }
 });
 
 const textKey = ref(0);
+const isFormValid = computed(() => {
+  return props.isFileValid && rules.validateName.every(rule => rule.validate(plan.name)) &&
+    rules.validatePrice.every(rule => rule.validate(plan.price));
+});
 const plan = reactive({
   name: '',
   price: '',
@@ -38,25 +46,18 @@ const rules = {
     },
     {
       validate: (value: string) => value.length < 20,
-      message: 'Por favor, coloca un nombre con más de 3 dígitos'
+      message: 'Por favor, coloca un nombre con menos de 20 dígitos'
     },
   ],
   validatePrice: [
     {
-      validate: (value: number) => /^[1-9]\d*$/.test(value.toString()),
+      validate: (value: string) => {
+        const numericValue = value.replace(/[^0-9.]+/g, '');
+        return /^\d+(\.\d+)?$/.test(numericValue) && parseFloat(numericValue) > 0;
+      },
       message: 'Por favor, ingresa solo números mayores a 0'
     },
   ],
-  validateDescription: [
-    {
-      validate: (value: string) => value.split(' ').length > 3,
-      message: 'Por favor, ingresa una descripción con al menos 4 palabras'
-    },
-    {
-      validate: (value: string) => value.split(' ').length >= 500,
-      message: 'Por favor, ingresa una descripción con al menos 4 palabras'
-    },
-  ]
 };
 
 async function submitPlan() {
@@ -126,11 +127,13 @@ onMounted(() => {
   <div class="container">
     <CrushTextField 
       v-model:value="plan.name"
+      :valid-rules="rules.validateName"
       label="Nombre del plan"
       placeholder="Money Week"
       @update:modelValue="nameInput" />
     <CrushTextField 
       v-model:value="plan.price"
+      :valid-rules="rules.validatePrice"
       label="Precio"
       placeholder="1000"
       prependContent="$"
@@ -148,9 +151,10 @@ onMounted(() => {
       text="Cancelar"
       @click="emit('closeForm')"/>
     <CrushButton
-      class="container-button-second"
-      variant="primary"
       :text="buttonType"
+      :disabled="!isFormValid"
+      variant="primary"
+      class="container-button-second"
       @click="submitPlan" />
   </div>
 </template>
