@@ -8,5 +8,6 @@ interface BeTracker {
 declare global {
   interface Window {
     beTracker: BeTracker;
+    dataLayer: any[];
   }
 }
