@@ -11,10 +11,17 @@ const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 
-onMounted(() => {
-  userStore.getSession();
-  loadMetricoolScript();
-  initializeGoogleAnalytics();
+onMounted(async () => {
+  try {
+    userStore.getSession();
+    if (import.meta.env.VITE_APP_ANALYTICS === 'true') {
+      loadMetricoolScript();
+      initializeGoogleAnalytics();
+      console.log('me disparo')
+    }
+  } catch (error) {
+    console.error('Error during component initialization: ', error);
+  }
 });
 
 watch(
