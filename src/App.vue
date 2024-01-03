@@ -11,10 +11,14 @@ const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 
-onMounted(() => {
-  userStore.getSession();
-  loadMetricoolScript();
-  initializeGoogleAnalytics();
+onMounted(async () => {
+  try {
+    userStore.getSession();
+    loadMetricoolScript();
+    initializeGoogleAnalytics();
+  } catch (error) {
+    console.error('Error during component initialization: ', error);
+  }
 });
 
 watch(
