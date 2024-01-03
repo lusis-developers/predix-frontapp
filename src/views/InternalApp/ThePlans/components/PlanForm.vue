@@ -22,8 +22,6 @@ const props = defineProps({
 });
 
 const textKey = ref(0);
-const maxLength = 500;
-// const isButtonActive = ref(false);
 const plan = reactive({
   name: '',
   price: '',
@@ -107,10 +105,6 @@ function nameInput(event: string): void {
   plan.name = event;
 }
 
-function descriptioInput(event: string): void {
-  plan.description = event;
-}
-
 async function deletePlan(): Promise<void> {
   if (planStore.selectedPlan) {
     await planStore.deletePlan();
@@ -141,12 +135,7 @@ onMounted(() => {
       placeholder="1000"
       prependContent="$"
       @update:modelValue="formattedPrice" />
-    <CrushTextArea
-      v-model:value="plan.description"
-      label="Descripción"
-      placeholder="Agrega la descripción"
-      :max-length="maxLength"
-      @update:modelValue="descriptioInput" />
+    <CrushEditor v-model="plan.description" />
   </div>
   <div class="container-button">
     <CrushButton

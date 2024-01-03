@@ -1,7 +1,8 @@
 export enum BetStatusEnum {
   PENDING = 'pending',
   WIN = 'win',
-  LOST = 'lost'
+  LOST = 'lost',
+  PUSH = 'push'
 }
 
 export enum SuscriptionTypeEnum {
