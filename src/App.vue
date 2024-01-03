@@ -14,8 +14,11 @@ const userStore = useUserStore();
 onMounted(async () => {
   try {
     userStore.getSession();
-    loadMetricoolScript();
-    initializeGoogleAnalytics();
+    if (import.meta.env.VITE_APP_ANALYTICS === 'true') {
+      loadMetricoolScript();
+      initializeGoogleAnalytics();
+      console.log('me disparo')
+    }
   } catch (error) {
     console.error('Error during component initialization: ', error);
   }
